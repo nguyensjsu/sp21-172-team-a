@@ -13,7 +13,7 @@ go-get:
 	go get -v github.com/satori/go.uuid
 
 format:
-	go fmt starbucks
+	go fmt github.com
 
 install:
 	go install starbucks
