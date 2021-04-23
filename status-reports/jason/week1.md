@@ -10,7 +10,7 @@ Week 1 was Team A's first week working together. As such, a majorit6y of the wor
 
 **Cards:**
 
-1) [Frontend for payment method] (https://github.com/nguyensjsu/sp21-172-team-a/commit/e2b5f9415813af689ddd7e7d6332fc185bb132e8)
+1) [Frontend for payment method](https://github.com/nguyensjsu/sp21-172-team-a/commit/e2b5f9415813af689ddd7e7d6332fc185bb132e8)
 
 Week 1's assignments comprised of Angeline figuring out how to port the base caode to Spring while everyone else was tasked with creating the HTML frontend pages for the project. The page that I was assigned to create was the payment method screen. This was ultimately accomplished by lifting the HTML code from the midterm 1 project and tweaking the fields to match those of a traditional credit card payment method screen. 
 
