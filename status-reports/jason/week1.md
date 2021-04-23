@@ -3,23 +3,19 @@
 ### Snapshot
 Below is an image of this week's task board:
 
-![image](https://user-images.githubusercontent.com/43689410/115681252-368a5280-a309-11eb-8dcd-b591cd72b20a.png)
+![image](images/week1cards.png)
 
 ### Accomplishments
-This week was the first time our team really got together to do a deep dive on what this project is about. As a result, Team A was really setting up the foundations for the greater ends of our project. 
+Week 1 was Team A's first week working together. As such, a majorit6y of the work performed today comprised of determining the overall scope of the project as well as figuring out everyone's work schedules and strengths and weaknesses. Week 1 was also comprised of creating the HTML and CSS pages for the project frontend.
 
 **Cards:**
 
-1) Set up Spring MVC structure for frontend [Commit](https://github.com/nguyensjsu/sp21-172-team-a/commit/b01b908f95eeee0d3fd03cabc352e97384dc0062)
+1) [Frontend for payment method] (https://github.com/nguyensjsu/sp21-172-team-a/commit/e2b5f9415813af689ddd7e7d6332fc185bb132e8)
 
-While others worked on creating the static HTML/CSS pages, I created spring-cashier (taking inspiration from previous labs) to port the work into a Spring project for our work to be run on localhost. This sets the scene for follow-up [issue](Finish setting up controllers to move static HTML/CSS files to Spring).
-
-2) Replace Starbucks Go API with Spring API ([Pull Request](https://github.com/nguyensjsu/sp21-172-team-a/pull/1))
-
-This was a simple task of removing the Starbucks API written in Go and replace it with Spring Starbucks API from Lab #6. 
+Week 1's assignments comprised of Angeline figuring out how to port the base caode to Spring while everyone else was tasked with creating the HTML frontend pages for the project. The page that I was assigned to create was the payment method screen. This was ultimately accomplished by lifting the HTML code from the midterm 1 project and tweaking the fields to match those of a traditional credit card payment method screen. 
 
 ### Challenges
-Being our first week, our team spent a bit of time having misunderstandings on exactly what the scope of our project was. Our initial challenge was struggling to understand what had to be done and our immediate next steps. While not as much concrete work could be completed this week, I was able to use some of my Agile experience to break down our work and goals for the upcoming week. 
+One of the primary challenges this week was trying to determine the extend of the work required for the project. We were all confused at the contents of the starter code as well as what we were supposed to add or change as well as what was supposed to be able to run or not. We ultimately resolved this by talking it through with each other as well as consulting the professor. I was assigned with creating the message to the professor containing our queries, as seen below
 
-As you can see in our [project task board](https://github.com/nguyensjsu/sp21-172-team-a/projects/1), I worked with the team to create 6 issues and assigned that rather evenly split up work to hopefully complete the majority of our Spring dependent features in Week 2.
+![image](images/email.png)
 
