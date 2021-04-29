@@ -28,21 +28,21 @@
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <div class="logo me-auto">
-        <h1><a th:href="@{index.html}">Starbucks</a></h1>
+        <h1><a th:href="@{/index}">Starbucks</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="menu.html">Menu</a></li>
-          <li><a class="nav-link scrollto" href="signIn.html">Rewards</a></li>
-          <li><a class="nav-link scrollto" href="signIn.html">Cards</a></li>
+          <li><a class="nav-link scrollto active" th:href="@{menu.html}">Menu</a></li>
+          <li><a class="nav-link scrollto" th:href="@{signIn.html}">Rewards</a></li>
+          <li><a class="nav-link scrollto" th:href="@{signIn.html}">Cards</a></li>
         </ul>
       </nav><!-- .navbar -->
 
       <a th:href="@{signIn.html}" class="sign-in-btn scrollto">Sign In</a>
-      <a href="joinNow.html" class="sign-in-btn scrollto">Join Now</a>
+      <a th:href="@{joinNow.html}" class="sign-in-btn scrollto">Join Now</a>
     </div>
   </header><!-- End Header -->
 
@@ -52,7 +52,6 @@
 
         <div class="row">
             <img th:src="@{/images/starbucks_card.jpeg}">
-          <!-- <div class="col-lg-5 align-items-stretch video-box" th:style="'background:url('+ @{../static/images/starbucks_card.jpeg} +');'"> -->
           </div>
 
           <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
