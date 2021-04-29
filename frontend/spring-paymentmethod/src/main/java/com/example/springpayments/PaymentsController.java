@@ -152,9 +152,7 @@ public class PaymentsController {
     @GetMapping
     public String getAction( @ModelAttribute("command") PaymentsCommand command, 
                             Model model) {
-
-        return "creditcards" ;
-
+        return "paymentmethod" ;
     }
 
     @PostMapping
@@ -164,7 +162,6 @@ public class PaymentsController {
     
         log.info( "Action: " + action ) ;
         log.info( "Command: " + command ) ;
-
 
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
@@ -194,7 +191,7 @@ public class PaymentsController {
         if(hasErrors) {
             messages.print();
             model.addAttribute("messages", messages.getMessage());
-            return "creditcards";
+            return "paymentmethod";
         }
         else {
             repository.save(command);
@@ -236,7 +233,7 @@ public class PaymentsController {
         // if(auth.cardType.equals("ERROR")) {
         //     System.out.println("Unsupported Card Type");
         //     model.addAttribute("message", "Unsupported Card Type");
-        //     return "creditcards";
+        //     return "paymentmethod";
         // }
 
 
@@ -249,7 +246,7 @@ public class PaymentsController {
         // if (!authResponse.status.equals("AUTHORIZED")) {
         //     System.out.println(authResponse.message);
         //     model.addAttribute("message", authResponse.message);
-        //     return "creditcards";  
+        //     return "paymentmethod";  
         // }
         
         // boolean captureValid = false ;
@@ -267,7 +264,7 @@ public class PaymentsController {
         //     if ( !captureResponse.status.equals("PENDING") ) {
         //         System.out.println(captureResponse.message);
         //         model.addAttribute("message", captureResponse.message);
-        //         return "creditcards";
+        //         return "paymentmethod";
         //     }
         // }
 
@@ -288,7 +285,7 @@ public class PaymentsController {
         // }
     
 
-        return "creditcards";
+        return "paymentmethod";
     }
 
 }
