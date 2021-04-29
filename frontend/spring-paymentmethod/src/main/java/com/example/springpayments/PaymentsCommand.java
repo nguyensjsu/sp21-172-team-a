@@ -13,7 +13,7 @@ import javax.validation.*;
 class PaymentsCommand {
 
 	private @Id @GeneratedValue Long id;
-    transient private String action;
+    //transient private String action;
 
     private String firstname ;
     private String lastname ;
