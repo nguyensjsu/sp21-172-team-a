@@ -21,13 +21,8 @@ public class GreetingController {
       return "cards";
    }
 
-//    @RequestMapping(value = "/index")
-//    public String indexx() {
-//       return "cards";
-//    }
-
-//    @RequestMapping(value = "/home")
-//    public String indexxx() {
-//       return "cards";
-//    }
+   @RequestMapping(value = "/index")
+   public String index() {
+      return "cards";
+   }
 }
