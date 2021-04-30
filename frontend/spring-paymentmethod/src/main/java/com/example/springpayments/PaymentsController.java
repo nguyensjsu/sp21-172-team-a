@@ -40,11 +40,11 @@ import org.springframework.beans.factory.annotation.Value;
 public class PaymentsController {
     
 
-    // @Value("${cybersource.apihost}") private String apiHost ;
-    // @Value("${cybersource.merchantkeyid}") private String merchantKeyId ;
-    // @Value("${cybersource.merchantsecretkey}") private String merchantsecretKey ;
-    // @Value("${cybersource.merchantid}") private String merchantId ;
-    // private CyberSourceAPI api = new CyberSourceAPI() ;
+    @Value("${cybersource.apihost}") private String apiHost ;
+    @Value("${cybersource.merchantkeyid}") private String merchantKeyId ;
+    @Value("${cybersource.merchantsecretkey}") private String merchantsecretKey ;
+    @Value("${cybersource.merchantid}") private String merchantId ;
+    private CyberSourceAPI api = new CyberSourceAPI() ;
 
 
     @Autowired
@@ -154,12 +154,13 @@ public class PaymentsController {
                             Model model) {
         return "paymentmethod" ;
     }
-//@RequestParam(value="action", required=true) String action,
+
     @PostMapping
     public String postAction(@Valid @ModelAttribute("command") PaymentsCommand command,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
-    
+        
+        //@RequestParam(value="action", required=true) String action,
         //log.info( "Action: " + action ) ;
         log.info( "Command: " + command ) ;
 
@@ -169,23 +170,23 @@ public class PaymentsController {
 
         if(command.firstname().equals(""))      { hasErrors = true; messages.add("First Name Required"); }
         if(command.lastname().equals(""))       { hasErrors = true; messages.add("Last Name Required"); }
-        //if(command.address().equals(""))        { hasErrors = true; messages.add("Address Required"); }
-        //if(command.city().equals(""))           { hasErrors = true; messages.add("City Required"); }
-        //if(command.state().equals(""))          { hasErrors = true; messages.add("State Required"); }
-        //if(command.zip().equals(""))            { hasErrors = true; messages.add("Zip Required"); }
-        //if(command.phone().equals(""))          { hasErrors = true; messages.add("Phone Number Required"); }
+        if(command.address().equals(""))        { hasErrors = true; messages.add("Address Required"); }
+        if(command.city().equals(""))           { hasErrors = true; messages.add("City Required"); }
+        if(command.state().equals(""))          { hasErrors = true; messages.add("State Required"); }
+        if(command.zip().equals(""))            { hasErrors = true; messages.add("Zip Required"); }
+        if(command.phone().equals(""))          { hasErrors = true; messages.add("Phone Number Required"); }
         if(command.cardnum().equals(""))        { hasErrors = true; messages.add("Credit Card Number Required"); }
         if(command.cardexpmon().equals(""))     { hasErrors = true; messages.add("Credit Card Expiration Month Required"); }
         if(command.cardexpyear().equals(""))    { hasErrors = true; messages.add("Credit Card Expiration Year Required"); }
         if(command.cardcvv().equals(""))        { hasErrors = true; messages.add("Credit Card CVV Required"); }
-        //if(command.email().equals(""))          { hasErrors = true; messages.add("Email Required"); }
-        //if(!command.zip().matches("\\d{5}"))                                { hasErrors = true; messages.add("Invalid Zip Code"); }
-        //if(!command.phone().matches("[(]\\d{3}[)] \\d{3}-\\d{4}"))          { hasErrors = true; messages.add("Invalid Phone Number"); }
+        if(command.email().equals(""))          { hasErrors = true; messages.add("Email Required"); }
+        if(!command.zip().matches("\\d{5}"))                                { hasErrors = true; messages.add("Invalid Zip Code"); }
+        if(!command.phone().matches("[(]\\d{3}[)] \\d{3}-\\d{4}"))          { hasErrors = true; messages.add("Invalid Phone Number"); }
         if(!command.cardnum().matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}"))       { hasErrors = true; messages.add("Invalid Credit Card Number"); }
         if(!command.cardexpyear().matches("\\d{4}"))                        { hasErrors = true; messages.add("Invalid Credit Card Expiration Year"); }
         if(!command.cardcvv().matches("\\d{3}"))                            { hasErrors = true; messages.add("Invalid Credit Card CVV"); }
-        //if(months.get(command.cardexpmon()) == null)   {hasErrors = true; messages.add("Invalid Card Expiration Month"); }
-        //if(states.get(command.state()) == null)        {hasErrors = true; messages.add("Invalid State"); }
+        if(months.get(command.cardexpmon()) == null)   {hasErrors = true; messages.add("Invalid Card Expiration Month"); }
+        if(states.get(command.state()) == null)        {hasErrors = true; messages.add("Invalid State"); }
 
 
         if(hasErrors) {
@@ -193,96 +194,96 @@ public class PaymentsController {
             model.addAttribute("messages", messages.getMessage());
             return "paymentmethod";
         }
-        else {
-            repository.save(command);
-            System.out.println("Thank You for your Payment!");
-            model.addAttribute("message", "Thank You for your Payment!");
+        // else {
+        //     repository.save(command);
+        //     System.out.println("Thank You for your Payment!");
+        //     model.addAttribute("message", "Thank You for your Payment!");
+        // }
+
+
+        CyberSourceAPI.setHost( apiHost ) ;
+        CyberSourceAPI.setKey( merchantKeyId ) ;
+        CyberSourceAPI.setSecret(merchantsecretKey ) ;
+        CyberSourceAPI.setMerchant( merchantId ) ;
+
+
+        int min = 1239871;
+        int max = 9999999;
+        int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+        String order_num = String.valueOf(random_int);
+        AuthRequest auth = new AuthRequest() ;
+        
+        auth.reference = order_num; 
+        auth.billToFirstName = command.firstname();
+        auth.billToLastName = command.lastname();
+        auth.billToAddress = command.address();
+        auth.billToCity = command.city();
+        auth.billToState = command.state();
+        auth.billToZipCode = command.zip();
+        auth.billToPhone = command.phone();
+        auth.billToEmail = command.email();  
+        auth.transactionAmount = "30.00"; // This is a temp value
+        auth.transactionCurrency = "USD";
+        auth.cardNumnber = command.cardnum();
+        auth.cardExpMonth = months.get(command.cardexpmon());
+        auth.cardExpYear = command.cardexpyear();
+        auth.cardCVV = command.cardcvv();
+        auth.cardType = CyberSourceAPI.getCardType(auth.cardNumnber);
+
+       
+        if(auth.cardType.equals("ERROR")) {
+            System.out.println("Unsupported Card Type");
+            model.addAttribute("message", "Unsupported Card Type");
+            return "paymentmethod";
         }
 
 
-        // CyberSourceAPI.setHost( apiHost ) ;
-        // CyberSourceAPI.setKey( merchantKeyId ) ;
-        // CyberSourceAPI.setSecret(merchantsecretKey ) ;
-        // CyberSourceAPI.setMerchant( merchantId ) ;
-
-
-        // int min = 1239871;
-        // int max = 9999999;
-        // int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
-        // String order_num = String.valueOf(random_int);
-        // AuthRequest auth = new AuthRequest() ;
+        boolean authValid = false;
+        AuthResponse authResponse = new AuthResponse();
+        System.out.println("\n\nAuth Request: " + auth.toJson());
+        authResponse = api.authorize(auth);
+        System.out.println("\n\nAuth Response: " + authResponse.toJson());
+        authValid = true;
+        if (!authResponse.status.equals("AUTHORIZED")) {
+            System.out.println(authResponse.message);
+            model.addAttribute("message", authResponse.message);
+            return "paymentmethod";  
+        }
         
-        // auth.reference = order_num; 
-        // auth.billToFirstName = command.firstname();
-        // auth.billToLastName = command.lastname();
-        // auth.billToAddress = command.address();
-        // auth.billToCity = command.city();
-        // auth.billToState = command.state();
-        // auth.billToZipCode = command.zip();
-        // auth.billToPhone = command.phone();
-        // auth.billToEmail = command.email();  
-        // auth.transactionAmount = "30.00";
-        // auth.transactionCurrency = "USD";
-        // auth.cardNumnber = command.cardnum();
-        // auth.cardExpMonth = months.get(command.cardexpmon()); //months.get(command.cardexpmon())
-        // auth.cardExpYear = command.cardexpyear();
-        // auth.cardCVV = command.cardcvv();
-        // auth.cardType = CyberSourceAPI.getCardType(auth.cardNumnber);
-
-       
-        // if(auth.cardType.equals("ERROR")) {
-        //     System.out.println("Unsupported Card Type");
-        //     model.addAttribute("message", "Unsupported Card Type");
-        //     return "paymentmethod";
-        // }
+        boolean captureValid = false ;
+        CaptureRequest capture = new CaptureRequest();
+        CaptureResponse captureResponse = new CaptureResponse();
+        if (authValid) {
+            capture.reference = order_num;
+            capture.paymentId = authResponse.id;
+            capture.transactionAmount = "30.00";
+            capture.transactionCurrency = "USD";
+            System.out.println("\n\nCapture Request: " + capture.toJson() ) ;
+            captureResponse = api.capture(capture) ;
+            System.out.println("\n\nCapture Response: " + captureResponse.toJson() ) ;
+            captureValid = true;
+            if ( !captureResponse.status.equals("PENDING") ) {
+                System.out.println(captureResponse.message);
+                model.addAttribute("message", captureResponse.message);
+                return "paymentmethod";
+            }
+        }
 
 
-        // boolean authValid = false;
-        // AuthResponse authResponse = new AuthResponse();
-        // System.out.println("\n\nAuth Request: " + auth.toJson());
-        // authResponse = api.authorize(auth);
-        // System.out.println("\n\nAuth Response: " + authResponse.toJson());
-        // authValid = true;
-        // if (!authResponse.status.equals("AUTHORIZED")) {
-        //     System.out.println(authResponse.message);
-        //     model.addAttribute("message", authResponse.message);
-        //     return "paymentmethod";  
-        // }
-        
-        // boolean captureValid = false ;
-        // CaptureRequest capture = new CaptureRequest();
-        // CaptureResponse captureResponse = new CaptureResponse();
-        // if (authValid) {
-        //     capture.reference = order_num;
-        //     capture.paymentId = authResponse.id;
-        //     capture.transactionAmount = "30.00";
-        //     capture.transactionCurrency = "USD";
-        //     System.out.println("\n\nCapture Request: " + capture.toJson() ) ;
-        //     captureResponse = api.capture(capture) ;
-        //     System.out.println("\n\nCapture Response: " + captureResponse.toJson() ) ;
-        //     captureValid = true;
-        //     if ( !captureResponse.status.equals("PENDING") ) {
-        //         System.out.println(captureResponse.message);
-        //         model.addAttribute("message", captureResponse.message);
-        //         return "paymentmethod";
-        //     }
-        // }
-
-
-        // if(authValid && captureValid){
-        //     command.setOrderNumber(order_num);
-        //     command.setTransactionAmount("30.00");
-        //     command.setTransactionCurrency("USD");
-        //     command.setAuthId(authResponse.id);
-        //     command.setAuthStatus(authResponse.status);
-        //     command.setCaptureId(captureResponse.id);
-        //     command.setCaptureStatus(captureResponse.status);
+        if(authValid && captureValid){
+            command.setOrderNumber(order_num);
+            command.setTransactionAmount("30.00");
+            command.setTransactionCurrency("USD");
+            command.setAuthId(authResponse.id);
+            command.setAuthStatus(authResponse.status);
+            command.setCaptureId(captureResponse.id);
+            command.setCaptureStatus(captureResponse.status);
 
             
-        //     repository.save(command);
-        //     System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
-        //     model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
-        // }
+            repository.save(command);
+            System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
+            model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
+        }
     
 
         return "paymentmethod";
