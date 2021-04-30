@@ -10,7 +10,7 @@ For the Week#2 our team mostly worked individually on the 'menufrontend' branch.
 
 **Cards:**
 
-1) [!](https://github.com/nguyensjsu/sp21-172-team-a/commit/0bc8e4b4251c88867abc4fdd2246422ae0753b73#diff-71fe9ec73707401fc84943f9ac5a653f33f889e4900e6e910f6722ef4f58cc50)
+1) [Commit history](https://github.com/nguyensjsu/sp21-172-team-a/commit/0bc8e4b4251c88867abc4fdd2246422ae0753b73#diff-71fe9ec73707401fc84943f9ac5a653f33f889e4900e6e910f6722ef4f58cc50)
 
 
 ### Challenges
