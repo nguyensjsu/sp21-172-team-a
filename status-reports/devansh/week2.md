@@ -15,4 +15,4 @@ For the Week#2 our team mostly worked individually on the 'menufrontend' branch.
 
 ### Challenges
 I was a bit overwhelmed at the beginning as I struggled to create the controller and port the files over to Spring format utilizing Thymeleaf. 
-It was also a bit challenging to link the files together and make it all work.  
+It was also a bit challenging to link the files together and make it all work. Our team also faced issues with Git in general which caused a lot of merge conflicts and missing files and we all figured it out by working as a team. 
