@@ -10,24 +10,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class GreetingController {
 
-	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-		model.addAttribute("name", name);
-		return "greeting";
-	}
-
 	@RequestMapping(value = "/cards")
-   public String index() {
+   public String goCards() {
       return "cards";
    }
 
-//    @RequestMapping(value = "/index")
-//    public String indexx() {
-//       return "cards";
-//    }
+   @RequestMapping(value = "/index")
+   public String goIndex() {
+      return "index";
+   }
 
-//    @RequestMapping(value = "/home")
-//    public String indexxx() {
-//       return "cards";
-//    }
+   @RequestMapping(value = "/home")
+   public String goHome() {
+      return "home";
+   }
+
+   @RequestMapping(value = "/signIn")
+   public String goSignIn() {
+      return "signIn";
+   }
+
+   @RequestMapping(value = "/joinNow")
+   public String goJoinNow() {
+      return "joinNow";
+   }
+
+   @RequestMapping(value = "/paymentmethod")
+   public String goPaymentMethod() {
+      return "paymentmethod";
+   }
 }
