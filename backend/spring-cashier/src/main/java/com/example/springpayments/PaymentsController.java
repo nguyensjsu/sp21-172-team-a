@@ -36,7 +36,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
-@RequestMapping("/")
+@RequestMapping("/paymentmethod")
 public class PaymentsController {
     
 

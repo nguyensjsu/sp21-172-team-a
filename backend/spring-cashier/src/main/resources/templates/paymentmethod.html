@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +29,7 @@
   <div class="col-75">
     <div class="container"> -->
     <div>
-      <form name="form" th:object="${command}" method="post">     
+      <form name="form" action="#" th:action="@{/paymentmethod}" th:object="${command}" method="post">     
         <div class="row">
           <div class="col-50">
             <h3>Payment</h3>
