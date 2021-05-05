@@ -40,45 +40,45 @@
 
             <h4>Name</h4>
             <label class="required" for="firstname">First Name</label>
-            <input type="text" id="fname" name="firstname" required="required"  th:field="*{firstname}" />
+            <input type="text" id="fname" name="firstname" required="required" field="*{firstname}" />
             <label class="required" for="lastname">Last Name</label>
-            <input type="text" id="lname" name="lastname" required="required"  th:field="*{lastname}" />
+            <input type="text" id="lname" name="lastname" required="required"  field="*{lastname}" />
 
             <h4>Billing Address</h4>            
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street"  th:field="*{address}">
+            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" field="*{address}">
             <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="New York"  th:field="*{city}">
+            <input type="text" id="city" name="city" placeholder="New York" field="*{city}">
             <div class="row">
                 <div class="col-50">
                   <label for="state">State</label>
-                  <input type="text" id="state" name="state" placeholder="NY"  th:field="*{state}">
+                  <input type="text" id="state" name="state" placeholder="NY" field="*{state}">
                 </div>
                 <div class="col-50">
                   <label for="zip">Zip</label>
-                  <input type="text" id="zip" name="zip" placeholder="10001"  th:field="*{zip}">
+                  <input type="text" id="zip" name="zip" placeholder="10001" field="*{zip}">
                 </div>
             </div>
 
             <h4>Contact Info</h4>
             <label for="phone">Phone Number</label>
-            <input type="text" id="phone" name="phonenumber" placeholder="(408) 123-0456"  th:field="*{phone}">
+            <input type="text" id="phone" name="phonenumber" placeholder="(408) 123-0456" field="*{phone}">
             <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com"  th:field="*{email}">
+            <input type="text" id="email" name="email" placeholder="john@example.com" field="*{email}">
 
             <h4>Card Info</h4>
             <label class="required" for="ccnum">Card Number</label>
-            <input type="text" id="ccnum" required="required" name="cardnumber"  th:field="*{cardnum}" >
+            <input type="text" id="ccnum" required="required" name="cardnumber" field="*{cardnum}" >
             <label class="required" for="cvv">CVV</label>
-            <input type="text" id="cvv" required="required" name="cvv"  th:field="*{cardcvv}" >
+            <input type="text" id="cvv" required="required" name="cvv" field="*{cardcvv}" >
             <div class="row"> 
               <div class="col-50">
                 <label class="required" for="expmonth">Exp Month</label>
-                <input type="text" id="expmonth" required="required" name="expmonth"  th:field="*{cardexpmon}" >
+                <input type="text" id="expmonth" required="required" name="expmonth" field="*{cardexpmon}" >
               </div>
               <div class="col-50">
                 <label class="required" for="expyear">Exp Year</label>
-                <input type="text" id="expyear" required="required" name="expyear"  th:field="*{cardexpyear}" >
+                <input type="text" id="expyear" required="required" name="expyear" field="*{cardexpyear}" >
               </div>
             </div>
           </div> 

@@ -2,7 +2,7 @@
     <head>
         <title>Main Page</title>
         <link rel="stylesheet" th:href="@{/css/index.css}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
         <div class="container">
@@ -17,6 +17,8 @@
                   <li><a href="#">Santa Monica, CA</a></li>
                 </ul>
               </div>
+              <img th:src="@{/images/starbucksLogo.jpg}">
+
             <button type="button" class="btn btn-dark">Get Order</button>
             <button type="button" class="btn btn-dark">Place Order</button>
             <button type="button" class="btn btn-dark">Clear Order</button>
