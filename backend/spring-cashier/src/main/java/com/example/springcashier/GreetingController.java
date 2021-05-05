@@ -39,4 +39,9 @@ public class GreetingController {
    public String goPaymentMethod() {
       return "paymentmethod";
    }
+
+      @RequestMapping(value = "/userinfo")
+   public String goUserInfo() {
+      return "userinfo";
+   }
 }
