@@ -36,8 +36,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/paymentmethod")
-public class PaymentsController {
+@RequestMapping(value = "/userinfo")
+public class UserInfoController {
     
 
     // @Value("${cybersource.apihost}") private String apiHost ;
@@ -71,88 +71,88 @@ public class PaymentsController {
     }
 
 
-    private static Map<String, String> months = new HashMap<>();
-    static {
-        months.put("January", "01");
-        months.put("February", "02");
-        months.put("March", "03");
-        months.put("April", "04");
-        months.put("May", "05");
-        months.put("June", "06");
-        months.put("July", "07");
-        months.put("August", "08");
-        months.put("September", "09");
-        months.put("October", "10");
-        months.put("November", "11");
-        months.put("December", "12");        
-    }
-
-
-    // private static Map<String, String> states = new HashMap<>();
+    // private static Map<String, String> months = new HashMap<>();
     // static {
-    //     states.put("AL", "Alabama");
-    //     states.put("AK", "Alaska");
-    //     states.put("AZ", "Arizona");
-    //     states.put("AR", "Arkansas");
-    //     states.put("CA", "California");
-    //     states.put("CO", "Colorado");
-    //     states.put("CT", "Connecticut");
-    //     states.put("DE", "Delaware");
-    //     states.put("DC", "District of Columbia");
-    //     states.put("FL", "Florida");
-    //     states.put("FO", "Foljava");
-    //     states.put("GA", "Georgia");
-    //     states.put("GU", "Guam");
-    //     states.put("HI", "Hawaii");
-    //     states.put("ID", "Idaho");
-    //     states.put("IL", "Illinois");
-    //     states.put("IN", "Indiana");
-    //     states.put("IA", "Iowa");
-    //     states.put("KS", "Kansas");
-    //     states.put("KY", "Kentucky");
-    //     states.put("LA", "Louisiana");
-    //     states.put("ME", "Maine");
-    //     states.put("MD", "Maryland");
-    //     states.put("MA", "Massachusetts");
-    //     states.put("MI", "Michigan");
-    //     states.put("MN", "Minnesota");
-    //     states.put("MS", "Mississippi");
-    //     states.put("MO", "Missouri");
-    //     states.put("MT", "Montana");
-    //     states.put("NE", "Nebraska");
-    //     states.put("NV", "Nevada");
-    //     states.put("NH", "New Hampshire");
-    //     states.put("NJ", "New Jersey");
-    //     states.put("NM", "New Mexico");
-    //     states.put("NY", "New York");
-    //     states.put("NC", "North Carolina");
-    //     states.put("ND", "North Dakota");
-    //     states.put("MP", "Northern Mariana");
-    //     states.put("OH", "Ohio");
-    //     states.put("OK", "Oklahoma");
-    //     states.put("OR", "Oregon");
-    //     states.put("PA", "Pennsylvania");
-    //     states.put("PR", "Puerto Rico");
-    //     states.put("RI", "Rhode Island");
-    //     states.put("SC", "South Carolina");
-    //     states.put("SD", "South Dakota");
-    //     states.put("TN", "Tennesse");
-    //     states.put("TX", "Texas");
-    //     states.put("UT", "Utah");
-    //     states.put("VT", "Vermont");
-    //     states.put("VA", "Virginia");
-    //     states.put("VI", "Virgin Islands");
-    //     states.put("WA", "Washington");
-    //     states.put("WV", "West Virginia");
-    //     states.put("WI", "Wisconsin");
-    //     states.put("WY", "Wyoming");
-    // }      
+    //     months.put("January", "01");
+    //     months.put("February", "02");
+    //     months.put("March", "03");
+    //     months.put("April", "04");
+    //     months.put("May", "05");
+    //     months.put("June", "06");
+    //     months.put("July", "07");
+    //     months.put("August", "08");
+    //     months.put("September", "09");
+    //     months.put("October", "10");
+    //     months.put("November", "11");
+    //     months.put("December", "12");        
+    // }
+
+
+    private static Map<String, String> states = new HashMap<>();
+    static {
+        states.put("AL", "Alabama");
+        states.put("AK", "Alaska");
+        states.put("AZ", "Arizona");
+        states.put("AR", "Arkansas");
+        states.put("CA", "California");
+        states.put("CO", "Colorado");
+        states.put("CT", "Connecticut");
+        states.put("DE", "Delaware");
+        states.put("DC", "District of Columbia");
+        states.put("FL", "Florida");
+        states.put("FO", "Foljava");
+        states.put("GA", "Georgia");
+        states.put("GU", "Guam");
+        states.put("HI", "Hawaii");
+        states.put("ID", "Idaho");
+        states.put("IL", "Illinois");
+        states.put("IN", "Indiana");
+        states.put("IA", "Iowa");
+        states.put("KS", "Kansas");
+        states.put("KY", "Kentucky");
+        states.put("LA", "Louisiana");
+        states.put("ME", "Maine");
+        states.put("MD", "Maryland");
+        states.put("MA", "Massachusetts");
+        states.put("MI", "Michigan");
+        states.put("MN", "Minnesota");
+        states.put("MS", "Mississippi");
+        states.put("MO", "Missouri");
+        states.put("MT", "Montana");
+        states.put("NE", "Nebraska");
+        states.put("NV", "Nevada");
+        states.put("NH", "New Hampshire");
+        states.put("NJ", "New Jersey");
+        states.put("NM", "New Mexico");
+        states.put("NY", "New York");
+        states.put("NC", "North Carolina");
+        states.put("ND", "North Dakota");
+        states.put("MP", "Northern Mariana");
+        states.put("OH", "Ohio");
+        states.put("OK", "Oklahoma");
+        states.put("OR", "Oregon");
+        states.put("PA", "Pennsylvania");
+        states.put("PR", "Puerto Rico");
+        states.put("RI", "Rhode Island");
+        states.put("SC", "South Carolina");
+        states.put("SD", "South Dakota");
+        states.put("TN", "Tennesse");
+        states.put("TX", "Texas");
+        states.put("UT", "Utah");
+        states.put("VT", "Vermont");
+        states.put("VA", "Virginia");
+        states.put("VI", "Virgin Islands");
+        states.put("WA", "Washington");
+        states.put("WV", "West Virginia");
+        states.put("WI", "Wisconsin");
+        states.put("WY", "Wyoming");
+    }      
 
 
     @GetMapping
     public String getAction( @ModelAttribute("command") PaymentsCommand command, 
                             Model model) {
-        return "paymentmethod" ;
+        return "userinfo" ;
     }
 
     @PostMapping
@@ -168,31 +168,31 @@ public class PaymentsController {
         boolean hasErrors = false;
 
 
-        // if(command.firstname().equals(""))      { hasErrors = true; messages.add("First Name Required"); }
-        // if(command.lastname().equals(""))       { hasErrors = true; messages.add("Last Name Required"); }
-        // if(command.address().equals(""))        { hasErrors = true; messages.add("Address Required"); }
-        // if(command.city().equals(""))           { hasErrors = true; messages.add("City Required"); }
-        // if(command.state().equals(""))          { hasErrors = true; messages.add("State Required"); }
-        // if(command.zip().equals(""))            { hasErrors = true; messages.add("Zip Required"); }
-        // if(command.phone().equals(""))          { hasErrors = true; messages.add("Phone Number Required"); }
-        if(command.cardnum().equals(""))        { hasErrors = true; messages.add("Credit Card Number Required"); }
-        if(command.cardexpmon().equals(""))     { hasErrors = true; messages.add("Credit Card Expiration Month Required"); }
-        if(command.cardexpyear().equals(""))    { hasErrors = true; messages.add("Credit Card Expiration Year Required"); }
-        if(command.cardcvv().equals(""))        { hasErrors = true; messages.add("Credit Card CVV Required"); }
-        // if(command.email().equals(""))          { hasErrors = true; messages.add("Email Required"); }
-        // if(!command.zip().matches("\\d{5}"))                                { hasErrors = true; messages.add("Invalid Zip Code"); }
-        // if(!command.phone().matches("[(]\\d{3}[)] \\d{3}-\\d{4}"))          { hasErrors = true; messages.add("Invalid Phone Number"); }
-        if(!command.cardnum().matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}"))       { hasErrors = true; messages.add("Invalid Credit Card Number"); }
-        if(!command.cardexpyear().matches("\\d{4}"))                        { hasErrors = true; messages.add("Invalid Credit Card Expiration Year"); }
-        if(!command.cardcvv().matches("\\d{3}"))                            { hasErrors = true; messages.add("Invalid Credit Card CVV"); }
-        if(months.get(command.cardexpmon()) == null)   {hasErrors = true; messages.add("Invalid Card Expiration Month"); }
-        // if(states.get(command.state()) == null)        {hasErrors = true; messages.add("Invalid State"); }
+        if(command.firstname().equals(""))      { hasErrors = true; messages.add("First Name Required"); }
+        if(command.lastname().equals(""))       { hasErrors = true; messages.add("Last Name Required"); }
+        if(command.address().equals(""))        { hasErrors = true; messages.add("Address Required"); }
+        if(command.city().equals(""))           { hasErrors = true; messages.add("City Required"); }
+        if(command.state().equals(""))          { hasErrors = true; messages.add("State Required"); }
+        if(command.zip().equals(""))            { hasErrors = true; messages.add("Zip Required"); }
+        if(command.phone().equals(""))          { hasErrors = true; messages.add("Phone Number Required"); }
+        // if(command.cardnum().equals(""))        { hasErrors = true; messages.add("Credit Card Number Required"); }
+        // if(command.cardexpmon().equals(""))     { hasErrors = true; messages.add("Credit Card Expiration Month Required"); }
+        // if(command.cardexpyear().equals(""))    { hasErrors = true; messages.add("Credit Card Expiration Year Required"); }
+        // if(command.cardcvv().equals(""))        { hasErrors = true; messages.add("Credit Card CVV Required"); }
+        if(command.email().equals(""))          { hasErrors = true; messages.add("Email Required"); }
+        if(!command.zip().matches("\\d{5}"))                                { hasErrors = true; messages.add("Invalid Zip Code"); }
+        if(!command.phone().matches("[(]\\d{3}[)] \\d{3}-\\d{4}"))          { hasErrors = true; messages.add("Invalid Phone Number"); }
+        // if(!command.cardnum().matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}"))       { hasErrors = true; messages.add("Invalid Credit Card Number"); }
+        // if(!command.cardexpyear().matches("\\d{4}"))                        { hasErrors = true; messages.add("Invalid Credit Card Expiration Year"); }
+        // if(!command.cardcvv().matches("\\d{3}"))                            { hasErrors = true; messages.add("Invalid Credit Card CVV"); }
+        // if(months.get(command.cardexpmon()) == null)   {hasErrors = true; messages.add("Invalid Card Expiration Month"); }
+        if(states.get(command.state()) == null)        {hasErrors = true; messages.add("Invalid State"); }
 
 
         if(hasErrors) {
             messages.print();
             model.addAttribute("messages", messages.getMessage());
-            return "paymentmethod";
+            return "userinfo";
         }
         else {
             repository.save(command);
@@ -234,7 +234,7 @@ public class PaymentsController {
         // if(auth.cardType.equals("ERROR")) {
         //     System.out.println("Unsupported Card Type");
         //     model.addAttribute("message", "Unsupported Card Type");
-        //     return "paymentmethod";
+        //     return "userinfo";
         // }
 
 
@@ -247,7 +247,7 @@ public class PaymentsController {
         // if (!authResponse.status.equals("AUTHORIZED")) {
         //     System.out.println(authResponse.message);
         //     model.addAttribute("message", authResponse.message);
-        //     return "paymentmethod";  
+        //     return "userinfo";  
         // }
         
         // boolean captureValid = false ;
@@ -265,7 +265,7 @@ public class PaymentsController {
         //     if ( !captureResponse.status.equals("PENDING") ) {
         //         System.out.println(captureResponse.message);
         //         model.addAttribute("message", captureResponse.message);
-        //         return "paymentmethod";
+        //         return "userinfo";
         //     }
         // }
 
@@ -286,7 +286,7 @@ public class PaymentsController {
         // }
     
 
-        return "paymentmethod";
+        return "userinfo";
     }
 
 }
