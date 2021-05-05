@@ -12,7 +12,7 @@ import javax.validation.*;
 @RequiredArgsConstructor
 class PaymentsCommand {
 
-	private @Id @GeneratedValue Long id;
+	private @Id @GeneratedValue int id;
     //transient private String action;
 
     private String firstname ;
@@ -49,5 +49,20 @@ class PaymentsCommand {
     public String cardcvv() { return cardcvv; }
     public String email() { return email; }
     public String notes() { return notes; }
+
+
+    public void setfirstname(String s) { firstname = s; }
+    public void setlastname(String s) { lastname = s; }
+    public void setaddress(String s) { address = s; }
+    public void setcity(String s) { city = s; }
+    public void setstate(String s) { state = s; }
+    public void setzip(String s) { zip = s; }
+    public void setphone(String s) { phone = s; }
+    public void setcardnum(String s) { cardnum = s; }
+    public void setcardexpmon(String s) { cardexpmon = s; }
+    public void setcardexpyear(String s) { cardexpyear = s; }
+    public void setcardcvv(String s) { cardcvv = s; }
+    public void setemail(String s) { email = s; }
+    public void setnotes(String s) { notes = s; }
 
 }
