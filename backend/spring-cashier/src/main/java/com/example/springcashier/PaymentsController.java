@@ -196,6 +196,8 @@ public class PaymentsController {
         }
         else {
             repository.save(command);
+            // PaymentsCommand test = repository.findById(1);
+            // command.setfirstname(test.firstname());
             System.out.println("Thank You for your Payment!");
             model.addAttribute("message", "Thank You for your Payment!");
         }
