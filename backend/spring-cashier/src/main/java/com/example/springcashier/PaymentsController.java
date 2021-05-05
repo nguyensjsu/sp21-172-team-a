@@ -1,4 +1,4 @@
-package com.example.springpayments;
+package com.example.springcashier;
 
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +44,12 @@ public class PaymentsController {
     @Value("${cybersource.merchantkeyid}") private String merchantKeyId ;
     @Value("${cybersource.merchantsecretkey}") private String merchantsecretKey ;
     @Value("${cybersource.merchantid}") private String merchantId ;
+    
+    // private String apiHost = "apitest.cybersource.com";
+    // private String merchantKeyId = "881913f2-baf3-45e8-83e4-f081c40094da";
+    // private String merchantsecretKey = "bgCw+U5AkX7j7FMD+HCYess8LHAkJlkoiU7WmA7+9us=";
+    // private String merchantId = "thyenmearengee";
+    
     private CyberSourceAPI api = new CyberSourceAPI() ;
 
 
@@ -194,11 +200,11 @@ public class PaymentsController {
             model.addAttribute("messages", messages.getMessage());
             return "paymentmethod";
         }
-        // else {
-        //     repository.save(command);
-        //     System.out.println("Thank You for your Payment!");
-        //     model.addAttribute("message", "Thank You for your Payment!");
-        // }
+        else {
+            repository.save(command);
+            System.out.println("Thank You for your Payment!");
+            model.addAttribute("message", "Thank You for your Payment!");
+        }
 
 
         CyberSourceAPI.setHost( apiHost ) ;
