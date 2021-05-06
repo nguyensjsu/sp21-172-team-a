@@ -1,40 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-.container{
-    padding: 7px;
-    text-align: center;
-}
-
-img {
-    border-radius: 8px;
-    width:100%;
-    padding-bottom: 10px;
-}
-
-.input{
-    padding:7px;
-    width:50%;
-    height:35%;
-}
-
-.dropdown-menu a { 
-    text-decoration: none;
-    color: inherit;
-} 
-
-.dropdown-menu a:hover { 
-    text-decoration: none;
-} 
-
-.dropdown-menu li{
-    margin: 10px;
-}
-
-.dropdown{
-    padding: 10px;
-=======
-=======
->>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
 .container{
     padding: 7px;
     text-align: center;
@@ -183,8 +146,4 @@ padding: 16px;
 @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}
 .sidenav a {font-size: 18px;}
-<<<<<<< HEAD
->>>>>>> combined menu and index.html
-=======
->>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
 }
