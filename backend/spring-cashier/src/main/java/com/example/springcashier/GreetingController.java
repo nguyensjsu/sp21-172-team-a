@@ -44,4 +44,9 @@ public class GreetingController {
    public String goStarbucksMenu() {
       return "starbucksmenu";
    }
+
+   @RequestMapping(value = "/billinginfo")
+   public String goBillingInfo() {
+      return "billinginfo";
+   }
 }
