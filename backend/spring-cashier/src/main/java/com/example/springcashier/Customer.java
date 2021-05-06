@@ -33,6 +33,9 @@ public class Customer {
 	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "customerId"))
  	private Set<StarbucksCard> starbucksCards = new HashSet<>();
 
+	 @ElementCollection(fetch = FetchType.LAZY)
+	 @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "customerId"))
+	 private Set<Order> orders = new HashSet<>();
 
     // private String address ;
     // private String city ;
