@@ -1,10 +1,18 @@
+<<<<<<< HEAD
+=======
+
+.DS_Store
+>>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
 HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+<<<<<<< HEAD
 !**/.DS_Store
+=======
+>>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
 
 ### STS ###
 .apt_generated

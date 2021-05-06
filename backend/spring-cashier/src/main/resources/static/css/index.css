@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 .container{
     padding: 7px;
     text-align: center;
@@ -32,6 +33,8 @@ img {
 .dropdown{
     padding: 10px;
 =======
+=======
+>>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
 .container{
     padding: 7px;
     text-align: center;
@@ -180,5 +183,8 @@ padding: 16px;
 @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}
 .sidenav a {font-size: 18px;}
+<<<<<<< HEAD
 >>>>>>> combined menu and index.html
+=======
+>>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
 }

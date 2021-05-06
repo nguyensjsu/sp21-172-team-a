@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.example.springcashier;
 
 import org.springframework.boot.SpringApplication;
@@ -13,6 +14,8 @@ public class SpringCashierApplication {
 
 }
 =======
+=======
+>>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
 package com.example.springcashier;
 
 import org.springframework.boot.SpringApplication;
@@ -26,4 +29,7 @@ public class SpringCashierApplication {
 	}
 
 }
+<<<<<<< HEAD
 >>>>>>> combined menu and index.html
+=======
+>>>>>>> fad8dcfd292f7ea43b305f9888efba1e5fb647af
