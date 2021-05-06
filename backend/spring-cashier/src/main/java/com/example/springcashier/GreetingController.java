@@ -43,9 +43,9 @@ public class GreetingController {
    @RequestMapping(value = "/starbucksmenu")
    public String goStarbucksMenu() {
       return "starbucksmenu";
-   
-      @RequestMapping(value = "/userinfo")
-   public String goUserInfo() {
-      return "userinfo";
+
+   @RequestMapping(value = "/billinginfo")
+   public String goBillingInfo() {
+      return "billinginfo";
    }
 }
