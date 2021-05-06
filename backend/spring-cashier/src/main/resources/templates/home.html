@@ -17,6 +17,7 @@
    <link th:href="@{assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
    <link th:href="@{assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
 
+   
   <!-- Template Main CSS File -->
   <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
@@ -28,21 +29,21 @@
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <div class="logo me-auto">
-        <h1><a th:href="@{index}">Starbucks</a></h1>
+        <h1><a th:href="@{/index}">Starbucks</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" th:href="@{menu.html}">Menu</a></li>
-          <li><a class="nav-link scrollto" th:href="@{signIn.html}">Rewards</a></li>
-          <li><a class="nav-link scrollto" th:href="@{signIn.html}">Cards</a></li>
+          <li><a class="nav-link scrollto active" th:href="@{/starbucksmenu}">Menu</a></li>
+          <li><a class="nav-link scrollto" th:href="@{/signIn}">Rewards</a></li>
+          <li><a class="nav-link scrollto" th:href="@{/signIn}">Cards</a></li>
         </ul>
       </nav><!-- .navbar -->
       
-      <a th:href="@{signIn.html}" class="sign-in-btn scrollto">Sign In</a>
-      <a th:href="@{joinNow.html}" class="sign-in-btn scrollto">Join Now</a>
+      <a th:href="@{/signIn}" class="sign-in-btn scrollto">Sign In</a>
+      <a th:href="@{/joinNow}" class="sign-in-btn scrollto">Join Now</a>
     </div>
   </header><!-- End Header -->
 
@@ -52,14 +53,14 @@
         <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
         <div class="carousel-inner" role="listbox">
           
-          <div class="carousel-item active" style="background: url(../static/images/mainImage.jpeg);">
+          <div class="carousel-item active" style="background: url(../static/images/mainImage.jpeg);">  
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated animate__fadeInDown"><span>Starbucks</span> </h2>
                 <p class="animate__animated animate__fadeInUp">We require facial coverings in all stores to protect the health of our customers and partners (employees), and help stop the spread of COVID-19.</p>
                 <div>
-                  <a th:href="@{#menu}" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
-                  <a th:href="@{signIn.html}" class="btn-book animate__animated animate__fadeInUp scrollto">Sign In</a>
+                  <a th:href="@{/starbucksmenu}" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
+                  <a th:href="@{/signIn}" class="btn-book animate__animated animate__fadeInUp scrollto">Sign In</a>
                 </div>
               </div>
             </div>
