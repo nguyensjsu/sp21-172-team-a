@@ -23,11 +23,12 @@ public class Customer {
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "billingInfos", joinColumns = @JoinColumn(name = "customerId"))
 	private Set<BillingInfo> billingInfos = new HashSet<>();
-	// private ArrayList<Order> orders;
+
 	// @OneToOne(mappedBy = "creditCards")
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "creditCards", joinColumns = @JoinColumn(name = "customerId"))
 	private Set<CreditCard> creditCards = new HashSet<>();
+	
 	// @OneToOne(mappedBy = "starbucksCards")
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "customerId"))
