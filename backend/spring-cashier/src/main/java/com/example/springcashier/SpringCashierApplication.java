@@ -41,8 +41,8 @@ public class SpringCashierApplication{
 
  // implements CommandLineRunner
 
-	@Autowired
-    private CustomerRepository repository;
+	// @Autowired
+    // private CustomerRepository repository;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringCashierApplication.class, args);

@@ -26,17 +26,17 @@
 
             <h4>Card Info</h4>
             <label class="required" for="ccnum">Card Number</label>
-            <input type="text" id="ccnum" required="required" name="cardnumber" field="*{cardnum}" >
+            <input type="text" id="ccnum" required="required" name="cardnumber" th:field="*{cardnum}" >
             <label class="required" for="cvv">CVV</label>
-            <input type="text" id="cvv" required="required" name="cvv" field="*{cardcvv}" >
+            <input type="text" id="cvv" required="required" name="cvv" th:field="*{cardcvv}" >
             <div class="row"> 
               <div class="col-50">
                 <label class="required" for="expmonth">Exp Month</label>
-                <input type="text" id="expmonth" required="required" name="expmonth" field="*{cardexpmon}" >
+                <input type="text" id="expmonth" required="required" name="expmonth" th:field="*{cardexpmon}" >
               </div>
               <div class="col-50">
                 <label class="required" for="expyear">Exp Year</label>
-                <input type="text" id="expyear" required="required" name="expyear" field="*{cardexpyear}" >
+                <input type="text" id="expyear" required="required" name="expyear" th:field="*{cardexpyear}" >
               </div>
             </div>
 

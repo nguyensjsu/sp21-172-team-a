@@ -43,6 +43,7 @@ public class GreetingController {
    @RequestMapping(value = "/starbucksmenu")
    public String goStarbucksMenu() {
       return "starbucksmenu";
+   }
 
    @RequestMapping(value = "/billinginfo")
    public String goBillingInfo() {
