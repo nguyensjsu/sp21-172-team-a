@@ -6,14 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.*;
-@Entity
+
+
 @Embeddable
-@Table(name="Orders")
-@Data
 @RequiredArgsConstructor
 public class Order {
-    private @Id @GeneratedValue Long id;
-    transient private String action ;
+
+
     private String drink;
     private boolean milk;
     private String size;
