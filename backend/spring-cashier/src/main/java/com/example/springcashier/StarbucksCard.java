@@ -7,14 +7,13 @@ import javax.persistence.*;
 import javax.validation.*;
 
 
+@Embeddable
 @Getter
 @RequiredArgsConstructor
 class StarbucksCard {
 
     private int rewardsPoints;
     private double balance;
-    
-    private int customerId;
 
 
     public void addRewardsPoints(int points) {
