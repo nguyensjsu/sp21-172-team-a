@@ -5,11 +5,15 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.*;
 
-
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 class BillingInfo {
+
+	@Id
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "billingInfo")
+	private int customerId;
 
     private String address ;
     private String city ;
@@ -17,7 +21,5 @@ class BillingInfo {
     private String zip ;
     private String phone ;
     private String email ;
-
-    private int customerId;
 
 }
