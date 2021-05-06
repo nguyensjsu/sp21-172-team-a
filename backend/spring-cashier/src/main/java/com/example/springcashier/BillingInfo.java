@@ -21,4 +21,13 @@ class BillingInfo {
     private String phone ;
     private String email ;
 
+    BillingInfo(String address, String city, String state, String zip, String phone, String email) {
+    	this.address = address;
+    	this.city = city;
+    	this.state = state;
+    	this.zip = zip;
+    	this.phone = phone;
+    	this.email = email;
+    }
+
 }
