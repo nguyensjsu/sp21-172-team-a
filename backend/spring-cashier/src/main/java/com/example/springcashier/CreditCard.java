@@ -11,11 +11,13 @@ import javax.validation.*;
 @RequiredArgsConstructor
 class CreditCard {
 
+	private int customerId;
+
     private String cardnum ;
     private String cardexpmon ;
     private String cardexpyear ;
     private String cardcvv ;
 
-    private final int customerId;
+
 
 }
