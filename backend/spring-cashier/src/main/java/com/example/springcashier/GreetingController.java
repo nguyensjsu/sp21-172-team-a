@@ -40,8 +40,8 @@ public class GreetingController {
       return "paymentmethod";
    }
 
-      @RequestMapping(value = "/userinfo")
-   public String goUserInfo() {
-      return "userinfo";
+      @RequestMapping(value = "/billinginfo")
+   public String goBillingInfo() {
+      return "billinginfo";
    }
 }
