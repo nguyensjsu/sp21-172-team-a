@@ -6,12 +6,12 @@ import javax.persistence.*;
 import javax.validation.*;
 
 
+@Embeddable
 @Getter
 @Setter
 @RequiredArgsConstructor
 class CreditCard {
 
-	private int customerId;
 
     private String cardnum ;
     private String cardexpmon ;
