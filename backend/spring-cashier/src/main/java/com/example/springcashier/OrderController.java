@@ -22,7 +22,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.*;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Value;
+
 @RestController
+@RequestMapping(value = "/index")
 public class OrderController{
     @Autowired
     private PaymentsCommandRepository cardsRepository;
@@ -40,15 +50,24 @@ public class OrderController{
     }
 
     private HashMap<String, Order> orders = new HashMap<>();
+
+    @GetMapping
+    public String main(Model model) {
+        model.addAttribute("order", new Order());
+        return "index";
+    }
+
+    public String getAction( @ModelAttribute("order") Order order, 
+                            Model model) {
+        return "order" ;
+    }
     
     @PostMapping
     public String postAction(@ModelAttribute("order") Order command,  
                             
                             Model model, HttpServletRequest request) {
-        return "index";
+        return "saved";
     }
-
-        
 
     // @GetMapping("/orders")
     // List<Order> all(){

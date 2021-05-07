@@ -16,8 +16,7 @@ public class GreetingController {
    }
 
    @RequestMapping(value = "/index")
-   public String goIndex(Model model) {
-      model.addAttribute("order", new Order());
+   public String goIndex() {
       return "index";
   }
 
