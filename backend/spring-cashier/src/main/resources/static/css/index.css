@@ -65,15 +65,11 @@ div.menu {
 
 div.menu .pic {
     width: 75%;
-    /* height: 75%; */
+    height: auto;
 }
 
-#drinkControl {
-    display: none;
-}
-
-div.menu:checked {
-    border: 1px solid rgb(9, 77, 24);
+div.menu:focus { 
+    border: 1px solid rgb(6, 48, 6);
 }
 
 /* Tab Menu */
@@ -106,7 +102,7 @@ background-color: #ccc;
 
 /* Style the tab content */
 .tabcontent {
-display: none;
+/* display: none; */
 padding: 6px 12px;
 border: 1px solid #ccc;
 border-top: none;
