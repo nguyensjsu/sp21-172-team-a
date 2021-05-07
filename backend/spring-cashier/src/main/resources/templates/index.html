@@ -1,34 +1,91 @@
 <html>
-    <head>
-        <title>Main Page</title>
-        <link rel="stylesheet" th:href="@{/css/index.css}">
-        <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    </head>
-    <body>
-        <div class="container">
-            <h1>Welcome to Starbucks Reserved!</h1>
-            <input class ="input" type="text"/>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Dublin,CA</a></li>
-                  <li><a href="#">San Jose, CA</a></li>
-                  <li><a href="#">Santa Monica, CA</a></li>
-                </ul>
-              </div>
-              <img th:src="@{/images/starbucksLogo.jpg}">
+<head>
+    <title>Main Page</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="../static/js/store.js" th:src="@{/js/store.js}" ></script>
+</head>
+<body>
+    <!-- side nav-->
+    <div id="mySidenav" class="sidenav">
+        <h1>Welcome to Starbucks Reserved!</h1>
+                <div class="dropdown">
+                    <button class="btn~ btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                    <li><a href="#">Dublin, CA</a></li>
+                    <li><a href="#">San Jose, CA</a></li>
+                    <li><a href="#">Santa Monica, CA</a></li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-dark">Get Order</button>
+                <button type="button" class="btn btn-dark">Place Order</button>
+                <button type="button" class="btn btn-dark">Clear Order</button>
+    </div>
 
-            <button type="button" class="btn btn-dark">Get Order</button>
-            <button type="button" class="btn btn-dark">Place Order</button>
-            <button type="button" class="btn btn-dark">Clear Order</button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/cards}">Cards Page</a></button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/paymentmethod}">Payments Page</a></button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/billinginfo}">Billing Info</a></button>
+    <span style="font-size:30px;cursor:pointer" th:onclick="openNav()">&#9776; open</span>
 
+    <div id="main">
+        <!-- Tab Links -->
+        <div class="w3-bar w3-black">
+            <button class="w3-bar-item w3-button" th:onclick="openCity('Drinks')">Drinks</button>
+            <button class="w3-bar-item w3-button" th:onclick="openCity('Paris')">Paris</button>
+            <button class="w3-bar-item w3-button" th:onclick="openCity('Tokyo')">Tokyo</button>
         </div>
-        
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <div id="Drinks" class="tabcontent">
+            <div class="row">
+                <div class="column">
+                    <h1>Drinks Menu</h1>
+                    <div class="drinks">
+                        <hr size="2" width="100%" color="black"><br> 
+                        <div class="menu">
+                            <input type="checkbox" id="drinkControl"/>
+                            <label class="btn" for="drinkControl">
+                                <img class="pic" th:src="@{images/caramel.webp}" alt="Caramel Machiato"><br>
+                            </label>
+                            <div class="desc">Caramel Machiato</div>
+                        </div>
+                        <div class="menu">
+                            <a target="_blank">
+                                <img class="pic" th:src="@{images/icedchai.webp}" alt="icedChai"><br>
+                            </a>
+                            <div class="desc">Iced Chai</div>
+                        </div>
+                        <div class="menu">
+                            <a target="_blank">
+                                <img class="pic" th:src="@{images/whitemocha.webp}" alt="White Chocolate Mocha"><br>
+                            </a>
+                            <div class="desc">White Mocha</div>
+                        </div>
+                        <div class="menu">
+                            <a target="_blank">
+                                <img class="pic" th:src="@{images/icedcoffee.webp}" alt="Iced Coffee"><br>
+                            </a>
+                            <div class="desc">Iced Coffee</div>
+                        </div>
+                    </div><br>
+                    <div>
+                        <h2>Additional Options</h2>
+                        <label for="milk"> Milk</label>
+                        <input type="checkbox" id="milk" name="milk" value="milk">
+                        <br><br>
+                    </div>
+                    <div class="sizeDropdown">
+                        <label for="size">Size:</label>
+                        <select name="size" id="size">
+                            <option value ="Short">Short</option>
+                            <option value ="Tall">Tall</option>
+                            <option value ="Grande">Grande</option>
+                            <option value ="Venti">Venti</option>
+                        </select>
+                    </div><br><br>
+                <input type="submit" value="Submit">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
