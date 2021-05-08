@@ -1,7 +1,7 @@
 # Week #3 Status Report
 
 ### Snapshot
-Below is an image of this week's task board:
+Below is an image of this week's task board (I worked on #26, #27 and #29):
 
 ![](images/Capture3.PNG)
 
