@@ -55,4 +55,33 @@ public class Customer {
 		orders = null;
 		totalPurchases = 0;
 	}
+
+
+	// Customer(List<CreditCard> creditCards) {
+	// 	billingInfos = null;
+	// 	firstName = null;
+	// 	middleName = null;
+	// 	lastName = null;
+	// 	username = null;
+	// 	password = null;
+	// 	this.creditCards = creditCards;
+	// 	starbucksCards = null;
+	// 	orders = null;
+	// 	totalPurchases = 0;
+	// }
+
+
+	void addBillingInfo(BillingInfo billingInfo) {
+		billingInfos.add(billingInfo);
+	}
+
+
+	void addCreditCard(CreditCard creditCard) {
+		creditCards.add(creditCard);
+	}
+
+
+	void addCreditCard(StarbucksCard starbucksCard) {
+		starbucksCards.add(starbucksCard);
+	}
 }

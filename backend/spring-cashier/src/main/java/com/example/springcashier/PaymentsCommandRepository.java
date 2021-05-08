@@ -1,6 +1,6 @@
-package com.example.springcashier;
+// package com.example.springcashier;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.JpaRepository;
 
-interface PaymentsCommandRepository extends JpaRepository<PaymentsCommand, Integer> {
-}
+// interface PaymentsCommandRepository extends JpaRepository<PaymentsCommand, Integer> {
+// }
