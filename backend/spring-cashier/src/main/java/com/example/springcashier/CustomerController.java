@@ -52,7 +52,6 @@ public class CustomerController{
         public Message(String m) { msg = m ; }
     }
 
-
     class ErrorMessages {
         private ArrayList<Message> messages = new ArrayList<Message>() ;
         public void add( String msg ) { messages.add(new Message(msg) ) ; }
@@ -78,7 +77,6 @@ public class CustomerController{
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
 
-        if(customer.getFirstName().equals(""))      { hasErrors = true; messages.add("First Name Required"); }
         if(customer.getLastName().equals(""))      { hasErrors = true; messages.add("Last Name Required"); }
         if(customer.getEmail().equals(""))      { hasErrors = true; messages.add("Email Required"); }
         if(customer.getPassword().equals(""))      { hasErrors = true; messages.add("Password Required"); }
@@ -95,4 +93,3 @@ public class CustomerController{
 
         return "joinNow";
     }
-}

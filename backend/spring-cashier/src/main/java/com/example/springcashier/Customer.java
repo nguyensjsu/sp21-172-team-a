@@ -78,4 +78,24 @@ public class Customer implements Serializable{
 	void addCreditCard(StarbucksCard starbucksCard) {
 		starbucksCards.add(starbucksCard);
 	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+    public String getUsername() {
+        return username;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
 }
