@@ -10,8 +10,6 @@ import java.util.*;
 @Entity
 @Table(name="Customers")
 @Data
-@Getter
-@Setter
 @RequiredArgsConstructor
 public class Customer {
 	@Id @GeneratedValue private int customerId;
@@ -55,4 +53,24 @@ public class Customer {
 		orders = null;
 		totalPurchases = 0;
 	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+    public String getUsername() {
+        return username;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
 }
