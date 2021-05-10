@@ -163,7 +163,7 @@ public class BillingInfoController {
         else {
             ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
             list.add(billingInfo);
-            Customer c = new Customer(list);
+            Customer c = new Customer("John", null, null, null, null, 0, list, null, null, null);
             repository.save(c);
             System.out.println("Billing Information Updated!");
             model.addAttribute("message", "Billing Information Updated!");
