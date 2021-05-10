@@ -118,7 +118,7 @@ public class CreditCardController {
         else {
             ArrayList<CreditCard> list = new ArrayList<CreditCard>();
             list.add(command);
-            Customer c = repository.findById(1);
+            Customer c = repository.findById(0);
             if(c != null) {
                 c.setCreditCards(list);
                 repository.save(c);
@@ -133,5 +133,4 @@ public class CreditCardController {
 
         return "paymentmethod";
     }
-
 }

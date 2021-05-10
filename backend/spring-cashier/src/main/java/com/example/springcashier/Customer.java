@@ -12,7 +12,7 @@ import java.util.*;
 @Data
 @RequiredArgsConstructor
 public class Customer {
-	@Id @GeneratedValue private int customerId;
+	@Id @GeneratedValue private int id;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -23,25 +23,25 @@ public class Customer {
 	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// @JoinColumn(name = "customerId")
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "billingInfos", joinColumns = @JoinColumn(name = "customerId"))
+	@CollectionTable(name = "billingInfos", joinColumns = @JoinColumn(name = "id"))
 	private List<BillingInfo> billingInfos = new ArrayList<>();
 
 	// @OneToOne(mappedBy = "creditCards")
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "creditCards", joinColumns = @JoinColumn(name = "customerId"))
+	@CollectionTable(name = "creditCards", joinColumns = @JoinColumn(name = "id"))
 	private List<CreditCard> creditCards = new ArrayList<>();
 	
 	// @OneToOne(mappedBy = "starbucksCards")
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "customerId"))
+	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "id"))
  	private List<StarbucksCard> starbucksCards = new ArrayList<>();
 
 	 @ElementCollection(fetch = FetchType.LAZY)
-	 @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "customerId"))
+	 @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "id"))
 	 private List<Order> orders = new ArrayList<>();
 
 
-	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurcahses, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards, List<Order> orders) {
+	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurchases, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards, List<Order> orders) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
