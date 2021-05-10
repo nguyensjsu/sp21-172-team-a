@@ -10,8 +10,6 @@ import java.util.*;
 @Entity
 @Table(name="Customers")
 @Data
-@Getter
-@Setter
 @RequiredArgsConstructor
 public class Customer {
 	@Id @GeneratedValue private int customerId;
@@ -31,45 +29,31 @@ public class Customer {
 	// @OneToOne(mappedBy = "creditCards")
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "creditCards", joinColumns = @JoinColumn(name = "customerId"))
-	private Set<CreditCard> creditCards = new HashSet<>();
+	private List<CreditCard> creditCards = new ArrayList<>();
 	
 	// @OneToOne(mappedBy = "starbucksCards")
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "customerId"))
- 	private Set<StarbucksCard> starbucksCards = new HashSet<>();
+ 	private List<StarbucksCard> starbucksCards = new ArrayList<>();
 
 	 @ElementCollection(fetch = FetchType.LAZY)
 	 @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "customerId"))
-	 private Set<Order> orders = new HashSet<>();
+	 private List<Order> orders = new ArrayList<>();
 
-    
-	Customer(List<BillingInfo> billingInfos) {
+
+	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurcahses, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards, List<Order> orders) {
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.totalPurchases = totalPurchases;
 		this.billingInfos = billingInfos;
-		firstName = null;
-		middleName = null;
-		lastName = null;
-		username = null;
-		password = null;
-		creditCards = null;
-		starbucksCards = null;
-		orders = null;
-		totalPurchases = 0;
+		this.creditCards = creditCards;
+		this.starbucksCards = starbucksCards;
+		this.orders = orders;
 	}
-
-
-	// Customer(List<CreditCard> creditCards) {
-	// 	billingInfos = null;
-	// 	firstName = null;
-	// 	middleName = null;
-	// 	lastName = null;
-	// 	username = null;
-	// 	password = null;
-	// 	this.creditCards = creditCards;
-	// 	starbucksCards = null;
-	// 	orders = null;
-	// 	totalPurchases = 0;
-	// }
-
+	
 
 	void addBillingInfo(BillingInfo billingInfo) {
 		billingInfos.add(billingInfo);
