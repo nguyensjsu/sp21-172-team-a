@@ -8,18 +8,23 @@ import javax.persistence.Table;
 import lombok.*;
 
 
-@Embeddable
+// @Embeddable
+@Entity
+@Table(name="Orders")
+@Data
 @RequiredArgsConstructor
 public class Order {
 
+    private @Id @GeneratedValue int id;
 
-    private String drink;
-    private boolean milk;
+    private String drinkModel;
+    private String milk;
     private String size;
     private int price;
+    private String status;
 
-    public Order(String drink, boolean milk, String size, int price){
-        this. drink = drink;
+    public Order(String drinkModel, String milk, String size, int price){
+        this.drinkModel = drinkModel;
         this.milk = milk;
         this.size = size;
         this.price = price;
@@ -28,13 +33,8 @@ public class Order {
 
     public String toString(){
         return "Order: " + " " +
-        "Drink: " + drink + " " 
+        "Drink: " + drinkModel + " " 
       + "Milk: " + milk + " "
       + "Size: " + size;
-    }
-
-
-    public boolean getMilk() {
-        return milk;
     }
 }

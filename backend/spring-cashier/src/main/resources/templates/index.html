@@ -1,34 +1,145 @@
 <html>
-    <head>
-        <title>Main Page</title>
-        <link rel="stylesheet" th:href="@{/css/index.css}">
-        <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    </head>
-    <body>
-        <div class="container">
+<head>
+    <title>Main Page</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="../static/js/store.js" th:src="@{/js/store.js}" ></script>
+</head>
+<body>
+    <div id="main">
+        <!-- Tab Links
+        <div class="w3-bar w3-black">
+            <button class="w3-bar-item w3-button" th:onclick="openCity('Drinks')">Drinks</button>
+        </div> -->
+        <!-- <div id="Drinks" class="tabcontent">
+            <div class="row">
+                <div class="column">
+                    <h1>Drinks Menu</h1>
+                    <div class="drinks">
+                        <hr size="2" width="100%" color="black"><br> 
+                        <div class="menu">
+                            <label class="btn" for="drinkControl">
+                                <img class="pic" th:src="@{images/caramel.webp}" alt="Caramel Machiato"><br>
+                            </label>
+                            <div class="desc"><input type="radio" value="Caramel Machiato"/> Caramel Machiato</div> 
+                        </div>
+                        <div class="menu">
+                            <a target="_blank">
+                                <img class="pic" th:src="@{images/icedchai.webp}" alt="icedChai"><br>
+                            </a>
+                            <div class="desc">Iced Chai</div>
+                        </div>
+                        <div class="menu">
+                            <a target="_blank">
+                                <img class="pic" th:src="@{images/whitemocha.webp}" alt="White Chocolate Mocha"><br>
+                            </a>
+                            <div class="desc">White Mocha</div>
+                        </div>
+                        <div class="menu">
+                            <a target="_blank">
+                                <img class="pic" th:src="@{images/icedcoffee.webp}" alt="Iced Coffee"><br>
+                            </a>
+                            <div class="desc">Iced Coffee</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <h2>Additional Options</h2>
+                        <label for="milk"> Milk</label>
+                        <input type="checkbox" id="milk" name="milk" value="milk">
+                        <br><br>
+                    </div>
+                    <div class="sizeDropdown">
+                        <label for="size">Size:</label>
+                        <select name="size" id="size">
+                            <option value ="Short">Short</option>
+                            <option value ="Tall">Tall</option>
+                            <option value ="Grande">Grande</option>
+                            <option value ="Venti">Venti</option>
+                        </select>
+                    </div><br><br>
+                <input type="submit" value="Submit">
+                </div>
+            </div>
+        </div> -->
+        <div id="top">
             <h1>Welcome to Starbucks Reserved!</h1>
-            <input class ="input" type="text"/>
+            <div id="Drinks" class="tabcontent">
+                <form action="#" name="form" method="post" th:object="${order}" class="mt-5" >
+                    <div class="form-group">
+                        <label>Model</label>
+                        <div th:each="model : ${T(com.example.springcashier.DrinkModel).values()}">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" th:field="*{drinkModel}" th:value="${model}" class="custom-control-input">
+                                <label class="custom-control-label" th:for="${#ids.prev('drinkModel')}" th:text="${model}">model</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Milk</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Whole" name="Whole" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Whole">Whole</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Skim" name="Skim" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Skim">Skim</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Oat" name="Oat" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Oat">Oat</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Almond" name="Almond" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Almond">Almond</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Size</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Short" name="Short" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Short">Short</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Tall" name="Tall" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Tall">Tall</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Grande" name="Grande" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Grande">Grande</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Venti" name="Venti" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Venti">Venti</label>
+                        </div>
+                    </div>
+                    <input type="submit" value="Place Order" class="btn">
+                </form>
+            </div>
+        </div>
+
+        <div id="bottom">
+            <div class="message">
+                <span th:text="${message}"></span>
+            </div>
+
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
+                <button class="btn~ btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Dublin,CA</a></li>
-                  <li><a href="#">San Jose, CA</a></li>
-                  <li><a href="#">Santa Monica, CA</a></li>
+                <li><a href="#">Dublin, CA</a></li>
+                <li><a href="#">San Jose, CA</a></li>
+                <li><a href="#">Santa Monica, CA</a></li>
                 </ul>
-              </div>
-              <img th:src="@{/images/starbucksLogo.jpg}">
-
+            </div>
             <button type="button" class="btn btn-dark">Get Order</button>
-            <button type="button" class="btn btn-dark">Place Order</button>
+            <!-- <button class="btn btn-dark" type="submit">Place Order</button> -->
+            <input type="submit" value="Place Order" class="btn">
             <button type="button" class="btn btn-dark">Clear Order</button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/cards}">Cards Page</a></button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/paymentmethod}">Payments Page</a></button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/billinginfo}">Billing Info</a></button>
-
         </div>
-        
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
