@@ -8,9 +8,14 @@ import javax.persistence.Table;
 import lombok.*;
 
 
-@Embeddable
+// @Embeddable
+@Entity
+@Table(name="Orders")
+@Data
 @RequiredArgsConstructor
 public class Order {
+
+    private @Id @GeneratedValue int id;
 
     private String drinkModel;
     private String milk;

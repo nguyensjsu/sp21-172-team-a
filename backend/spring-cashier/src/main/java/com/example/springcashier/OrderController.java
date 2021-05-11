@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 
@@ -31,43 +33,87 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Value;
 
-@RestController
-@RequestMapping(value = "/index")
+@Controller
+@RequestMapping(value = {"/", "/index"})
 public class OrderController{
     @Autowired
-    private PaymentsCommandRepository cardsRepository;
+    private OrderRepository ordersRepository;
 
-    class Message{
-        private String status;
+    @Getter
+    @Setter
+    class Message {
+        private String msg ; 
+        public Message(String m) { msg = m ; }
+    }
 
-        public String getStatus(){
-            return status;
-        }
 
-        public void setStatus(String msg){
-            status = msg;
+    class ErrorMessages {
+        private ArrayList<Message> messages = new ArrayList<Message>() ;
+        public void add( String msg ) { messages.add(new Message(msg) ) ; }
+        public ArrayList<Message> getMessage() { return messages ; }
+        public void print() {
+            for( Message m : messages ) {
+                System.out.println( m.msg ) ;
+            }
         }
     }
 
-    private HashMap<String, Order> orders = new HashMap<>();
+    // @GetMapping
+    // public String main(Model model) {
+    //     model.addAttribute("order", new Order());
+    //     return "home";
+    // }
 
     @GetMapping
-    public String main(Model model) {
-        model.addAttribute("order", new Order());
+    public String getAction( @ModelAttribute("order") Order order,
+                            Model model) {
+  
+        /* Render View */
+        // model.addAttribute( "message", "Hello World!" ) ;
+        // model.addAttribute("order", new Order());
+
+        return "index" ;
+
+    }
+
+    
+    // @PostMapping
+    // public String postAction(@ModelAttribute("order") Order command,  
+                            
+    //                         Model model, HttpServletRequest request) {
+    //     return "saved";
+    // }
+
+    @PostMapping
+    public String postAction(@ModelAttribute("order") Order order,  
+                            
+                            Errors errors, Model model, HttpServletRequest request) {
+
+        ErrorMessages messages = new ErrorMessages();
+        boolean hasErrors = false;
+
+        if(order.getDrinkModel().equals("")) { hasErrors = true; messages.add("Drink Required"); }
+        if(order.getMilk().equals("")) { hasErrors = true; messages.add("Milk type Required"); }
+        if(order.getSize().equals("")) { hasErrors = true; messages.add("Size Required"); }
+
+        if(hasErrors) {
+            messages.print();
+            model.addAttribute("order", "There was an error with the order.");
+            return "index";
+        }
+        else {
+            ordersRepository.save(order);
+            model.addAttribute("order", "Order placed.");
+        }
         return "index";
     }
 
-    public String getAction( @ModelAttribute("order") Order order, 
-                            Model model) {
-        return "order" ;
-    }
+    // @PostMapping
+    // public String save(Order order, Model model) {
+    //     model.addAttribute("order", order);
+    //     return "index";
+    // }
     
-    @PostMapping
-    public String postAction(@ModelAttribute("order") Order command,  
-                            
-                            Model model, HttpServletRequest request) {
-        return "saved";
-    }
 
     // @GetMapping("/orders")
     // List<Order> all(){

@@ -6,30 +6,11 @@
     <script type="text/javascript" src="../static/js/store.js" th:src="@{/js/store.js}" ></script>
 </head>
 <body>
-    <!-- side nav-->
-    <div id="mySidenav" class="sidenav">
-        <h1>Welcome to Starbucks Reserved!</h1>
-                <div class="dropdown">
-                    <button class="btn~ btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                    <li><a href="#">Dublin, CA</a></li>
-                    <li><a href="#">San Jose, CA</a></li>
-                    <li><a href="#">Santa Monica, CA</a></li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-dark">Get Order</button>
-                <button type="button" class="btn btn-dark">Place Order</button>
-                <button type="button" class="btn btn-dark">Clear Order</button>
-    </div>
-
-    <span style="font-size:30px;cursor:pointer" th:onclick="openNav()">&#9776; open</span>
-
     <div id="main">
-        <!-- Tab Links -->
+        <!-- Tab Links
         <div class="w3-bar w3-black">
             <button class="w3-bar-item w3-button" th:onclick="openCity('Drinks')">Drinks</button>
-        </div>
+        </div> -->
         <!-- <div id="Drinks" class="tabcontent">
             <div class="row">
                 <div class="column">
@@ -81,58 +62,80 @@
                 </div>
             </div>
         </div> -->
-
-        <div id="Drinks" class="tabcontent">
-            <form method="post" th:object="${order}" class="mt-5">
-                <div class="form-group">
-                    <label>Model</label>
-                    <div th:each="model : ${T(com.example.springcashier.DrinkModel).values()}">
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" th:field="*{drinkModel}" th:value="${model}" class="custom-control-input">
-                            <label class="custom-control-label" th:for="${#ids.prev('drinkModel')}" th:text="${model}">model</label>
+        <div id="top">
+            <h1>Welcome to Starbucks Reserved!</h1>
+            <div id="Drinks" class="tabcontent">
+                <form action="#" name="form" method="post" th:object="${order}" class="mt-5" >
+                    <div class="form-group">
+                        <label>Model</label>
+                        <div th:each="model : ${T(com.example.springcashier.DrinkModel).values()}">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" th:field="*{drinkModel}" th:value="${model}" class="custom-control-input">
+                                <label class="custom-control-label" th:for="${#ids.prev('drinkModel')}" th:text="${model}">model</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- <div class="form-group">
-                    <label>Milk</label>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Whole" name="Whole" class="custom-control-input" value="1" th:field="*{milk}">
-                        <label class="custom-control-label" for="Whole">Whole</label>
+                    <div class="form-group">
+                        <label>Milk</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Whole" name="Whole" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Whole">Whole</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Skim" name="Skim" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Skim">Skim</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Oat" name="Oat" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Oat">Oat</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Almond" name="Almond" class="custom-control-input" value="1" th:field="*{milk}">
+                            <label class="custom-control-label" for="Almond">Almond</label>
+                        </div>
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Skim" name="Skim" class="custom-control-input" value="1" th:field="*{milk}">
-                        <label class="custom-control-label" for="Skim">Skim</label>
+                    <div class="form-group">
+                        <label>Size</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Short" name="Short" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Short">Short</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Tall" name="Tall" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Tall">Tall</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Grande" name="Grande" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Grande">Grande</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Venti" name="Venti" class="custom-control-input" value="1" th:field="*{size}">
+                            <label class="custom-control-label" for="Venti">Venti</label>
+                        </div>
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Oat" name="Oat" class="custom-control-input" value="1" th:field="*{milk}">
-                        <label class="custom-control-label" for="Oat">Oat</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Almond" name="Almond" class="custom-control-input" value="1" th:field="*{milk}">
-                        <label class="custom-control-label" for="Almond">Almond</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Size</label>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Short" name="Short" class="custom-control-input" value="1" th:field="*{size}">
-                        <label class="custom-control-label" for="Short">Short</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Tall" name="Tall" class="custom-control-input" value="1" th:field="*{size}">
-                        <label class="custom-control-label" for="Tall">Tall</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Grande" name="Grande" class="custom-control-input" value="1" th:field="*{size}">
-                        <label class="custom-control-label" for="Grande">Grande</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Venti" name="Venti" class="custom-control-input" value="1" th:field="*{size}">
-                        <label class="custom-control-label" for="Venti">Venti</label>
-                    </div>
-                </div> -->
-                <button class="btn btn-primary" type="submit">Submit form</button>
-            </form>
+                    <input type="submit" value="Place Order" class="btn">
+                </form>
+            </div>
+        </div>
+
+        <div id="bottom">
+            <div class="message">
+                <span th:text="${message}"></span>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn~ btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                <li><a href="#">Dublin, CA</a></li>
+                <li><a href="#">San Jose, CA</a></li>
+                <li><a href="#">Santa Monica, CA</a></li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-dark">Get Order</button>
+            <!-- <button class="btn btn-dark" type="submit">Place Order</button> -->
+            <input type="submit" value="Place Order" class="btn">
+            <button type="button" class="btn btn-dark">Clear Order</button>
         </div>
     </div>
 
