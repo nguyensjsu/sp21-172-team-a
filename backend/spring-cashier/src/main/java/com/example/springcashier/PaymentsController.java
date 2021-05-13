@@ -203,89 +203,89 @@
 //         }
 
 
-//         // CyberSourceAPI.setHost( apiHost ) ;
-//         // CyberSourceAPI.setKey( merchantKeyId ) ;
-//         // CyberSourceAPI.setSecret(merchantsecretKey ) ;
-//         // CyberSourceAPI.setMerchant( merchantId ) ;
+//         CyberSourceAPI.setHost( apiHost ) ;
+//         CyberSourceAPI.setKey( merchantKeyId ) ;
+//         CyberSourceAPI.setSecret(merchantsecretKey ) ;
+//         CyberSourceAPI.setMerchant( merchantId ) ;
 
 
-//         // int min = 1239871;
-//         // int max = 9999999;
-//         // int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
-//         // String order_num = String.valueOf(random_int);
-//         // AuthRequest auth = new AuthRequest() ;
+//         int min = 1239871;
+//         int max = 9999999;
+//         int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+//         String order_num = String.valueOf(random_int);
+//         AuthRequest auth = new AuthRequest() ;
         
-//         // auth.reference = order_num; 
-//         // auth.billToFirstName = command.firstname();
-//         // auth.billToLastName = command.lastname();
-//         // auth.billToAddress = command.address();
-//         // auth.billToCity = command.city();
-//         // auth.billToState = command.state();
-//         // auth.billToZipCode = command.zip();
-//         // auth.billToPhone = command.phone();
-//         // auth.billToEmail = command.email();  
-//         // auth.transactionAmount = "30.00"; // This is a temp value
-//         // auth.transactionCurrency = "USD";
-//         // auth.cardNumnber = command.cardnum();
-//         // auth.cardExpMonth = months.get(command.cardexpmon());
-//         // auth.cardExpYear = command.cardexpyear();
-//         // auth.cardCVV = command.cardcvv();
-//         // auth.cardType = CyberSourceAPI.getCardType(auth.cardNumnber);
+//         auth.reference = order_num; 
+//         auth.billToFirstName = command.firstname();
+//         auth.billToLastName = command.lastname();
+//         auth.billToAddress = command.address();
+//         auth.billToCity = command.city();
+//         auth.billToState = command.state();
+//         auth.billToZipCode = command.zip();
+//         auth.billToPhone = command.phone();
+//         auth.billToEmail = command.email();  
+//         auth.transactionAmount = "30.00"; // This is a temp value
+//         auth.transactionCurrency = "USD";
+//         auth.cardNumnber = command.cardnum();
+//         auth.cardExpMonth = months.get(command.cardexpmon());
+//         auth.cardExpYear = command.cardexpyear();
+//         auth.cardCVV = command.cardcvv();
+//         auth.cardType = CyberSourceAPI.getCardType(auth.cardNumnber);
 
        
-//         // if(auth.cardType.equals("ERROR")) {
-//         //     System.out.println("Unsupported Card Type");
-//         //     model.addAttribute("message", "Unsupported Card Type");
-//         //     return "paymentmethod";
-//         // }
+//         if(auth.cardType.equals("ERROR")) {
+//             System.out.println("Unsupported Card Type");
+//             model.addAttribute("message", "Unsupported Card Type");
+//             return "paymentmethod";
+//         }
 
 
-//         // boolean authValid = false;
-//         // AuthResponse authResponse = new AuthResponse();
-//         // System.out.println("\n\nAuth Request: " + auth.toJson());
-//         // authResponse = api.authorize(auth);
-//         // System.out.println("\n\nAuth Response: " + authResponse.toJson());
-//         // authValid = true;
-//         // if (!authResponse.status.equals("AUTHORIZED")) {
-//         //     System.out.println(authResponse.message);
-//         //     model.addAttribute("message", authResponse.message);
-//         //     return "paymentmethod";  
-//         // }
+//         boolean authValid = false;
+//         AuthResponse authResponse = new AuthResponse();
+//         System.out.println("\n\nAuth Request: " + auth.toJson());
+//         authResponse = api.authorize(auth);
+//         System.out.println("\n\nAuth Response: " + authResponse.toJson());
+//         authValid = true;
+//         if (!authResponse.status.equals("AUTHORIZED")) {
+//             System.out.println(authResponse.message);
+//             model.addAttribute("message", authResponse.message);
+//             return "paymentmethod";  
+//         }
         
-//         // boolean captureValid = false ;
-//         // CaptureRequest capture = new CaptureRequest();
-//         // CaptureResponse captureResponse = new CaptureResponse();
-//         // if (authValid) {
-//         //     capture.reference = order_num;
-//         //     capture.paymentId = authResponse.id;
-//         //     capture.transactionAmount = "30.00";
-//         //     capture.transactionCurrency = "USD";
-//         //     System.out.println("\n\nCapture Request: " + capture.toJson() ) ;
-//         //     captureResponse = api.capture(capture) ;
-//         //     System.out.println("\n\nCapture Response: " + captureResponse.toJson() ) ;
-//         //     captureValid = true;
-//         //     if ( !captureResponse.status.equals("PENDING") ) {
-//         //         System.out.println(captureResponse.message);
-//         //         model.addAttribute("message", captureResponse.message);
-//         //         return "paymentmethod";
-//         //     }
-//         // }
+//         boolean captureValid = false ;
+//         CaptureRequest capture = new CaptureRequest();
+//         CaptureResponse captureResponse = new CaptureResponse();
+//         if (authValid) {
+//             capture.reference = order_num;
+//             capture.paymentId = authResponse.id;
+//             capture.transactionAmount = "30.00";
+//             capture.transactionCurrency = "USD";
+//             System.out.println("\n\nCapture Request: " + capture.toJson() ) ;
+//             captureResponse = api.capture(capture) ;
+//             System.out.println("\n\nCapture Response: " + captureResponse.toJson() ) ;
+//             captureValid = true;
+//             if ( !captureResponse.status.equals("PENDING") ) {
+//                 System.out.println(captureResponse.message);
+//                 model.addAttribute("message", captureResponse.message);
+//                 return "paymentmethod";
+//             }
+//         }
 
 
-//         // if(authValid && captureValid){
-//         //     command.setOrderNumber(order_num);
-//         //     command.setTransactionAmount("30.00");
-//         //     command.setTransactionCurrency("USD");
-//         //     command.setAuthId(authResponse.id);
-//         //     command.setAuthStatus(authResponse.status);
-//         //     command.setCaptureId(captureResponse.id);
-//         //     command.setCaptureStatus(captureResponse.status);
+//         if(authValid && captureValid){
+//             command.setOrderNumber(order_num);
+//             command.setTransactionAmount("30.00");
+//             command.setTransactionCurrency("USD");
+//             command.setAuthId(authResponse.id);
+//             command.setAuthStatus(authResponse.status);
+//             command.setCaptureId(captureResponse.id);
+//             command.setCaptureStatus(captureResponse.status);
 
             
-//         //     repository.save(command);
-//         //     System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
-//         //     model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
-//         // }
+//             repository.save(command);
+//             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
+//             model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
+//         }
     
 
 //         return "paymentmethod";
