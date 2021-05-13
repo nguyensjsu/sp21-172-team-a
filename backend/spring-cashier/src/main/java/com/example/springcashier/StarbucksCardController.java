@@ -143,7 +143,11 @@ public class StarbucksCardController {
         auth.billToZipCode = billingInfo.getZip();
         auth.billToPhone = billingInfo.getPhone();
         auth.billToEmail = billingInfo.getEmail();  
+        
+
         auth.transactionAmount = "30.00"; // This is a temp value
+        
+
         auth.transactionCurrency = "USD";
         auth.cardNumnber = creditCard.getCardnum();
         auth.cardExpMonth = months.get(creditCard.getCardexpmon());
@@ -177,7 +181,11 @@ public class StarbucksCardController {
         if (authValid) {
             capture.reference = order_num;
             capture.paymentId = authResponse.id;
+            
+
             capture.transactionAmount = "30.00";
+            
+
             capture.transactionCurrency = "USD";
             System.out.println("\n\nCapture Request: " + capture.toJson() ) ;
             captureResponse = api.capture(capture) ;
@@ -192,7 +200,11 @@ public class StarbucksCardController {
 
 
         if(authValid && captureValid){
+            
+
             starbucksCard.addBalance(30);
+            
+
             repository.save(customer);
             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
             model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
