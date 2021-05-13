@@ -1,4 +1,6 @@
 package com.example.springcashier;
+import com.example.springcustomer.BillingInfo;
+import com.example.springcustomer.CreditCard;
 
 import lombok.*;
 import java.util.*;
@@ -36,12 +38,8 @@ public class Customer {
 	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "id"))
  	private List<StarbucksCard> starbucksCards = new ArrayList<>();
 
-	 @ElementCollection(fetch = FetchType.LAZY)
-	 @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "id"))
-	 private List<Order> orders = new ArrayList<>();
 
-
-	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurchases, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards, List<Order> orders) {
+	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurchases, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -51,7 +49,7 @@ public class Customer {
 		this.billingInfos = billingInfos;
 		this.creditCards = creditCards;
 		this.starbucksCards = starbucksCards;
-		this.orders = orders;
+		
 	}
 	
 
