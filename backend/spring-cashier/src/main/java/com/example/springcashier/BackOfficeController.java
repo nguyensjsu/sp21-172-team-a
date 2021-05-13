@@ -73,6 +73,7 @@ public class BackOfficeController {
             Customer c = repository.findById(x);
             StarbucksCard s = new StarbucksCard(x, 12, 99);
             c.getStarbucksCards().add(s);
+            //repository.save(c);
             messages.add("Customer First Name: " + c.getFirstName());
             messages.add("Customer Last Name: " + c.getLastName());
             messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
