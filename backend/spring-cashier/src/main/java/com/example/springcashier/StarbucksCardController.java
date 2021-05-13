@@ -192,8 +192,6 @@ public class StarbucksCardController {
 
 
         if(authValid && captureValid){
-            
-
             starbucksCard.addBalance(30);
             repository.save(customer);
             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
