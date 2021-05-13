@@ -127,11 +127,10 @@ public class CreditCardController {
             return "paymentmethod";
         }
         else {
-            ArrayList<CreditCard> list = new ArrayList<CreditCard>();
-            list.add(command);
+            
             Customer c = repository.findById(1);
             if(c != null) {
-                c.setCreditCards(list);
+                c.getCreditCards().add(command);
                 repository.save(c);
                 System.out.println("Thank You for your Payment!");
                 model.addAttribute("message", "Thank You for your Payment!");
