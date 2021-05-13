@@ -170,7 +170,7 @@ public class BillingInfoController {
             System.out.println(id);
             model.addAttribute("message", "Billing Information Updated!");
             model.addAttribute("message", id);
-             return "paymentmethod/" + id;
+            return "billinginfo";
         }
     }
 }

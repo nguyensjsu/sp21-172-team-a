@@ -91,16 +91,16 @@ public class CreditCardController {
     }     
 
 
-    @GetMapping("/paymentmethod/{id}")
+    @GetMapping
     public String getAction( @ModelAttribute("command") CreditCard command, 
-                             @PathVariable String id,
+                             //@PathVariable String id,
                              Model model) {
         return "paymentmethod";
     }
 
-    @PostMapping("/paymentmethod/{id}")
+    @PostMapping
     public String postAction(@Valid @ModelAttribute("command") CreditCard command,  
-                             @PathVariable String id,
+                             //@PathVariable String id,
                              Errors errors, Model model, HttpServletRequest request) {
         
         //@RequestParam(value="action", required=true) String action,
@@ -124,7 +124,7 @@ public class CreditCardController {
         if(hasErrors) {
             messages.print();
             model.addAttribute("messages", messages.getMessage());
-            return "paymentmethod/" + id;
+            return "paymentmethod";
         }
         else {
             ArrayList<CreditCard> list = new ArrayList<CreditCard>();
