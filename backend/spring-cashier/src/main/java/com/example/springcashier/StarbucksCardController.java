@@ -95,11 +95,8 @@ public class StarbucksCardController {
 
 
     @PostMapping
-    public String postAction(Errors errors, Model model, HttpServletRequest request) {
-        
-        //@RequestParam(value="action", required=true) String action,
-        //log.info( "Action: " + action ) ;
-        //log.info( "Command: " + command ) ;
+    public String postAction(Model model, HttpServletRequest request) {
+
 
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
@@ -135,9 +132,6 @@ public class StarbucksCardController {
         BillingInfo billingInfo = customer.getBillingInfos().get(0);
         CreditCard creditCard = customer.getCreditCards().get(0);
         StarbucksCard starbucksCard = customer.getStarbucksCards().get(0);
-
-
-        System.out.println("Got all customer items");
         
 
         auth.reference = order_num; 
@@ -157,18 +151,12 @@ public class StarbucksCardController {
         auth.cardCVV = creditCard.getCardcvv();
         auth.cardType = CyberSourceAPI.getCardType(auth.cardNumnber);
 
-
-        System.out.println("Created Auth Request");
-
        
         if(auth.cardType.equals("ERROR")) {
             System.out.println("Unsupported Card Type");
             model.addAttribute("message", "Unsupported Card Type");
             return "starbuckscards";
         }
-
-
-        System.out.println("Auth Request Valid");
 
 
         boolean authValid = false;
@@ -203,17 +191,8 @@ public class StarbucksCardController {
         }
 
 
-        System.out.println("Auth Request Valid and Captured");
-
-
         if(authValid && captureValid){
-            // command.setOrderNumber(order_num);
-            // command.setTransactionAmount("30.00");
-            // command.setTransactionCurrency("USD");
-            // command.setAuthId(authResponse.id);
-            // command.setAuthStatus(authResponse.status);
-            // command.setCaptureId(captureResponse.id);
-            // command.setCaptureStatus(captureResponse.status);
+            
 
             starbucksCard.addBalance(30);
             repository.save(customer);
