@@ -10,56 +10,24 @@
 </head>
 <body>
 
-<h2>Add User Info</h2>
+<h2>Back Office Help Desk</h2>
     <div>
-      <form name="form" th:object="${billingInfo}" method="post">     
+      <form name="form" th:object="${backOffice}" method="post">     
         <div class="row">
           <div class="col-50">
-            
- <!--            <h4>Name</h4>
-            <label class="required" for="firstname">First Name</label>
-            <input type="text" id="fname" name="firstname" required="required"  th:field="*{firstname}" />
-            <label class="required" for="lastname">Last Name</label>
-            <input type="text" id="lname" name="lastname" required="required"  th:field="*{lastname}" /> -->
-
-            <h4>Billing Address</h4>            
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street"  th:field="*{address}">
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="New York"  th:field="*{city}">
-            <div class="row">
-                <div class="col-50">
-                  <label for="state">State</label>
-                  <input type="text" id="state" name="state" placeholder="NY"  th:field="*{state}">
-                </div>
-                <div class="col-50">
-                  <label for="zip">Zip</label>
-                  <input type="text" id="zip" name="zip" placeholder="10001"  th:field="*{zip}">
-                </div>
-            </div>
-
-            <h4>Contact Info</h4>
-            <label for="phone">Phone Number</label>
-            <input type="text" id="phone" name="phonenumber" placeholder="(408) 123-0456"  th:field="*{phone}">
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com"  th:field="*{email}">
 
             <div th:if="${not#lists.isEmpty(messages)}">
-              <div class="messages">
-                <ul th:each="m : ${messages}">
+          <div class="messages">
+            <ul th:each="m : ${messages}">
                   <li th:text="${m.msg}">
-                </ul>
-              </div>
-            </div>
-
-            <div class="message">
-            <span th:text="${message}" />
-            </div>
+            </ul>
+          </div>
+          </div>
 
           </div> 
         </div>
         
-        <input type="submit" value="Submit" class="btn">
+        <input type="submit" value="Edit" class="btn">
       
       </form>
     </div>
