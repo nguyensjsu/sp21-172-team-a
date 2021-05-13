@@ -126,6 +126,9 @@ public class StarbucksCardController {
         starbucksCardTest.setCustomerId(test.getId());
         test.getStarbucksCards().add(starbucksCardTest);
         repository.save(test);
+        /*  
+        *   TEST
+        */
 
 
         Customer customer = repository.findById(starbucksCardTest.getCustomerId());

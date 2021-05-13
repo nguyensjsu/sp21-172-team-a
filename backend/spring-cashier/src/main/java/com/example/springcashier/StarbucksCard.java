@@ -8,13 +8,12 @@ import javax.validation.*;
 
 
 @Embeddable
+@Getter
+@Setter
 @RequiredArgsConstructor
 class StarbucksCard {
 
-    @Getter
-    @Setter
     private int customerId;
-
     private double rewardsPoints;
     private double balance;
 
