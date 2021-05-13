@@ -34,6 +34,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Value;
 
 
+
+import java.util.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+
+
 @Slf4j
 @Controller
 @RequestMapping(value = "/paymentmethod")
@@ -81,16 +91,17 @@ public class CreditCardController {
     }     
 
 
-    @GetMapping
+    @GetMapping("/paymentmethod/{id}")
     public String getAction( @ModelAttribute("command") CreditCard command, 
-                            Model model) {
-        return "paymentmethod" ;
+                             @PathVariable String id,
+                             Model model) {
+        return "paymentmethod";
     }
 
-    @PostMapping
+    @PostMapping("/paymentmethod/{id}")
     public String postAction(@Valid @ModelAttribute("command") CreditCard command,  
-                            
-                            Errors errors, Model model, HttpServletRequest request) {
+                             @PathVariable String id,
+                             Errors errors, Model model, HttpServletRequest request) {
         
         //@RequestParam(value="action", required=true) String action,
         //log.info( "Action: " + action ) ;
@@ -113,12 +124,12 @@ public class CreditCardController {
         if(hasErrors) {
             messages.print();
             model.addAttribute("messages", messages.getMessage());
-            return "paymentmethod";
+            return "paymentmethod/" + id;
         }
         else {
             ArrayList<CreditCard> list = new ArrayList<CreditCard>();
             list.add(command);
-            Customer c = repository.findById(0);
+            Customer c = repository.findById(Integer.parseInt(id));
             if(c != null) {
                 c.setCreditCards(list);
                 repository.save(c);
