@@ -165,11 +165,11 @@ public class BillingInfoController {
             list.add(billingInfo);
             Customer c = new Customer("John", null, null, null, null, 0, list, null, null, null);
             repository.save(c);
-            int id = c.getId();
+            //int id = c.getId();
             System.out.println("Billing Information Updated!");
-            System.out.println(id);
+            //System.out.println(id);
             model.addAttribute("message", "Billing Information Updated!");
-            model.addAttribute("message", id);
+            //model.addAttribute("message", id);
             return "billinginfo";
         }
     }
