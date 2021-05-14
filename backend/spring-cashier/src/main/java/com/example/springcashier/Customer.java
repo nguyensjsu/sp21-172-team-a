@@ -10,11 +10,9 @@ import java.util.*;
 @Entity
 @Table(name="Customers")
 @Data
-@Getter
-@Setter
 @RequiredArgsConstructor
 public class Customer {
-	@Id @GeneratedValue private int customerId;
+	@Id @GeneratedValue private int id;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -25,34 +23,49 @@ public class Customer {
 	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// @JoinColumn(name = "customerId")
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "billingInfos", joinColumns = @JoinColumn(name = "customerId"))
+	@CollectionTable(name = "billingInfos", joinColumns = @JoinColumn(name = "id"))
 	private List<BillingInfo> billingInfos = new ArrayList<>();
 
 	// @OneToOne(mappedBy = "creditCards")
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "creditCards", joinColumns = @JoinColumn(name = "customerId"))
-	private Set<CreditCard> creditCards = new HashSet<>();
+	@CollectionTable(name = "creditCards", joinColumns = @JoinColumn(name = "id"))
+	private List<CreditCard> creditCards = new ArrayList<>();
 	
 	// @OneToOne(mappedBy = "starbucksCards")
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "customerId"))
- 	private Set<StarbucksCard> starbucksCards = new HashSet<>();
+	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "id"))
+ 	private List<StarbucksCard> starbucksCards = new ArrayList<>();
 
 	 @ElementCollection(fetch = FetchType.LAZY)
-	 @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "customerId"))
-	 private Set<Order> orders = new HashSet<>();
+	 @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "id"))
+	 private List<Order> orders = new ArrayList<>();
 
-    
-	Customer(List<BillingInfo> billingInfos) {
+
+	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurchases, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards, List<Order> orders) {
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.totalPurchases = totalPurchases;
 		this.billingInfos = billingInfos;
-		firstName = null;
-		middleName = null;
-		lastName = null;
-		username = null;
-		password = null;
-		creditCards = null;
-		starbucksCards = null;
-		orders = null;
-		totalPurchases = 0;
+		this.creditCards = creditCards;
+		this.starbucksCards = starbucksCards;
+		this.orders = orders;
+	}
+	
+
+	void addBillingInfo(BillingInfo billingInfo) {
+		billingInfos.add(billingInfo);
+	}
+
+
+	void addCreditCard(CreditCard creditCard) {
+		creditCards.add(creditCard);
+	}
+
+
+	void addCreditCard(StarbucksCard starbucksCard) {
+		starbucksCards.add(starbucksCard);
 	}
 }
