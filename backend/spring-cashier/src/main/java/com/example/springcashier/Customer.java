@@ -79,11 +79,22 @@ public class Customer implements Serializable{
 		starbucksCards.add(starbucksCard);
 	}
 
+	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurchases, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards, List<Order> orders) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.totalPurchases = totalPurchases;
+        this.billingInfos = billingInfos;
+        this.creditCards = creditCards;
+        this.starbucksCards = starbucksCards;
+        this.orders = orders;
+    }
 
 	public String getLastName() {
 		return lastName;
 	}
-
 
 	public String getFirstName() {
 		return firstName;

@@ -93,3 +93,4 @@ public class CustomerController{
 
         return "joinNow";
     }
+}
