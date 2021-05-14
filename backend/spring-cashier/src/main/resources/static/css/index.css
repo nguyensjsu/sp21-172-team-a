@@ -3,30 +3,6 @@
     text-align: center;
 }
 
-.row {
-    display: flex;
-  }
-  
-.column {
-    flex: 50%;
-}
-
-#top,
-#bottom {
-    position: fixed;
-    left: 0;
-    right: 0;
-    height: 50%;
-}
-
-#top {
-    top: 0;
-}
-
-#bottom {
-    bottom: 0;
-}
-
 img {
     border-radius: 8px;
     width:100%;
@@ -85,50 +61,4 @@ div.menu .pic {
 
 div.menu:focus { 
     border: 1px solid rgb(6, 48, 6);
-}
-
-/* Tab Menu */
-.tab {
-overflow: hidden;
-border: 1px solid #ccc;
-background-color: #f1f1f1;
-}
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
-background-color: inherit;
-float: left;
-border: none;
-outline: none;
-cursor: pointer;
-padding: 14px 16px;
-transition: 0.3s;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-/* display: none; */
-padding: 6px 12px;
-border: 1px solid #ccc;
-border-top: none;
-}
-
-#main {
-transition: margin-left .5s;
-padding: 16px;
-}
-
-@media screen and (max-height: 450px) {
-.sidenav {padding-top: 15px;}
-.sidenav a {font-size: 18px;}
 }

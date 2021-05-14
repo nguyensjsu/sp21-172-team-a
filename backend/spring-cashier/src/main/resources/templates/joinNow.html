@@ -16,7 +16,7 @@
 <div class="signup-form">
 	<img th:src="@{/images/starbucks.png}">
 
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form action="#" method="post" th:object="${customer}" >
 		<div class="form-header">
 			<h2>Create an Account</h2>
 			<p>Starbucks Rewards</p>
@@ -24,19 +24,19 @@
 		</div>
         <div class="form-group">
 			<label>First Name</label>
-        	<input type="text" class="form-control" name="firstName" required="required">
+        	<input type="text" class="form-control" name="firstName" required="required" th:field=*{firstName}>
         </div>
         <div class="form-group">
 			<label>Last Name</label>
-        	<input type="email" class="form-control" name="lastName" required="required">
+        	<input type="text" class="form-control" name="lastName" required="required" th:field=*{lastName}>
         </div>
 		<div class="form-group">
 			<label>Email</label>
-            <input type="password" class="form-control" name="email" required="required">
+            <input type="email" class="form-control" name="email" required="required" th:field=*{email}>
         </div>
 		<div class="form-group">
 			<label>Password</label>
-            <input type="password" class="form-control" name="password" required="required">
+            <input type="password" class="form-control" name="password" required="required" th:field=*{password}>
         </div>        
         <div class="form-group">
 			<label class="form-check-label"><input type="checkbox" required="required"> I agree to the 
@@ -47,6 +47,18 @@
 		</div>	
     </form>
 	<div class="text-center small">Already have an account? <a th:href="@{/signIn}">Login here</a></div>
+	
+	<div style="color:red" th:if="${not#lists.isEmpty(messages)}">
+		<div class="messages">
+		  <ul th:each="m : ${messages}">
+			<li th:text="${m.msg}">
+		  </ul>
+		</div>
+	  </div>
+
+	  <div class="message">
+	  <span th:text="${message}" />
+	  </div>
 </div>
 </body>
 </html>

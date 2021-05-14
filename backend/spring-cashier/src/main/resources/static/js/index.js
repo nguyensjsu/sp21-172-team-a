@@ -6,3 +6,9 @@ function openCity(cityName) {
     }
     document.getElementById(cityName).style.display = "block";
 }
+
+function clearSelection() {
+    var ele = document.getElementsByName("selection");
+    for(var i=0;i<ele.length;i++)
+        ele[i].checked = false;
+}

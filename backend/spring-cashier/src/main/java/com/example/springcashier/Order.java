@@ -3,38 +3,32 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 import lombok.*;
 
-
-// @Embeddable
 @Entity
 @Table(name="Orders")
 @Data
 @RequiredArgsConstructor
-public class Order {
+public class Order implements Serializable{
 
     private @Id @GeneratedValue int id;
 
-    private String drinkModel;
+    private String drink;
     private String milk;
     private String size;
-    private int price;
+    private double price;
     private String status;
 
-    public Order(String drinkModel, String milk, String size, int price){
-        this.drinkModel = drinkModel;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_to_order_id", nullable = false)
+    private Customer customer;
+
+    public Order(String drink, String milk, String size){
+        this.drink = drink;
         this.milk = milk;
         this.size = size;
-        this.price = price;
-    }
-
-
-    public String toString(){
-        return "Order: " + " " +
-        "Drink: " + drinkModel + " " 
-      + "Milk: " + milk + " "
-      + "Size: " + size;
     }
 }
