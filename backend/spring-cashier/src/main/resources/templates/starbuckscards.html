@@ -37,8 +37,10 @@
 
           </div> 
         </div>
-        
-        <input type="submit" value="Submit" class="btn">
+
+        <form th:action="@{/card}" method="post" th:object="${StarbucksCard}"></form>
+          <input type="text" th:field="*{amountToAdd}"/>    
+          <input type="submit" value="Submit"/>
       
       </form>
     </div>

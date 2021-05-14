@@ -12,11 +12,10 @@ import javax.validation.*;
 @Setter
 @RequiredArgsConstructor
 class StarbucksCard {
-
+    private String amountToAdd;
     private int customerId;
     private double rewardsPoints;
     private double balance;
-
 
     public void addRewardsPoints(double points) {
         rewardsPoints += points;
