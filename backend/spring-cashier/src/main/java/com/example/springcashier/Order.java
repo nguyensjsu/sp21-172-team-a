@@ -7,8 +7,6 @@ import javax.persistence.Table;
 
 import lombok.*;
 
-
-// @Embeddable
 @Entity
 @Table(name="Orders")
 @Data
@@ -17,24 +15,16 @@ public class Order {
 
     private @Id @GeneratedValue int id;
 
-    private String drinkModel;
+    private String drink;
     private String milk;
     private String size;
-    private int price;
+    private double price;
     private String status;
+    private int customerId;
 
-    public Order(String drinkModel, String milk, String size, int price){
-        this.drinkModel = drinkModel;
+    public Order(String drink, String milk, String size){
+        this.drink = drink;
         this.milk = milk;
         this.size = size;
-        this.price = price;
-    }
-
-
-    public String toString(){
-        return "Order: " + " " +
-        "Drink: " + drinkModel + " " 
-      + "Milk: " + milk + " "
-      + "Size: " + size;
     }
 }

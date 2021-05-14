@@ -3,6 +3,7 @@ package com.example.springcashier;
 import java.util.List;
 import java.util.HashMap;
 
+import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +25,7 @@ import org.springframework.validation.Errors;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 
+import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,9 +35,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Value;
 
+@Slf4j
 @Controller
-@RequestMapping(value = {"/", "/index"})
+@RequestMapping(value = {"/index"})
 public class OrderController{
+    
+    // int mostRecentOrderId;
+
     @Autowired
     private OrderRepository ordersRepository;
 
@@ -58,63 +64,67 @@ public class OrderController{
         }
     }
 
-    // @GetMapping
-    // public String main(Model model) {
-    //     model.addAttribute("order", new Order());
-    //     return "home";
-    // }
-
     @GetMapping
     public String getAction( @ModelAttribute("order") Order order,
                             Model model) {
-  
-        /* Render View */
-        // model.addAttribute( "message", "Hello World!" ) ;
-        // model.addAttribute("order", new Order());
-
         return "index" ;
-
     }
-
     
-    // @PostMapping
-    // public String postAction(@ModelAttribute("order") Order command,  
-                            
-    //                         Model model, HttpServletRequest request) {
-    //     return "saved";
+    // @DeleteMapping
+    // void deleteOrder(){
+    //     repository.deleteById(order.getId());
     // }
 
     @PostMapping
-    public String postAction(@ModelAttribute("order") Order order,  
+    public String postAction(@Valid @ModelAttribute("order") Order order,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
 
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
 
-        if(order.getDrinkModel().equals("")) { hasErrors = true; messages.add("Drink Required"); }
+        if(order.getDrink().equals("")) { hasErrors = true; messages.add("Drink Required"); }
         if(order.getMilk().equals("")) { hasErrors = true; messages.add("Milk type Required"); }
         if(order.getSize().equals("")) { hasErrors = true; messages.add("Size Required"); }
 
+        /* Price Calculation*/
+        order.setPrice(5.0);
+        switch(order.getMilk()) {
+            case("Oat"):
+                order.setPrice(order.getPrice() + 0.5);
+                break;
+            case("Almond"):
+                order.setPrice(order.getPrice() + 0.5);
+                break;
+        }
+
+        switch(order.getSize()) {
+            case("Tall"):
+                order.setPrice(order.getPrice() + 0.5);
+                break;
+            case("Grande"):
+                order.setPrice(order.getPrice() + 1.0);
+                break;
+            case("Venti"):
+                order.setPrice(order.getPrice() + 1.5);
+                break;
+        }
+
+        log.info("Order: " + order);
+
         if(hasErrors) {
             messages.print();
-            model.addAttribute("order", "There was an error with the order.");
-            return "index";
+            model.addAttribute("message", "There was an error with the order.");
         }
         else {
             ordersRepository.save(order);
-            model.addAttribute("order", "Order placed.");
+            // mostRecentOrderId = order.getId();
+            log.info("Order placed.");
+            // model.addAttribute("message", "Order placed.");
         }
         return "index";
     }
-
-    // @PostMapping
-    // public String save(Order order, Model model) {
-    //     model.addAttribute("order", order);
-    //     return "index";
-    // }
     
-
     // @GetMapping("/orders")
     // List<Order> all(){
     //     return repository.findAll();
