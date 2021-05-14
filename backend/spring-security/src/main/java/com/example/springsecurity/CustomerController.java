@@ -1,4 +1,4 @@
-package com.example.springcashier;
+package com.example.springsecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,7 +85,7 @@ public class CustomerController {
 
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
-
+        System.out.println("hhhhhhh");                       
 
         if(customer.getFirstName().equals(""))        { hasErrors = true; messages.add("First Name Required"); }
         if(customer.getLastName().equals(""))           { hasErrors = true; messages.add("Last Name Required"); }
@@ -95,33 +95,34 @@ public class CustomerController {
         if(hasErrors) {
             messages.print();
             model.addAttribute("messages", messages.getMessage());
+            System.out.println("No sign up");
             return "joinNow";
         }
         else {
             repository.save(customer);
-            System.out.println("Billing Information Updated!");
-            model.addAttribute("message", "Billing Information Updated!");
+            System.out.println("Sign up success!");
+            model.addAttribute("message", "Sign up success!");
              return "joinNow";
         }
     }
 
 
-    // @GetMapping("/signIn")
-    // public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
-    //     return "signIn";
-    // }
+    @GetMapping("/signIn")
+    public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
+        return "signIn";
+    }
 
-    // @PostMapping("/signIn")
-    // public String validateUser(@Valid @ModelAttribute("signIn") Customer customer, Errors errors, Model model, HttpServletRequest request) {
-    //     String username = customer.getUsername();
-    //     String password = customer.getPassword();
+    @PostMapping("/signIn")
+    public String validateUser(@Valid @ModelAttribute("signIn") Customer customer, Errors errors, Model model, HttpServletRequest request) {
+        String username = customer.getUsername();
+        String password = customer.getPassword();
 
-    //     Customer c = repository.findByUsername(username);
-    //     if(password.equals(c.getPassword())){
-    //         System.out.println("Login worked");
-    //     }
+        Customer c = repository.findByUsername(username);
+        if(password.equals(c.getPassword())){
+            System.out.println("Login worked");
+        }
 
-    //     System.out.println(username);
-    //     return "signIn";
-    // }
+        System.out.println(username);
+        return "signIn";
+    }
 }

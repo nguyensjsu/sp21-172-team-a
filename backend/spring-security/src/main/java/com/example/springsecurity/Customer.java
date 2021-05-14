@@ -1,4 +1,4 @@
-package com.example.springcashier;
+package com.example.springsecurity;
 
 import lombok.*;
 import java.util.*;

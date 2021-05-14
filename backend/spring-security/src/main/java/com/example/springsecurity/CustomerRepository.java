@@ -1,4 +1,4 @@
-package com.example.springcashier;
+package com.example.springsecurity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
