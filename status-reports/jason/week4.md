@@ -3,7 +3,7 @@
 ### Snapshot
 Below is an image of this week's task board:
 
-![image](images/week3cards.png)
+![image](images/week4cards.png)
 
 ### Accomplishments
 Week 4 was primarily spent reformatting code for the database elements and creating the final components required for StarbucksCard.
