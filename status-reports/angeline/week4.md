@@ -14,3 +14,5 @@ Our team had a bit of miscommunication and confusion over how the cashier's appl
 
 ### Challenges
 This week our team made a few Git errors that caused us to accidently remove or edit other people's work that should not have been edited (commented out/deleted working code to test their own code), and this affected others when pushed to main. This can be seen in my 2nd listed commit and I had made errors as well with the customer repository. 
+
+Our team also realized that we had a few misunderstandings about the project description (how the applications should be connected yet separated). This was resolved with several discussions as well as going to office hours.
