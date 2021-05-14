@@ -97,7 +97,6 @@ public class OrderController{
                 order.setPrice(order.getPrice() + 0.5);
                 break;
         }
-
         switch(order.getSize()) {
             case("Tall"):
                 order.setPrice(order.getPrice() + 0.5);

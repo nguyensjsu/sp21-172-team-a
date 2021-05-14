@@ -5,13 +5,15 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.*;
 import java.util.*;
+import java.io.Serializable;
+import java.util.Set;
 
 
 @Entity
 @Table(name="Customers")
 @Data
 @RequiredArgsConstructor
-public class Customer {
+public class Customer implements Serializable{
 	@Id @GeneratedValue private int id;
 	private String firstName;
 	private String middleName;
@@ -19,6 +21,9 @@ public class Customer {
 	private String username;
 	private String password;
     private int totalPurchases;
+
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Order> orders;
 	
 	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// @JoinColumn(name = "customerId")

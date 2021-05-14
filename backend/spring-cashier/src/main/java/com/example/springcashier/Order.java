@@ -3,7 +3,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 import lombok.*;
 
@@ -11,7 +12,7 @@ import lombok.*;
 @Table(name="Orders")
 @Data
 @RequiredArgsConstructor
-public class Order {
+public class Order implements Serializable{
 
     private @Id @GeneratedValue int id;
 
@@ -20,7 +21,10 @@ public class Order {
     private String size;
     private double price;
     private String status;
-    private int customerId;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_to_order_id", nullable = false)
+    private Customer customer;
 
     public Order(String drink, String milk, String size){
         this.drink = drink;
