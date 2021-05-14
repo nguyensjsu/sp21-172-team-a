@@ -106,22 +106,22 @@ public class CustomerController {
     }
 
 
-    // @GetMapping("/signIn")
-    // public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
-    //     return "signIn";
-    // }
+    @GetMapping("/signIn")
+    public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
+        return "signIn";
+    }
 
-    // @PostMapping("/signIn")
-    // public String validateUser(@Valid @ModelAttribute("signIn") Customer customer, Errors errors, Model model, HttpServletRequest request) {
-    //     String username = customer.getUsername();
-    //     String password = customer.getPassword();
+    @PostMapping("/signIn")
+    public String validateUser(@Valid @ModelAttribute("signIn") Customer customer, Errors errors, Model model, HttpServletRequest request) {
+        String username = customer.getUsername();
+        String password = customer.getPassword();
 
-    //     Customer c = repository.findByUsername(username);
-    //     if(password.equals(c.getPassword())){
-    //         System.out.println("Login worked");
-    //     }
+        Customer c = repository.findByUsername(username);
+        if(password.equals(c.getPassword())){
+            System.out.println("Login worked");
+        }
 
-    //     System.out.println(username);
-    //     return "signIn";
-    // }
+        System.out.println(username);
+        return "signIn";
+    }
 }
