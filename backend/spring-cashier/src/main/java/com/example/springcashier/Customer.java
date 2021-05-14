@@ -18,9 +18,9 @@ public class Customer implements Serializable{
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	private String username;
+	private String email;
 	private String password;
-    private int totalPurchases;
+    private int totalOrders;
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Order> orders;
@@ -45,14 +45,20 @@ public class Customer implements Serializable{
 	//  @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "id"))
 	//  private List<Order> orders = new ArrayList<>();
 
+	Customer(String firstName, String lastName, String email, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+	}
 
-	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurchases, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
+	Customer(String firstName, String middleName, String lastName, String email, String password, int totalOrders, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
-		this.username = username;
+		this.email = email;
 		this.password = password;
-		this.totalPurchases = totalPurchases;
+		this.totalOrders = totalOrders;
 		this.billingInfos = billingInfos;
 		this.creditCards = creditCards;
 		this.starbucksCards = starbucksCards;

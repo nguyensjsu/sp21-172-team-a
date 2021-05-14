@@ -116,6 +116,7 @@ public class OrderController{
             model.addAttribute("message", "There was an error with the order.");
         }
         else {
+            order.getCustomer().setTotalOrders(order.getCustomer().getTotalOrders() + 1);
             ordersRepository.save(order);
             // mostRecentOrderId = order.getId();
             log.info("Order placed.");
