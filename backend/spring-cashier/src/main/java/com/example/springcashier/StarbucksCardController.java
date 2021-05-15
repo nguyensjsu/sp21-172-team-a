@@ -89,13 +89,16 @@ public class StarbucksCardController {
 
 
     @GetMapping
-    public String getAction(Model model) {
+    public String getAction(@ModelAttribute("starbuckscards") StarbucksCard dummy, 
+                            Model model) {
         return "starbuckscards" ;
     }
 
 
     @PostMapping
-    public String postAction(Model model, HttpServletRequest request) {
+    public String postAction(@Valid @ModelAttribute("starbuckscards") StarbucksCard dummy,  
+                            
+                            Errors errors, Model model, HttpServletRequest request) {
 
 
         ErrorMessages messages = new ErrorMessages();
@@ -145,7 +148,7 @@ public class StarbucksCardController {
         auth.billToEmail = billingInfo.getEmail();  
         
 
-        auth.transactionAmount = "30.00"; // This is a temp value
+        auth.transactionAmount = dummy.getBalanceText(); // This is a temp value
         
 
         auth.transactionCurrency = "USD";
@@ -183,7 +186,7 @@ public class StarbucksCardController {
             capture.paymentId = authResponse.id;
             
 
-            capture.transactionAmount = "30.00";
+            capture.transactionAmount = dummy.getBalanceText();
             
 
             capture.transactionCurrency = "USD";
@@ -202,7 +205,7 @@ public class StarbucksCardController {
         if(authValid && captureValid){
             
 
-            starbucksCard.addBalance(30);
+            starbucksCard.addBalance(Double.parseDouble(dummy.getBalanceText()));
             
 
             repository.save(customer);
