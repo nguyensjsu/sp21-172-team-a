@@ -99,25 +99,6 @@ public class StarbucksCardController {
     public String postAction(@Valid @ModelAttribute("starbuckscards") StarbucksCard dummy,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
-
-
-        ErrorMessages messages = new ErrorMessages();
-        boolean hasErrors = false;
-
-
-        CyberSourceAPI.setHost( apiHost ) ;
-        CyberSourceAPI.setKey( merchantKeyId ) ;
-        CyberSourceAPI.setSecret(merchantsecretKey ) ;
-        CyberSourceAPI.setMerchant( merchantId ) ;
-
-
-        int min = 1239871;
-        int max = 9999999;
-        int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
-        String order_num = String.valueOf(random_int);
-        AuthRequest auth = new AuthRequest() ;
-        
-
         /*  
         *   TEST
         */
@@ -132,11 +113,41 @@ public class StarbucksCardController {
 
 
         Customer customer = repository.findById(starbucksCardTest.getCustomerId());
+        ErrorMessages messages = new ErrorMessages();
+        boolean hasErrors = false;
+        
+
+        if(customer.getBillingInfos().isEmpty()) {
+            messages.add("No Billing Info Found. Please add one before filling your card");
+            hasErrors = true;
+        }
+        if(customer.getCreditCards().isEmpty()) {
+            messages.add("No Credit Card Info Found. Please add one before filling your card");
+            hasErrors = true;
+        }
+        if(hasErrors) {
+            messages.print();
+            model.addAttribute("messages", messages.getMessage());
+            return "starbuckscards";
+        }
+        
+
         BillingInfo billingInfo = customer.getBillingInfos().get(0);
         CreditCard creditCard = customer.getCreditCards().get(0);
         StarbucksCard starbucksCard = customer.getStarbucksCards().get(0);
-        
 
+        
+        CyberSourceAPI.setHost( apiHost ) ;
+        CyberSourceAPI.setKey( merchantKeyId ) ;
+        CyberSourceAPI.setSecret(merchantsecretKey ) ;
+        CyberSourceAPI.setMerchant( merchantId ) ;
+
+
+        int min = 1239871;
+        int max = 9999999;
+        int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+        String order_num = String.valueOf(random_int);
+        AuthRequest auth = new AuthRequest() ;
         auth.reference = order_num; 
         auth.billToFirstName = customer.getFirstName();
         auth.billToLastName = customer.getLastName();
