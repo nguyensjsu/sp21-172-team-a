@@ -37,18 +37,12 @@ import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
 public class CustomerController {
-    
-    @Autowired
-    private CustomerRepository repository;
-
-    public CustomerController(CustomerRepository repository) {
-        this.repository = repository;
-    }
 
     @Getter
     @Setter
@@ -68,60 +62,14 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/joinNow")
-    public String getAction( @ModelAttribute("joinNow") Customer customer, 
-                            Model model) {
-        return "joinNow" ;
+    private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
+    public CustomerController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
     }
-
-    @PostMapping("/joinNow")
-    public String postAction(@Valid @ModelAttribute("joinNow") Customer customer,  
-                            
-                            Errors errors, Model model, HttpServletRequest request) {
-        
-        //@RequestParam(value="action", required=true) String action,
-        //log.info( "Action: " + action ) ;
-        log.info( "Command: " + customer ) ;
-
-        ErrorMessages messages = new ErrorMessages();
-        boolean hasErrors = false;
-
-
-        if(customer.getFirstName().equals(""))        { hasErrors = true; messages.add("First Name Required"); }
-        if(customer.getLastName().equals(""))           { hasErrors = true; messages.add("Last Name Required"); }
-        if(customer.getUsername().equals(""))          { hasErrors = true; messages.add("Username Required"); }
-        if(customer.getPassword().equals(""))            { hasErrors = true; messages.add("Password Required"); }
-    
-        if(hasErrors) {
-            messages.print();
-            model.addAttribute("messages", messages.getMessage());
-            return "joinNow";
-        }
-        else {
-            repository.save(customer);
-            System.out.println("Billing Information Updated!");
-            model.addAttribute("message", "Billing Information Updated!");
-             return "joinNow";
-        }
-    }
-
 
     @GetMapping("/signIn")
     public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
-        return "signIn";
-    }
-
-    @PostMapping("/signIn")
-    public String validateUser(@Valid @ModelAttribute("signIn") Customer customer, Errors errors, Model model, HttpServletRequest request) {
-        String username = customer.getUsername();
-        String password = customer.getPassword();
-
-        Customer c = repository.findByUsername(username);
-        if(password.equals(c.getPassword())){
-            System.out.println("Login worked");
-        }
-
-        System.out.println(username);
         return "signIn";
     }
 }

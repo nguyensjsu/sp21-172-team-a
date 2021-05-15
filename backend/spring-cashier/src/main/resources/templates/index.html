@@ -25,7 +25,12 @@
             <button type="button" class="btn btn-dark"><a th:href="@{/cards}">Cards Page</a></button>
             <button type="button" class="btn btn-dark"><a th:href="@{/paymentmethod}">Payments Page</a></button>
             <button type="button" class="btn btn-dark"><a th:href="@{/billinginfo}">Billing Info</a></button>
-
+            <div sec:authorize="isAuthenticated()">
+                <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Sign Out" />
+                </form>
+            </div>
         </div>
         
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
