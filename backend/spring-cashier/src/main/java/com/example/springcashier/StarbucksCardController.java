@@ -91,6 +91,7 @@ public class StarbucksCardController {
     @GetMapping
     public String getAction(@ModelAttribute("starbuckscards") StarbucksCard dummy, 
                             Model model) {
+        getStarbucksCardInfo(1, model);     
         return "starbuckscards" ;
     }
 
@@ -222,10 +223,32 @@ public class StarbucksCardController {
             repository.save(customer);
             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
             model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
+            getStarbucksCardInfo(1, model);  
         }
     
 
         return "starbuckscards";
     }
 
+
+    private void getStarbucksCardInfo(int id, Model model) {
+
+       
+        ErrorMessages e = new ErrorMessages();
+
+        
+        if(repository.findById(id) != null) {
+            Customer c = repository.findById(id);
+            if(c.getStarbucksCards().isEmpty()) {
+                c.getStarbucksCards().add(new StarbucksCard(id, 0, 0));
+            }
+        
+            e.add("Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
+            e.add("Balance:        " + c.getStarbucksCards().get(0).getBalance());
+            
+        }
+        
+
+        model.addAttribute("test", e.getMessage());   
+    }
 }
