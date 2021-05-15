@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Courgette|Pacifico:400,700">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+ <link href="css/joinNow.css" rel="stylesheet">
+</head>
+<body>
+<div class="signup-form">
+	<img th:src="@{/images/starbucks.png}">
+
+    <form action="#" method="post" th:object="${customer}" >
+		<div class="form-header">
+			<h2>Create an Account</h2>
+			<p>Starbucks Rewards</p>
+			<p> Join Starbucks Rewards to earn Stars for free food and drinks, any way you pay. Get access to mobile ordering, a birthday Reward, and more.</p>
+		</div>
+        <div class="form-group">
+			<label>First Name</label>
+        	<input type="text" class="form-control" name="firstName" required="required" th:field=*{firstName}>
+        </div>
+        <div class="form-group">
+			<label>Last Name</label>
+        	<input type="text" class="form-control" name="lastName" required="required" th:field=*{lastName}>
+        </div>
+		<div class="form-group">
+			<label>Email</label>
+            <input type="email" class="form-control" name="email" required="required" th:field=*{email}>
+        </div>
+		<div class="form-group">
+			<label>Password</label>
+            <input type="password" class="form-control" name="password" required="required" th:field=*{password}>
+        </div>        
+        <div class="form-group">
+			<label class="form-check-label"><input type="checkbox" required="required"> I agree to the 
+		Starbucks® Rewards Terms and the Starbucks Card Terms </a></label>
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary btn-block btn-lg">Create Account</button>
+		</div>	
+    </form>
+	<div class="text-center small">Already have an account? <a th:href="@{/signIn}">Login here</a></div>
+	
+	<div style="color:red" th:if="${not#lists.isEmpty(messages)}">
+		<div class="messages">
+		  <ul th:each="m : ${messages}">
+			<li th:text="${m.msg}">
+		  </ul>
+		</div>
+	  </div>
+
+	  <div class="message">
+	  <span th:text="${message}" />
+	  </div>
+</div>
+</body>
+</html>
