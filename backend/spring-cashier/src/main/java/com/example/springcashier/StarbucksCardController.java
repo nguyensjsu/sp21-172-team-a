@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,15 +37,10 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/starbuckscards")
+@RequestMapping(value = "/starbuckscards", method = RequestMethod.GET)
 public class StarbucksCardController {
     String amountToAdd;
     double amount;
-    public String submitForm(@ModelAttribute("card") StarbucksCard card){
-    amountToAdd = card.getAmountToAdd();
-    amount = Double.parseDouble(amountToAdd);
-    return "starbuckscards";
-    }
     @Value("${cybersource.apihost}") private String apiHost ;
     @Value("${cybersource.merchantkeyid}") private String merchantKeyId ;
     @Value("${cybersource.merchantsecretkey}") private String merchantsecretKey ;
@@ -99,9 +95,12 @@ public class StarbucksCardController {
     }
 
 
-    @PostMapping
-    public String postAction(Model model, HttpServletRequest request) {
 
+    @PostMapping("/card")
+    public String postAction(Model model, HttpServletRequest request, @ModelAttribute("card") StarbucksCard card) {
+        amountToAdd = card.getAmountToAdd();
+        amount = Double.parseDouble(amountToAdd);
+        model.addAttribute("amount", amountToAdd);
 
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;

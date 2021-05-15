@@ -46,4 +46,9 @@ class StarbucksCard {
         this.rewardsPoints = rewardsPoints;
         this.balance = balance;
     }
+
+
+    public String getAmountToAdd() {
+        return amountToAdd;
+    }
 }
