@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,12 +36,15 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/starbuckscards", method=RequestMethod.POST)
+@RequestMapping(value = "/starbuckscards")
 public class StarbucksCardController {
+    String amountToAdd;
+    double amount;
     public String submitForm(@ModelAttribute("card") StarbucksCard card){
-    String amountToAdd = card.getAmountToAdd();
+    amountToAdd = card.getAmountToAdd();
+    amount = Double.parseDouble(amountToAdd);
+    return "starbuckscards";
     }
- 
     @Value("${cybersource.apihost}") private String apiHost ;
     @Value("${cybersource.merchantkeyid}") private String merchantKeyId ;
     @Value("${cybersource.merchantsecretkey}") private String merchantsecretKey ;
@@ -146,7 +148,11 @@ public class StarbucksCardController {
         auth.billToZipCode = billingInfo.getZip();
         auth.billToPhone = billingInfo.getPhone();
         auth.billToEmail = billingInfo.getEmail();  
-        auth.transactionAmount = "30.00"; // This is a temp value
+
+
+        auth.transactionAmount = amountToAdd; // This is a temp value
+
+
         auth.transactionCurrency = "USD";
         auth.cardNumnber = creditCard.getCardnum();
         auth.cardExpMonth = months.get(creditCard.getCardexpmon());
@@ -180,7 +186,7 @@ public class StarbucksCardController {
         if (authValid) {
             capture.reference = order_num;
             capture.paymentId = authResponse.id;
-            capture.transactionAmount = "30.00";
+            capture.transactionAmount = amountToAdd;
             capture.transactionCurrency = "USD";
             System.out.println("\n\nCapture Request: " + capture.toJson() ) ;
             captureResponse = api.capture(capture) ;
@@ -197,7 +203,7 @@ public class StarbucksCardController {
         if(authValid && captureValid){
             
 
-            starbucksCard.addBalance(30);
+            starbucksCard.addBalance(amount);
             repository.save(customer);
             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
             model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
