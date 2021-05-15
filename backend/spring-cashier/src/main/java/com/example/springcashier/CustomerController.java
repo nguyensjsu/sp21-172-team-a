@@ -33,6 +33,7 @@ import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
@@ -63,7 +64,13 @@ public class CustomerController{
         }
     }
 
-    @GetMapping
+    private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
+    public CustomerController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
+    }
+
+    @GetMapping("/joinNow")
     public String getAction( @ModelAttribute("customer") Customer customer,
                             Model model) {
         return "joinNow" ;
@@ -92,5 +99,10 @@ public class CustomerController{
         }
 
         return "joinNow";
+    }
+
+    @GetMapping("/signIn")
+    public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
+        return "signIn";
     }
 }
