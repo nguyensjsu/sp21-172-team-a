@@ -16,6 +16,7 @@ class StarbucksCard {
     private int customerId;
     private double rewardsPoints;
     private double balance;
+    private String balanceText;
 
 
     public void addRewardsPoints(double points) {
@@ -46,5 +47,6 @@ class StarbucksCard {
         this.customerId = customerId;
         this.rewardsPoints = rewardsPoints;
         this.balance = balance;
+        balanceText = null;
     }
 }

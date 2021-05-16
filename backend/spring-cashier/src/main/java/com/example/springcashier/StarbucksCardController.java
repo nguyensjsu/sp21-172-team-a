@@ -89,32 +89,17 @@ public class StarbucksCardController {
 
 
     @GetMapping
-    public String getAction(Model model) {
+    public String getAction(@ModelAttribute("starbuckscards") StarbucksCard dummy, 
+                            Model model) {
+        getStarbucksCardInfo(1, model);     
         return "starbuckscards" ;
     }
 
 
     @PostMapping
-    public String postAction(Model model, HttpServletRequest request) {
-
-
-        ErrorMessages messages = new ErrorMessages();
-        boolean hasErrors = false;
-
-
-        CyberSourceAPI.setHost( apiHost ) ;
-        CyberSourceAPI.setKey( merchantKeyId ) ;
-        CyberSourceAPI.setSecret(merchantsecretKey ) ;
-        CyberSourceAPI.setMerchant( merchantId ) ;
-
-
-        int min = 1239871;
-        int max = 9999999;
-        int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
-        String order_num = String.valueOf(random_int);
-        AuthRequest auth = new AuthRequest() ;
-        
-
+    public String postAction(@Valid @ModelAttribute("starbuckscards") StarbucksCard dummy,  
+                            
+                            Errors errors, Model model, HttpServletRequest request) {
         /*  
         *   TEST
         */
@@ -129,11 +114,41 @@ public class StarbucksCardController {
 
 
         Customer customer = repository.findById(starbucksCardTest.getCustomerId());
+        ErrorMessages messages = new ErrorMessages();
+        boolean hasErrors = false;
+        
+
+        if(customer.getBillingInfos().isEmpty()) {
+            messages.add("No Billing Info Found. Please add one before filling your card");
+            hasErrors = true;
+        }
+        if(customer.getCreditCards().isEmpty()) {
+            messages.add("No Credit Card Info Found. Please add one before filling your card");
+            hasErrors = true;
+        }
+        if(hasErrors) {
+            messages.print();
+            model.addAttribute("messages", messages.getMessage());
+            return "starbuckscards";
+        }
+        
+
         BillingInfo billingInfo = customer.getBillingInfos().get(0);
         CreditCard creditCard = customer.getCreditCards().get(0);
         StarbucksCard starbucksCard = customer.getStarbucksCards().get(0);
-        
 
+        
+        CyberSourceAPI.setHost( apiHost ) ;
+        CyberSourceAPI.setKey( merchantKeyId ) ;
+        CyberSourceAPI.setSecret(merchantsecretKey ) ;
+        CyberSourceAPI.setMerchant( merchantId ) ;
+
+
+        int min = 1239871;
+        int max = 9999999;
+        int random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+        String order_num = String.valueOf(random_int);
+        AuthRequest auth = new AuthRequest() ;
         auth.reference = order_num; 
         auth.billToFirstName = customer.getFirstName();
         auth.billToLastName = customer.getLastName();
@@ -143,7 +158,11 @@ public class StarbucksCardController {
         auth.billToZipCode = billingInfo.getZip();
         auth.billToPhone = billingInfo.getPhone();
         auth.billToEmail = billingInfo.getEmail();  
-        auth.transactionAmount = "30.00"; // This is a temp value
+        
+
+        auth.transactionAmount = dummy.getBalanceText(); // This is a temp value
+        
+
         auth.transactionCurrency = "USD";
         auth.cardNumnber = creditCard.getCardnum();
         auth.cardExpMonth = months.get(creditCard.getCardexpmon());
@@ -177,7 +196,11 @@ public class StarbucksCardController {
         if (authValid) {
             capture.reference = order_num;
             capture.paymentId = authResponse.id;
-            capture.transactionAmount = "30.00";
+            
+
+            capture.transactionAmount = dummy.getBalanceText();
+            
+
             capture.transactionCurrency = "USD";
             System.out.println("\n\nCapture Request: " + capture.toJson() ) ;
             captureResponse = api.capture(capture) ;
@@ -194,14 +217,38 @@ public class StarbucksCardController {
         if(authValid && captureValid){
             
 
-            starbucksCard.addBalance(30);
+            starbucksCard.addBalance(Double.parseDouble(dummy.getBalanceText()));
+            
+
             repository.save(customer);
             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
             model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
+            getStarbucksCardInfo(1, model);  
         }
     
 
         return "starbuckscards";
     }
 
+
+    private void getStarbucksCardInfo(int id, Model model) {
+
+       
+        ErrorMessages e = new ErrorMessages();
+
+        
+        if(repository.findById(id) != null) {
+            Customer c = repository.findById(id);
+            if(c.getStarbucksCards().isEmpty()) {
+                c.getStarbucksCards().add(new StarbucksCard(id, 0, 0));
+            }
+        
+            e.add("Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
+            e.add("Balance:        " + c.getStarbucksCards().get(0).getBalance());
+            
+        }
+        
+
+        model.addAttribute("test", e.getMessage());   
+    }
 }

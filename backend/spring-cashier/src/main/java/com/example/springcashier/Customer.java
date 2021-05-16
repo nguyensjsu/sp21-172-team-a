@@ -60,10 +60,15 @@ public class Customer implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.totalOrders = totalOrders;
-        this.rewards = rewards;
-		this.billingInfos = billingInfos;
-		this.creditCards = creditCards;
-		this.starbucksCards = starbucksCards;
+		if(billingInfos != null) {
+			this.billingInfos = billingInfos;
+		}
+		if(creditCards != null) {
+			this.creditCards = creditCards;
+		}
+		if(starbucksCards != null) {
+			this.starbucksCards = starbucksCards;
+		}
 	}
 	
 

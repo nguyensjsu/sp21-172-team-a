@@ -10,17 +10,22 @@
 </head>
 <body>
 
-<h2>Add User Info</h2>
+<h2>Starbucks Cards</h2>
     <div>
-      <form name="form" method="post">     
+      <form name="form" th:object="${starbuckscards}" method="post">     
         <div class="row">
           <div class="col-50">
 
+            <div th:if="${not#lists.isEmpty(test)}">
+              <div class="messages">
+                <ul th:each="m : ${test}">
+                  <li th:text="${m.msg}">
+                </ul>
+              </div>
+            </div>
 
-            <h4>Billing Address</h4>            
-            
-
-            <h4>Contact Info</h4>
+            <label class="required" for="balanceText">Please Submit The Amount to Add</label>
+            <input type="text" id="balanceText" required="required" name="balanceText" th:field="*{balanceText}" >          
 
 
             <div th:if="${not#lists.isEmpty(messages)}">
