@@ -163,7 +163,7 @@ public class BillingInfoController {
         else {
             ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
             list.add(billingInfo);
-            Customer c = new Customer("John", null, null, null, null, 0, list, null, null);
+            Customer c = new Customer("John", null, null, null, null, 0, 0, list, null, null);
             repository.save(c);
             //int id = c.getId();
             System.out.println("Billing Information Updated!");

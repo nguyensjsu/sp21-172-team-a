@@ -76,7 +76,7 @@ public class BackOfficeController {
             //repository.save(c);
             messages.add("Customer First Name: " + c.getFirstName());
             messages.add("Customer Last Name: " + c.getLastName());
-            messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
+            messages.add("Starbucks Cards Rewards Points: " + c.getRewards());
             model.addAttribute("messages", messages.getMessage());
             x++;
         }

@@ -21,6 +21,7 @@ public class Customer implements Serializable{
 	private String email;
 	private String password;
     private int totalOrders;
+    private int rewards;
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Order> orders;
@@ -52,13 +53,14 @@ public class Customer implements Serializable{
 		this.password = password;
 	}
 
-	Customer(String firstName, String middleName, String lastName, String email, String password, int totalOrders, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
+	Customer(String firstName, String middleName, String lastName, String email, String password, int totalOrders, int rewards, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.totalOrders = totalOrders;
+        this.rewards = rewards;
 		this.billingInfos = billingInfos;
 		this.creditCards = creditCards;
 		this.starbucksCards = starbucksCards;
