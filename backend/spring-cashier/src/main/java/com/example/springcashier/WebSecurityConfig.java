@@ -19,8 +19,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/index").permitAll().anyRequest().authenticated().and().formLogin()
+        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated().and().formLogin()
                 .loginPage("/signIn").permitAll().and().logout().logoutSuccessUrl("/signIn").permitAll();
+        http.cors().and().csrf().disable();
     }
 
     // cashier's app & backoffice

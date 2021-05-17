@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Welcome to Starbucks Reserved!</h1>
+    <img th:src="@{/images/starbucksLogo.jpg}">
     <div id="main">
         <div class="column">
             <form action="#" id="order-form" method="post" th:object="${order}" class="mt-5" >
@@ -78,10 +79,6 @@
                     <input type="text" id="customer" name="customer" th:field="*{customer}"><br><br>
                 </div>
             </form>
-
-        <div class="container">
-            <h1>Welcome to Starbucks Reserved!</h1>
-            <input class ="input" type="text"/>
             <div class="dropdown">
                 <button class="btn~ btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
                 <span class="caret"></span></button>
@@ -93,13 +90,8 @@
             </div>
             <button type="button" class="btn btn-dark" onclick="clearSelection()">Clear Selection</button>
             <button type="submit" form="order-form" class="btn btn-dark">Place Order</button>
-              </div>
-              <img th:src="@{/images/starbucksLogo.jpg}">
-              <!-- <img src="/backend/spring-cashier/src/main/java/com/example/springcashier/"> -->
-
-            <button type="button" class="btn btn-dark">Get Order</button>
-            <button type="button" class="btn btn-dark">Place Order</button>
-            <button type="button" class="btn btn-dark">Clear Order</button>
+        </div>
+        <div id="pagesnauth">
             <button type="button" class="btn btn-dark"><a th:href="@{/cards}">Cards Page</a></button>
             <button type="button" class="btn btn-dark"><a th:href="@{/paymentmethod}">Payments Page</a></button>
             <button type="button" class="btn btn-dark"><a th:href="@{/billinginfo}">Billing Info</a></button>
