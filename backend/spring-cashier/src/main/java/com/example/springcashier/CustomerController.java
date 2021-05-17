@@ -85,7 +85,7 @@ public class CustomerController{
         boolean hasErrors = false;
 
         if(customer.getLastName().equals(""))      { hasErrors = true; messages.add("Last Name Required"); }
-        if(customer.getEmail().equals(""))      { hasErrors = true; messages.add("Email Required"); }
+        if(customer.getUsername().equals(""))      { hasErrors = true; messages.add("Username Required"); }
         if(customer.getPassword().equals(""))      { hasErrors = true; messages.add("Password Required"); }
         if(!customer.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) { hasErrors = true; messages.add("Password must have a minimum of eight characters, at least one letter, one number and one special character."); }
 
