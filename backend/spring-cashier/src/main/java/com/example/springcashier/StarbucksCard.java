@@ -24,19 +24,19 @@ class StarbucksCard {
     }
 
 
-    public void removeRewardsPoints(double points) {
+    public void addBalance(double amount) {
+        balance += amount;
+    }
+    
+
+    public void payWithRewardsPoints(double points) {
         if(rewardsPoints - points >= 0) {
             rewardsPoints -= points;
         }
     }
 
 
-    public void addBalance(double amount) {
-        balance += amount;
-    }
-    
-
-    public void pay(double amount) {
+    public void payWithBalance(double amount) {
         if(balance - amount >= 0) {
             balance -= amount;
         }
