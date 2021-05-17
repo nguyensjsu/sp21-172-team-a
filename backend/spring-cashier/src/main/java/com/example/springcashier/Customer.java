@@ -42,10 +42,6 @@ public class Customer implements Serializable{
 	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "id"))
  	private List<StarbucksCard> starbucksCards = new ArrayList<>();
 
-	//  @ElementCollection(fetch = FetchType.LAZY)
-	//  @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "id"))
-	//  private List<Order> orders = new ArrayList<>();
-
 	Customer(String firstName, String lastName, String username, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -53,7 +49,7 @@ public class Customer implements Serializable{
 		this.password = password;
 	}
 
-	Customer(String firstName, String middleName, String lastName, String email, String password, int totalOrders, int rewards, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
+	Customer(String firstName, String middleName, String lastName, String username, String password, int totalOrders, int rewards, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -85,19 +81,6 @@ public class Customer implements Serializable{
 	void addCreditCard(StarbucksCard starbucksCard) {
 		starbucksCards.add(starbucksCard);
 	}
-
-	Customer(String firstName, String middleName, String lastName, String username, String password, int totalPurchases, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards, List<Order> orders) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.totalPurchases = totalPurchases;
-        this.billingInfos = billingInfos;
-        this.creditCards = creditCards;
-        this.starbucksCards = starbucksCards;
-        this.orders = orders;
-    }
 
 	public String getLastName() {
 		return lastName;

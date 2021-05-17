@@ -70,7 +70,7 @@ public class CustomerController{
         this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
     }
 
-    @GetMapping("/joinNow")
+    @GetMapping
     public String getAction( @ModelAttribute("customer") Customer customer,
                             Model model) {
         return "joinNow" ;
@@ -84,6 +84,7 @@ public class CustomerController{
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
 
+        if(customer.getFirstName().equals(""))      { hasErrors = true; messages.add("First Name Required"); }
         if(customer.getLastName().equals(""))      { hasErrors = true; messages.add("Last Name Required"); }
         if(customer.getUsername().equals(""))      { hasErrors = true; messages.add("Username Required"); }
         if(customer.getPassword().equals(""))      { hasErrors = true; messages.add("Password Required"); }
@@ -99,10 +100,5 @@ public class CustomerController{
         }
 
         return "joinNow";
-    }
-
-    @GetMapping("/signIn")
-    public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
-        return "signIn";
     }
 }

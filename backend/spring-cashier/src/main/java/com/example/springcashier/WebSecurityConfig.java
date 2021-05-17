@@ -22,6 +22,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/", "/index").permitAll().anyRequest().authenticated().and().formLogin()
                 .loginPage("/signIn").permitAll().and().logout().logoutSuccessUrl("/signIn").permitAll();
     }
+
+    // cashier's app & backoffice
+    // employee login -> allows you to access everything on this app = not a blacklist/whitelist 
+
+    // customer
+    // already on app -> customer login -> allows you to access account info = blacklist
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+            .ignoring()
+            .antMatchers("/h2-console/**");
+    }
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
