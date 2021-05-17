@@ -33,6 +33,7 @@ import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
@@ -52,7 +53,6 @@ public class CustomerController{
         public Message(String m) { msg = m ; }
     }
 
-
     class ErrorMessages {
         private ArrayList<Message> messages = new ArrayList<Message>() ;
         public void add( String msg ) { messages.add(new Message(msg) ) ; }
@@ -64,7 +64,13 @@ public class CustomerController{
         }
     }
 
-    @GetMapping
+    private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
+    public CustomerController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
+    }
+
+    @GetMapping("/joinNow")
     public String getAction( @ModelAttribute("customer") Customer customer,
                             Model model) {
         return "joinNow" ;
@@ -78,9 +84,8 @@ public class CustomerController{
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
 
-        if(customer.getFirstName().equals(""))      { hasErrors = true; messages.add("First Name Required"); }
         if(customer.getLastName().equals(""))      { hasErrors = true; messages.add("Last Name Required"); }
-        if(customer.getEmail().equals(""))      { hasErrors = true; messages.add("Email Required"); }
+        if(customer.getUsername().equals(""))      { hasErrors = true; messages.add("Username Required"); }
         if(customer.getPassword().equals(""))      { hasErrors = true; messages.add("Password Required"); }
         if(!customer.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) { hasErrors = true; messages.add("Password must have a minimum of eight characters, at least one letter, one number and one special character."); }
 
@@ -94,5 +99,10 @@ public class CustomerController{
         }
 
         return "joinNow";
+    }
+
+    @GetMapping("/signIn")
+    public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
+        return "signIn";
     }
 }
