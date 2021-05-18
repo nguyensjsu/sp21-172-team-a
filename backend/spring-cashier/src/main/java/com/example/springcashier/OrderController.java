@@ -165,11 +165,11 @@ public class OrderController{
     }
     
     /*Rest API*/
-    // @GetMapping("/orders")
-    // @ResponseBody
-    // List<Order> all(){
-    //     return ordersRepository.findAll();
-    // }
+    @GetMapping("/orders")
+    @ResponseBody
+    List<Order> all(){
+        return ordersRepository.findAll();
+    }
 
     @GetMapping("/order/register/{regid}")
     @ResponseBody
