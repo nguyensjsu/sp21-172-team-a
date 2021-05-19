@@ -24,8 +24,8 @@ public class Customer implements Serializable{
     private int totalOrders;
     private int rewards;
 
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Order> orders;
+	//@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//private Set<Order> orders;
 	
 	// @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	// @JoinColumn(name = "customerId")

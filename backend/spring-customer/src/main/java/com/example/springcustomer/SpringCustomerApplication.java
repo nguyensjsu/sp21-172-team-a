@@ -1,6 +1,10 @@
 package com.example.springcustomer;
+import java.sql.SQLException;
+
+import org.h2.tools.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 // import javax.validation.Valid;
 // import javax.servlet.http.HttpServletRequest;
@@ -36,7 +40,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // import org.springframework.beans.factory.annotation.Value;
 
 @SpringBootApplication
-public class SpringCashierApplication{
+public class SpringCustomerApplication{
 
  // implements CommandLineRunner
 
@@ -44,8 +48,14 @@ public class SpringCashierApplication{
     // private CustomerRepository repository;
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCashierApplication.class, args);
+        SpringApplication.run(SpringCustomerApplication.class, args);
     }
+
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public Server h2Server() throws SQLException {
+    return Server.createTcpServer(
+      "-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
+}
 
     // @Override
     // public void run(String... args) throws Exception {
