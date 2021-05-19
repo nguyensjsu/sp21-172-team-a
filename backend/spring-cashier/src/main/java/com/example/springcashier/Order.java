@@ -14,7 +14,7 @@ import lombok.*;
 @RequiredArgsConstructor
 public class Order implements Serializable{
 
-    private @Id @GeneratedValue int id;
+    private @Id int id;
 
     private String drink;
     private String milk;
