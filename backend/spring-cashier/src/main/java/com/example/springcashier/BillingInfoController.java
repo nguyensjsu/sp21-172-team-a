@@ -130,6 +130,7 @@ public class BillingInfoController {
     @GetMapping("/billinginfo")
     public String getAction( @ModelAttribute("billingInfo") BillingInfo billingInfo, 
                             Model model) {
+        
         return "billinginfo" ;
     }
 

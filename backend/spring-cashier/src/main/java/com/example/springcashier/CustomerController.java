@@ -34,6 +34,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.beans.factory.annotation.Value;
@@ -106,7 +107,7 @@ public class CustomerController{
             customer.getStarbucksCards().add(new StarbucksCard(loggedInCustomerId, 0, 0));
             customersRepository.save(customer);
             log.info("User account created.");
-            //inMemoryUserDetailsManager.createUser(User.withUsername(customer.getUsername()).password("{noop}" + customer.getPassword).roles("USER").build());
+            inMemoryUserDetailsManager.createUser(User.withUsername(customer.getUsername()).password("{noop}" + customer.getPassword()).roles("USER").build());
             return "homepage";
         }
     }

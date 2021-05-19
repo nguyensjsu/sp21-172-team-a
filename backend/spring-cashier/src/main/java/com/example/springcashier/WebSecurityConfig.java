@@ -83,32 +83,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-console/**");
     }
     
-   @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+   // @Override
+   //  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // int x = 1;
-        // String username = "null";
-        // String password = "null";
-        // System.out.println("Username: " + username + " Password: " + password);
-        // while(repository.findById(x) != null) {
-        //     Customer c = repository.findById(x);
-        //     username = c.getUsername();
-        //     password = c.getPassword();
+   //      // int x = 1;
+   //      // String username = "null";
+   //      // String password = "null";
+   //      // System.out.println("Username: " + username + " Password: " + password);
+   //      // while(repository.findById(x) != null) {
+   //      //     Customer c = repository.findById(x);
+   //      //     username = c.getUsername();
+   //      //     password = c.getPassword();
 
-        //     System.out.println("Username: " + username + " Password: " + password);
+   //      //     System.out.println("Username: " + username + " Password: " + password);
 
-        //     auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-        //         .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
-        //         .withUser(username).password(password).roles("USER");
-        // }  
+   //      //     auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+   //      //         .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
+   //      //         .withUser(username).password(password).roles("USER");
+   //      // }  
 
 
-        auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
-                .withUser("user1").password("user1pass").roles("USER").and()
-                .withUser("user2").password("user2pass").roles("USER").and()
-                .withUser("user3").password("user3pass").roles("USER");
-    } 
+   //      auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+   //              .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
+   //              .withUser("user1").password("user1pass").roles("USER").and()
+   //              .withUser("user2").password("user2pass").roles("USER").and()
+   //              .withUser("user3").password("user3pass").roles("USER");
+   //  } 
 
     @Bean
     public InMemoryUserDetailsManager getInMemoryUserDetailsManager(){
