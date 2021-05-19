@@ -105,6 +105,7 @@ public class StarbucksCardController {
     @ResponseBody
     StarbucksCard getOne(HttpServletResponse response) {
         StarbucksCard card = new StarbucksCard(0,0,0);
+        StarbucksCard cardAPI = repository.findById(CustomerController.loggedInCustomerId).getStarbucksCards().get(0);
         //Customer test = repository.findById(1);
         //card.setCustomerId(test.getId());
         //test.getStarbucksCards().add(card);
