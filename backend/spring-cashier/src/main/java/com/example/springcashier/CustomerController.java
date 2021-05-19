@@ -34,19 +34,25 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
 @RequestMapping(value = {"/joinNow"})
 public class CustomerController{
-    
-    // int mostRecentOrderId;
+
 
     @Autowired
     private CustomerRepository customersRepository;
 
     public static int loggedInCustomerId;
+    private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
+    public CustomerController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
+    }
 
     @Getter
     @Setter
@@ -65,12 +71,7 @@ public class CustomerController{
             }
         }
     }
-
-    private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
-
-    public CustomerController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
-        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
-    }
+    
 
     @GetMapping
     public String getAction( @ModelAttribute("customer") Customer customer,
@@ -105,6 +106,7 @@ public class CustomerController{
             customer.getStarbucksCards().add(new StarbucksCard(loggedInCustomerId, 0, 0));
             customersRepository.save(customer);
             log.info("User account created.");
+            //inMemoryUserDetailsManager.createUser(User.withUsername(customer.getUsername()).password("{noop}" + customer.getPassword).roles("USER").build());
             return "homepage";
         }
     }
