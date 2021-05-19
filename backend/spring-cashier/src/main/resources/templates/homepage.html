@@ -7,6 +7,12 @@
     <body>
         <div class="container">
             <h1>Welcome to Starbucks Reserved!</h1>
+            <div sec:authorize="isAuthenticated()">
+                <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Sign Out" />
+                </form>
+            </div>
             <input class ="input" type="text"/>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store

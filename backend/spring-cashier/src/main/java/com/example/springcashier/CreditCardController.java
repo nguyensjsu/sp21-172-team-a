@@ -43,6 +43,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
+
 
 @Slf4j
 @Controller
@@ -97,14 +102,6 @@ public class CreditCardController {
         return "paymentmethod";
     }
 
-    @GetMapping("/card")
-    @ResponseBody
-    CreditCard getOne(HttpServletResponse response) {
-        CreditCard creditCardAPI = repository.findById(CustomerController.loggedInCustomerId).getCreditCards().get(0);
-        if(creditCardAPI == null)
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
-        return creditCardAPI;
-    }
 
     @PostMapping({"/paymentmethod"})
     public String postAction(@Valid @ModelAttribute("command") CreditCard command,  
@@ -135,7 +132,9 @@ public class CreditCardController {
             return "paymentmethod";
         }
         else {
-            Customer c = repository.findById(CustomerController.loggedInCustomerId);
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails)principal).getUsername();
+            Customer c = repository.findByUsername(username);
             c.getCreditCards().add(command);
             repository.save(c);
             System.out.println("Thank You for your Payment!");
@@ -144,5 +143,10 @@ public class CreditCardController {
     
 
         return "paymentmethod";
+    }
+
+
+    public String currentUserName(Principal principal) {
+        return principal.getName();
     }
 }

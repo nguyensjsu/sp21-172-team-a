@@ -51,6 +51,7 @@ public class SignInController {
 
     // @PostMapping
     // public String login( @ModelAttribute("signIn") Customer customer, Model model){
+    //     System.out.println("Start");
     //     Customer c = repository.findByUsername(customer.getUsername());
     //     if(c.getPassword().matches(customer.getPassword())) {
     //     	System.out.println(c.getId());

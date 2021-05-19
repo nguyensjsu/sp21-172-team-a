@@ -39,6 +39,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
+
 
 @Slf4j
 @Controller
@@ -137,14 +142,6 @@ public class BillingInfoController {
         return "billinginfo" ;
     }
 
-    @GetMapping("/billing")
-    @ResponseBody
-    BillingInfo getOne(HttpServletResponse response) {
-        BillingInfo billingInfoAPI = repository.findById(CustomerController.loggedInCustomerId).getBillingInfos().get(0);
-        if(billingInfoAPI == null)
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
-        return billingInfoAPI;
-    }
 
     @PostMapping("/billinginfo")
     public String postAction(@Valid @ModelAttribute("billingInfo") BillingInfo billingInfo,  
@@ -176,75 +173,20 @@ public class BillingInfoController {
             return "billinginfo";
         }
         else {
-            Customer c = repository.findById(CustomerController.loggedInCustomerId);
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails)principal).getUsername();
+            Customer c = repository.findByUsername(username);
             c.getBillingInfos().add(billingInfo);
             repository.save(c);
             System.out.println("Billing Information Updated!");
-            System.out.println(CustomerController.loggedInCustomerId);
             model.addAttribute("message", "Billing Information Updated!");
             return "billinginfo";
         }
     }
 
-
-    // @GetMapping("/billinginfo/get")
+    // @GetMapping(value = "/username")
     // @ResponseBody
-    // BillingInfo getBillingInfo() {
-        
-    //         BillingInfo billingInfo = new BillingInfo("address", "city", "CA", "12345", "(408) 270-1510", "john@example.com");
-    //         ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
-    //         list.add(billingInfo);
-    //         Customer c = new Customer("John2", null, null, null, null, 0, 0, list, null, null);
-    //         repository.save(c);
-    //         return billingInfo;
-   
-    // }
-
-
-    // @PostMapping("/billinginfo/create")
-    // @ResponseBody
-    // BillingInfo newBillingInfo() {
-        
-    //         BillingInfo billingInfo = new BillingInfo("address", "city", "CA", "12345", "(408) 270-1510", "john@example.com");
-    //         ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
-    //         list.add(billingInfo);
-    //         Customer c = new Customer("John2", null, null, null, null, 0, 0, list, null, null);
-    //         repository.save(c);
-    //         return billingInfo;
-   
-    // }
-
-
-    // @PostMapping("/billinginfo/{address}/{city}/{state}/{zip}/{phone}/{email}")
-    // @ResponseBody
-    // BillingInfo newBillingInfo(@PathVariable String address, @PathVariable String city, @PathVariable String state,
-    //                            @PathVariable String zip, @PathVariable String phone, @PathVariable String email, @RequestBody BillingInfo billingInfo){
-        
-    //     ErrorMessages messages = new ErrorMessages();
-    //     boolean hasErrors = false;
-
-
-    //     if(billingInfo.getAddress().equals(""))        { hasErrors = true; messages.add("Address Required"); }
-    //     if(billingInfo.getCity().equals(""))           { hasErrors = true; messages.add("City Required"); }
-    //     if(billingInfo.getState().equals(""))          { hasErrors = true; messages.add("State Required"); }
-    //     if(billingInfo.getZip().equals(""))            { hasErrors = true; messages.add("Zip Required"); }
-    //     if(billingInfo.getPhone().equals(""))          { hasErrors = true; messages.add("Phone Number Required"); }
-    //     if(billingInfo.getEmail().equals(""))          { hasErrors = true; messages.add("Email Required"); }
-    //     if(!billingInfo.getZip().matches("\\d{5}"))                                { hasErrors = true; messages.add("Invalid Zip Code"); }
-    //     if(!billingInfo.getPhone().matches("[(]\\d{3}[)] \\d{3}-\\d{4}"))          { hasErrors = true; messages.add("Invalid Phone Number"); }
-    //     if(states.get(billingInfo.getState()) == null)        {hasErrors = true; messages.add("Invalid State"); }
-
-
-    //     if(hasErrors) {
-    //         messages.print();
-    //         return null;
-    //     }
-    //     else {
-    //         ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
-    //         list.add(billingInfo);
-    //         Customer c = new Customer("John2", null, null, null, null, 0, 0, list, null, null);
-    //         repository.save(c);
-    //         return billingInfo;
-    //     }
-    // }
+    public String currentUserName(Principal principal) {
+        return principal.getName();
+    }
 }
