@@ -101,7 +101,9 @@ public class CustomerController{
         else {
             customersRepository.save(customer);
             loggedInCustomerId = customer.getId();
+            System.out.println(loggedInCustomerId);
             customer.getStarbucksCards().add(new StarbucksCard(loggedInCustomerId, 0, 0));
+            customersRepository.save(customer);
             log.info("User account created.");
             return "homepage";
         }

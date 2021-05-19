@@ -100,20 +100,9 @@ public class StarbucksCardController {
     public String postAction(@Valid @ModelAttribute("starbuckscards") StarbucksCard dummy,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
-        /*  
-        *   TEST
-        */
-        StarbucksCard starbucksCardTest = new StarbucksCard(0, 0, 0);
-        Customer test = repository.findById(1);
-        starbucksCardTest.setCustomerId(test.getId());
-        test.getStarbucksCards().add(starbucksCardTest);
-        repository.save(test);
-        /*  
-        *   TEST
-        */
 
 
-        Customer customer = repository.findById(starbucksCardTest.getCustomerId());
+        Customer customer = repository.findById(CustomerController.loggedInCustomerId);
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
         
@@ -158,11 +147,7 @@ public class StarbucksCardController {
         auth.billToZipCode = billingInfo.getZip();
         auth.billToPhone = billingInfo.getPhone();
         auth.billToEmail = billingInfo.getEmail();  
-        
-
-        auth.transactionAmount = dummy.getBalanceText(); // This is a temp value
-        
-
+        auth.transactionAmount = dummy.getBalanceText();
         auth.transactionCurrency = "USD";
         auth.cardNumnber = creditCard.getCardnum();
         auth.cardExpMonth = months.get(creditCard.getCardexpmon());
@@ -173,6 +158,7 @@ public class StarbucksCardController {
        
         if(auth.cardType.equals("ERROR")) {
             System.out.println("Unsupported Card Type");
+            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
             model.addAttribute("message", "Unsupported Card Type");
             return "starbuckscards";
         }
@@ -186,6 +172,7 @@ public class StarbucksCardController {
         authValid = true;
         if (!authResponse.status.equals("AUTHORIZED")) {
             System.out.println(authResponse.message);
+            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
             model.addAttribute("message", authResponse.message);
             return "starbuckscards";  
         }
@@ -208,6 +195,7 @@ public class StarbucksCardController {
             captureValid = true;
             if ( !captureResponse.status.equals("PENDING") ) {
                 System.out.println(captureResponse.message);
+                getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
                 model.addAttribute("message", captureResponse.message);
                 return "starbuckscards";
             }
@@ -223,7 +211,7 @@ public class StarbucksCardController {
             repository.save(customer);
             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
             model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
-            getStarbucksCardInfo(1, model);  
+            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model); 
         }
     
 
