@@ -40,10 +40,10 @@ import org.springframework.beans.factory.annotation.Value;
 @Controller
 public class OrderController{
     
-    // int mostRecentOrderId;
-
     @Autowired
     private OrderRepository ordersRepository;
+
+    private HashMap<Integer, Order> orders = new HashMap<>();
 
     @Getter
     @Setter
@@ -67,6 +67,11 @@ public class OrderController{
     @GetMapping("/index")
     public String getAction( @ModelAttribute("order") Order order,
                             Model model) {
+        Random random = new Random();
+        int x = random.nextInt(99999999) + 10000000;
+        order.setId(x);
+        System.out.println(order.getId());
+
         return "index" ;
     }
     
@@ -75,10 +80,17 @@ public class OrderController{
     //     repository.deleteById(order.getId());
     // }
 
-    @PostMapping("/index")
-    public String postAction(@Valid @ModelAttribute("order") Order order,  
+    @PostMapping("/order/register/{regid}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String postAction(@PathVariable("regid") int regid, HttpServletResponse response, @Valid @ModelAttribute("order") Order order,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
+
+        System.out.println("Placing order (Reg ID = " + regid + ") => " + order);
+
+        if(order.getDrink().equals("") || order.getMilk().equals("") || order.getSize().equals("")){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
+        }
 
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
@@ -87,25 +99,32 @@ public class OrderController{
         if(order.getMilk().equals("")) { hasErrors = true; messages.add("Milk type Required"); }
         if(order.getSize().equals("")) { hasErrors = true; messages.add("Size Required"); }
 
+        Order active = orders.get(regid);
+        if(active!=null){
+            System.out.println("Active order (Reg ID = " + regid + ") => " + active);
+            if(active.getStatus().equals("Pending payment."))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active order exists!");
+        }
+
         /* Price Calculation*/
-        order.setPrice(5.0);
+        double price = 5.0;
         switch(order.getMilk()) {
             case("Oat"):
-                order.setPrice(order.getPrice() + 0.5);
+                price += 0.5;
                 break;
             case("Almond"):
-                order.setPrice(order.getPrice() + 0.5);
+                price += 0.5;
                 break;
         }
         switch(order.getSize()) {
             case("Tall"):
-                order.setPrice(order.getPrice() + 0.5);
+                price += 0.5;
                 break;
             case("Grande"):
-                order.setPrice(order.getPrice() + 1.0);
+                price += 1.0;
                 break;
             case("Venti"):
-                order.setPrice(order.getPrice() + 1.5);
+                price += 1.5;
                 break;
         }
 
@@ -116,14 +135,28 @@ public class OrderController{
             model.addAttribute("message", "There was an error with the order.");
         }
         else {
-            order.getCustomer().getStarbucksCards().get(0).addRewardsPoints(1);
+            double tax = 0.0725;
+            double total = price + (price*tax);          
+            double scale = Math.pow(10,2);
+    
+            double rounded = Math.round(total*scale)/scale;
+            order.setPrice(rounded);
+    
+            order.setStatus("Pending payment.");
+            order.setId(regid);
+            // order.setCustomer(new Customer("John", "Doe", "jdoe", "Agikuej#422"));
+            Order new_order = ordersRepository.save(order);
+            orders.put(regid, new_order);
+            System.out.println(new_order);
+
+            order.getCustomer().setRewards(order.getCustomer().getRewards() + 1);
             order.getCustomer().setTotalOrders(order.getCustomer().getTotalOrders() + 1);
             if(order.getCustomer().getStarbucksCards().get(0).getRewardsPoints() % 5 == 0)
             {
                 order.setPrice(order.getPrice() - order.getCustomer().getStarbucksCards().get(0).getRewardsPoints()/5);
                 order.getCustomer().getStarbucksCards().get(0).setRewardsPoints(0);            
             }
-            ordersRepository.save(order);
+            
             // mostRecentOrderId = order.getId();
             log.info("Order placed.");
             // model.addAttribute("message", "Order placed.");
@@ -132,22 +165,23 @@ public class OrderController{
     }
     
     /*Rest API*/
-    @GetMapping("/orders")
-    @ResponseBody
-    List<Order> all(){
-        return ordersRepository.findAll();
-    }
+    // @GetMapping("/orders")
+    // @ResponseBody
+    // List<Order> all(){
+    //     return ordersRepository.findAll();
+    // }
 
-    // @GetMapping("/order/register/{regid}")
-    //     Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
-    //         StarbucksOrder active = orders.get(regid);
-    //             if(active != null){
-    //                 return active;
-    //             }
-    //             else{
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
-    //             }
-    //     }
+    @GetMapping("/order/register/{regid}")
+    @ResponseBody
+    Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
+        Order active = orders.get(regid);
+            if(active != null){
+                return active;
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
+            }
+    }
 
     // @DeleteMapping("/orders")
     // void deleteAll(){
