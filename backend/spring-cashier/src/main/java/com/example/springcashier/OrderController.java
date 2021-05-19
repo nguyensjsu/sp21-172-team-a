@@ -183,110 +183,18 @@ public class OrderController{
             }
     }
 
-    // @DeleteMapping("/orders")
-    // void deleteAll(){
-    //     repository.deleteAllInBatch();
-    //     orders.clear();
-    // }
-
-    // @PostMapping("/order/register/{regid}")
-    // @ResponseStatus(HttpStatus.CREATED)
-    // Order newOrder(@PathVariable String regid, @RequestBody Order order) {
-    //     System.out.println("Placing order (Reg ID = " + regid + ") => " + order);
-
-    //     if(order.getDrink().equals("") || order.getMilk().equals("") || order.getSize().equals("")){
-    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
-    //     }
-
-    //     Order active = orders.get(regid);
-    //     if(active!=null){
-    //         System.out.println("Active order (Reg ID = " + regid + ") => " + active);
-    //         if(active.getStatus().equals("Ready for Payment."))
-    //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active order exists!");
-    //     }
-
-    //     double price = 0.0;
-    //     switch(order.getDrink()){
-    //     case "Caffe Latte":
-    //         switch(order.getSize()){
-    //             case "Tall":
-    //                 price=2.95;
-    //                 break;
-    //             case "Grande":
-    //                 price=3.65;
-    //                 break;
-    //             case "Venti":
-    //             case "Your Own Cup":
-    //                 price=3.95;
-    //                 break;
-    //             default:
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid size!");
-    //         }
-    //         break;
-    //     case "Caffe Americano":
-    //         switch(order.getSize()){
-    //             case "Tall":
-    //                 price=2.25;
-    //                 break;
-    //             case "Grande":
-    //                 price=2.65;
-    //                 break;
-    //             case "Venti":
-    //             case "Your Own Cup":
-    //                 price=2.95;
-    //                 break;
-    //             default:
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid size!");
-    //         }
-    //         break;
-    //     case "Caffe Mocha":
-    //         switch(order.getSize()){
-    //             case "Tall":
-    //                 price=3.45;
-    //                 break;
-    //             case "Grande":
-    //                 price=4.15;
-    //                 break;
-    //             case "Venti":
-    //             case "Your Own Cup":
-    //                 price=4.45;
-    //                 break;
-    //             default:
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid size!");
-    //         }
-    //         break;
-    //         default:
-    //             System.out.println(order);
-    //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Drink!");
-    //     }
-
-    //     double tax = 0.0725;
-    //     double total = price + (price*tax);
-    //     double scale = Math.pow(10,2);
-
-    //     double rounded = Math.round(total*scale)/scale;
-    //     order.setTotal(rounded);
-
-    //     order.setStatus("Ready for Payment.");
-    //     Order new_order = repository.save(order);
-    //     orders.put(regid, new_order);
-    //     System.out.println(new_order);
-    //     return new_order;
-    // }
-
-    // @DeleteMapping("/order/register/{regid}")
-    // Message deleteActiveOrder(@PathVariable String regid){
-    //     Order active = orders.get(regid);
-    //     if(active != null){
-    //         orders.remove(regid);
-    //         Message msg = new Message();
-    //         msg.setStatus("Active order cleared!");
-    //         return msg;
-    //     }
-    //     else{
-    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
-    //     }
-    // }
+    @DeleteMapping("/order/delete/{regid}")
+    String deleteActiveOrder(@PathVariable String regid){
+        Order active = orders.get(regid);
+        if(active != null){
+            orders.remove(regid);
+            System.out.println("Active order cleared!");
+            return "index";
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
+        }
+    }
 
     // @PostMapping("/order/register/{regid}/pay/{cardnum}")
     // CreditCard processOrder(@PathVariable String regid, @PathVariable String cardnum){
