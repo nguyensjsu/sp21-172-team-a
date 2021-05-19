@@ -2,6 +2,8 @@ package com.example.springcashier;
 
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.net.InetAddress;
 import java.util.Optional;
 import java.time.*; 
@@ -34,6 +36,7 @@ import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 
 
@@ -132,6 +135,15 @@ public class BillingInfoController {
                             Model model) {
         
         return "billinginfo" ;
+    }
+
+    @GetMapping("/billing")
+    @ResponseBody
+    BillingInfo getOne(HttpServletResponse response) {
+        BillingInfo billingInfoAPI = repository.findById(CustomerController.loggedInCustomerId).getBillingInfos().get(0);
+        if(billingInfoAPI == null)
+           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
+        return billingInfoAPI;
     }
 
     @PostMapping("/billinginfo")

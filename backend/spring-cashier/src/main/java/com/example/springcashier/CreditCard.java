@@ -13,6 +13,14 @@ import javax.validation.*;
 class CreditCard {
 
 
+    public CreditCard(String cardnum, String cardexpmon , String cardexpyear, String cvv) {
+
+        this.cardnum = cardnum;
+        this.cardexpmon = cardexpmon;
+        this.cardexpyear = cardexpyear;
+        cardcvv = cvv;
+        
+    }
     private String cardnum ;
     private String cardexpmon ;
     private String cardexpyear ;

@@ -46,7 +46,6 @@ import org.springframework.http.HttpStatus;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/paymentmethod")
 public class CreditCardController {
 
 
@@ -91,14 +90,23 @@ public class CreditCardController {
     }     
 
 
-    @GetMapping
+    @GetMapping({"/paymentmethod"})
     public String getAction( @ModelAttribute("command") CreditCard command, 
                              //@PathVariable String id,
                              Model model) {
         return "paymentmethod";
     }
 
-    @PostMapping
+    @GetMapping("/card")
+    @ResponseBody
+    CreditCard getOne(HttpServletResponse response) {
+        CreditCard creditCardAPI = repository.findById(CustomerController.loggedInCustomerId).getCreditCards().get(0);
+        if(creditCardAPI == null)
+           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
+        return creditCardAPI;
+    }
+
+    @PostMapping({"/paymentmethod"})
     public String postAction(@Valid @ModelAttribute("command") CreditCard command,  
                              //@PathVariable String id,
                              Errors errors, Model model, HttpServletRequest request) {
