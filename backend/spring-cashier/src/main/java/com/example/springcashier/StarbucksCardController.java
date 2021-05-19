@@ -2,8 +2,6 @@ package com.example.springcashier;
 
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import java.net.InetAddress;
 import java.util.Optional;
 import java.time.*; 
@@ -19,14 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.server.ResponseStatusException;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
@@ -36,13 +31,12 @@ import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 
 
 @Slf4j
 @Controller
-
+@RequestMapping(value = "/starbuckscards")
 public class StarbucksCardController {
     
 
@@ -94,33 +88,15 @@ public class StarbucksCardController {
     }
 
 
-    @GetMapping("/starbuckscards")
+    @GetMapping
     public String getAction(@ModelAttribute("starbuckscards") StarbucksCard dummy, 
                             Model model) {
         getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
         return "starbuckscards" ;
     }
 
-    @GetMapping("/starbuckscard")
-    @ResponseBody
-    StarbucksCard getOne(HttpServletResponse response) {
-        StarbucksCard card = new StarbucksCard(0,0,0);
-        //Customer test = repository.findById(1);
-        //card.setCustomerId(test.getId());
-        //test.getStarbucksCards().add(card);
-        //if(card == null)
-           //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
-        return card;
-    }
-/*
-    @DeleteMapping("/deletestarbuckscard")
-    @ResponseBody
-    void deleteAll() {
-        StarbucksCard card = customer.getStarbucksCard().get(0);
-        repository.delete(card);
-    }
-*/
-    @PostMapping("/starbuckscards")
+
+    @PostMapping
     public String postAction(@Valid @ModelAttribute("starbuckscards") StarbucksCard dummy,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
@@ -142,6 +118,7 @@ public class StarbucksCardController {
         if(hasErrors) {
             messages.print();
             model.addAttribute("messages", messages.getMessage());
+            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
             return "starbuckscards";
         }
         
