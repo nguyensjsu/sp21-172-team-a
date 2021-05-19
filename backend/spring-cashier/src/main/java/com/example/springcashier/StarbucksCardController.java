@@ -91,7 +91,7 @@ public class StarbucksCardController {
     @GetMapping
     public String getAction(@ModelAttribute("starbuckscards") StarbucksCard dummy, 
                             Model model) {
-        getStarbucksCardInfo(1, model);     
+        getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
         return "starbuckscards" ;
     }
 
@@ -239,9 +239,9 @@ public class StarbucksCardController {
         
         if(repository.findById(id) != null) {
             Customer c = repository.findById(id);
-            if(c.getStarbucksCards().isEmpty()) {
-                c.getStarbucksCards().add(new StarbucksCard(id, 0, 0));
-            }
+            // if(c.getStarbucksCards().isEmpty()) {
+            //     c.getStarbucksCards().add(new StarbucksCard(id, 0, 0));
+            // }
         
             e.add("Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
             e.add("Balance:        " + c.getStarbucksCards().get(0).getBalance());

@@ -46,6 +46,8 @@ public class CustomerController{
     @Autowired
     private CustomerRepository customersRepository;
 
+    public static int loggedInCustomerId;
+
     @Getter
     @Setter
     class Message {
@@ -93,12 +95,17 @@ public class CustomerController{
         if(hasErrors) {
             messages.print();
             model.addAttribute("message", "Please provide valid input for all of the fields.");
+            return "joinNow";
+
         }
         else {
             customersRepository.save(customer);
+            loggedInCustomerId = customer.getId();
+            customer.getStarbucksCards().add(new StarbucksCard(loggedInCustomerId, 0, 0));
             log.info("User account created.");
+            return "homepage";
         }
 
-        return "joinNow";
+
     }
 }

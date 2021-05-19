@@ -20,9 +20,9 @@ public class GreetingController {
 //       return "index";
 //   }
 
-   @RequestMapping(value = "/home")
+   @RequestMapping(value = "/")
    public String goHome() {
-      return "home";
+      return "homepage";
    }
 
    @RequestMapping(value = "/signIn")
