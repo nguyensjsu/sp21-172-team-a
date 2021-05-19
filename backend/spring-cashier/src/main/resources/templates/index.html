@@ -10,7 +10,7 @@
     <img th:src="@{/images/starbucksLogo.jpg}">
     <div id="main">
         <div class="column">
-            <form action="#" id="order-form" method="post" th:object="${order}" class="mt-5" >
+            <form th:action="@{/order/register/} + ${order.id}" id="order-form" method="post" th:object="${order}" class="mt-5" >
                 <div class="form-group">
                     <label>Drinks</label>
                     <!-- <div th:each="model : ${T(com.example.springcashier.DrinkModel).values()}">
