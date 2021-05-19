@@ -107,7 +107,10 @@ public class CustomerController{
             log.info("User account created.");
             return "homepage";
         }
+    }
 
 
+    public static void setLoggedInCustomerId(int id) {
+        loggedInCustomerId = id;
     }
 }
