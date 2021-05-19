@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
@@ -36,7 +39,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/billinginfo")
 public class BillingInfoController {
 
 
@@ -125,13 +127,13 @@ public class BillingInfoController {
     }      
 
 
-    @GetMapping
+    @GetMapping("/billinginfo")
     public String getAction( @ModelAttribute("billingInfo") BillingInfo billingInfo, 
                             Model model) {
         return "billinginfo" ;
     }
 
-    @PostMapping
+    @PostMapping("/billinginfo")
     public String postAction(@Valid @ModelAttribute("billingInfo") BillingInfo billingInfo,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
@@ -161,16 +163,75 @@ public class BillingInfoController {
             return "billinginfo";
         }
         else {
-            ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
-            list.add(billingInfo);
-            Customer c = new Customer("John", null, null, null, null, 0, 0, list, null, null);
+            Customer c = repository.findById(CustomerController.loggedInCustomerId);
+            c.getBillingInfos().add(billingInfo);
             repository.save(c);
-            //int id = c.getId();
             System.out.println("Billing Information Updated!");
-            //System.out.println(id);
+            System.out.println(CustomerController.loggedInCustomerId);
             model.addAttribute("message", "Billing Information Updated!");
-            //model.addAttribute("message", id);
             return "billinginfo";
         }
     }
+
+
+    // @GetMapping("/billinginfo/get")
+    // @ResponseBody
+    // BillingInfo getBillingInfo() {
+        
+    //         BillingInfo billingInfo = new BillingInfo("address", "city", "CA", "12345", "(408) 270-1510", "john@example.com");
+    //         ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
+    //         list.add(billingInfo);
+    //         Customer c = new Customer("John2", null, null, null, null, 0, 0, list, null, null);
+    //         repository.save(c);
+    //         return billingInfo;
+   
+    // }
+
+
+    // @PostMapping("/billinginfo/create")
+    // @ResponseBody
+    // BillingInfo newBillingInfo() {
+        
+    //         BillingInfo billingInfo = new BillingInfo("address", "city", "CA", "12345", "(408) 270-1510", "john@example.com");
+    //         ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
+    //         list.add(billingInfo);
+    //         Customer c = new Customer("John2", null, null, null, null, 0, 0, list, null, null);
+    //         repository.save(c);
+    //         return billingInfo;
+   
+    // }
+
+
+    // @PostMapping("/billinginfo/{address}/{city}/{state}/{zip}/{phone}/{email}")
+    // @ResponseBody
+    // BillingInfo newBillingInfo(@PathVariable String address, @PathVariable String city, @PathVariable String state,
+    //                            @PathVariable String zip, @PathVariable String phone, @PathVariable String email, @RequestBody BillingInfo billingInfo){
+        
+    //     ErrorMessages messages = new ErrorMessages();
+    //     boolean hasErrors = false;
+
+
+    //     if(billingInfo.getAddress().equals(""))        { hasErrors = true; messages.add("Address Required"); }
+    //     if(billingInfo.getCity().equals(""))           { hasErrors = true; messages.add("City Required"); }
+    //     if(billingInfo.getState().equals(""))          { hasErrors = true; messages.add("State Required"); }
+    //     if(billingInfo.getZip().equals(""))            { hasErrors = true; messages.add("Zip Required"); }
+    //     if(billingInfo.getPhone().equals(""))          { hasErrors = true; messages.add("Phone Number Required"); }
+    //     if(billingInfo.getEmail().equals(""))          { hasErrors = true; messages.add("Email Required"); }
+    //     if(!billingInfo.getZip().matches("\\d{5}"))                                { hasErrors = true; messages.add("Invalid Zip Code"); }
+    //     if(!billingInfo.getPhone().matches("[(]\\d{3}[)] \\d{3}-\\d{4}"))          { hasErrors = true; messages.add("Invalid Phone Number"); }
+    //     if(states.get(billingInfo.getState()) == null)        {hasErrors = true; messages.add("Invalid State"); }
+
+
+    //     if(hasErrors) {
+    //         messages.print();
+    //         return null;
+    //     }
+    //     else {
+    //         ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
+    //         list.add(billingInfo);
+    //         Customer c = new Customer("John2", null, null, null, null, 0, 0, list, null, null);
+    //         repository.save(c);
+    //         return billingInfo;
+    //     }
+    // }
 }

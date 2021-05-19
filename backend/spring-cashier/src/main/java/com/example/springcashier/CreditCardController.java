@@ -127,17 +127,11 @@ public class CreditCardController {
             return "paymentmethod";
         }
         else {
-            
-            Customer c = repository.findById(1);
-            if(c != null) {
-                c.getCreditCards().add(command);
-                repository.save(c);
-                System.out.println("Thank You for your Payment!");
-                model.addAttribute("message", "Thank You for your Payment!");
-            }
-            else {
-                model.addAttribute("message", "You suck");
-            }
+            Customer c = repository.findById(CustomerController.loggedInCustomerId);
+            c.getCreditCards().add(command);
+            repository.save(c);
+            System.out.println("Thank You for your Payment!");
+            model.addAttribute("message", "Thank You for your Payment!");
         }
     
 
