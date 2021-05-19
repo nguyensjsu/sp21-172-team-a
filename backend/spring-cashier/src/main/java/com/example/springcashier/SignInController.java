@@ -40,8 +40,27 @@ import org.springframework.beans.factory.annotation.Value;
 @Controller
 @RequestMapping(value = {"/signIn"})
 public class SignInController {
+
+	@Autowired
+    private CustomerRepository repository;
+
     @GetMapping
     public String signIn( @ModelAttribute("signIn") Customer customer, Model model){
         return "signIn";
     }
+
+    // @PostMapping
+    // public String login( @ModelAttribute("signIn") Customer customer, Model model){
+    //     System.out.println("Start");
+    //     Customer c = repository.findByUsername(customer.getUsername());
+    //     if(c.getPassword().matches(customer.getPassword())) {
+    //     	System.out.println(c.getId());
+    //     	CustomerController.setLoggedInCustomerId(c.getId());
+    //     	System.out.println(CustomerController.loggedInCustomerId);
+    //     	return "signIn";
+    //     }
+    //     else {
+    //     	return "signIn";
+    //     }    
+    // }
 }

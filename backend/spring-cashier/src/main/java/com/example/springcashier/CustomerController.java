@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
@@ -35,9 +37,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.beans.factory.annotation.Value;
+
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.*;
+
+
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.*;
+import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -47,7 +59,6 @@ public class CustomerController{
     @Autowired
     private CustomerRepository customersRepository;
 
-    public static int loggedInCustomerId;
     private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
     public CustomerController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
@@ -79,14 +90,6 @@ public class CustomerController{
         return "joinNow" ;
     }
 
-    @GetMapping("/customer")
-    @ResponseBody
-    Customer getOne(HttpServletResponse response) {
-        Customer customerAPI = customersRepository.findById(CustomerController.loggedInCustomerId);
-        if(customerAPI == null)
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
-        return customerAPI;
-    }
 
     @PostMapping({"/joinNow"})
     public String postAction(@Valid @ModelAttribute("customer") Customer customer,  
@@ -109,19 +112,31 @@ public class CustomerController{
 
         }
         else {
+            // System.out.println("Old: " + loggedInCustomerId);
             customersRepository.save(customer);
-            loggedInCustomerId = customer.getId();
-            System.out.println(loggedInCustomerId);
+            int loggedInCustomerId = customer.getId();
+            // System.out.println(loggedInCustomerId);
             customer.getStarbucksCards().add(new StarbucksCard(loggedInCustomerId, 0, 0));
             customersRepository.save(customer);
             log.info("User account created.");
-            //inMemoryUserDetailsManager.createUser(User.withUsername(customer.getUsername()).password("{noop}" + customer.getPassword).roles("USER").build());
+            inMemoryUserDetailsManager.createUser(User.withUsername(customer.getUsername()).password("{noop}" + customer.getPassword()).roles("USER").build());
             return "homepage";
         }
     }
 
 
-    public static void setLoggedInCustomerId(int id) {
-        loggedInCustomerId = id;
+    @GetMapping("/customer/{regid}")
+    @ResponseBody
+    Customer getCustomer(@PathVariable String regid, HttpServletResponse response){
+        Customer active = customersRepository.findById(Integer.parseInt(regid));
+        return active;
+    }
+
+
+    @GetMapping(value = "/username")
+    @ResponseBody
+    public static String currentUserName(Principal principal) {
+        return principal.getName();
     }
 }
+

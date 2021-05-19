@@ -53,6 +53,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.security.config.http.SessionCreationPolicy ;
+
 
 @Configuration
 @EnableWebSecurity
@@ -63,12 +65,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomerRepository repository;
     
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated().and().formLogin()
-                .loginPage("/signIn").permitAll().and().logout().logoutSuccessUrl("/signIn").permitAll();
-        http.cors().and().csrf().disable();
-    }
+    // @Override
+    // protected void configure(HttpSecurity http) throws Exception {
+    //     http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated().and().formLogin()
+    //             .loginPage("/signIn").permitAll().and().logout().logoutSuccessUrl("/signIn").permitAll();
+    //     http.cors().and().csrf().disable();    
+    // }
+
+        @Override
+        protected void configure(HttpSecurity http) {
+            try {
+                http.csrf().disable();
+                http.authorizeRequests()
+                        .antMatchers("/**").permitAll()
+                        .anyRequest().authenticated()
+                        .and()
+                        .formLogin()
+                        .loginPage("/signIn")
+                        .permitAll()
+                        .failureUrl("/signIn?error=true")
+                        .defaultSuccessUrl("/")
+                        .and()
+                        .logout()
+                        .logoutSuccessUrl("/");
+
+                http.sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .invalidSessionUrl("/signIn");
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
 
     // cashier's app & backoffice
     // employee login -> allows you to access everything on this app = not a blacklist/whitelist 
@@ -83,32 +110,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-console/**");
     }
     
-   @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+   // @Override
+   //  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // int x = 1;
-        // String username = "null";
-        // String password = "null";
-        // System.out.println("Username: " + username + " Password: " + password);
-        // while(repository.findById(x) != null) {
-        //     Customer c = repository.findById(x);
-        //     username = c.getUsername();
-        //     password = c.getPassword();
+   //      // int x = 1;
+   //      // String username = "null";
+   //      // String password = "null";
+   //      // System.out.println("Username: " + username + " Password: " + password);
+   //      // while(repository.findById(x) != null) {
+   //      //     Customer c = repository.findById(x);
+   //      //     username = c.getUsername();
+   //      //     password = c.getPassword();
 
-        //     System.out.println("Username: " + username + " Password: " + password);
+   //      //     System.out.println("Username: " + username + " Password: " + password);
 
-        //     auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-        //         .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
-        //         .withUser(username).password(password).roles("USER");
-        // }  
+   //      //     auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+   //      //         .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
+   //      //         .withUser(username).password(password).roles("USER");
+   //      // }  
 
 
-        auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
-                .withUser("user1").password("user1pass").roles("USER").and()
-                .withUser("user2").password("user2pass").roles("USER").and()
-                .withUser("user3").password("user3pass").roles("USER");
-    } 
+   //      auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+   //              .withUser("admin").password("admin1pass").roles("USER", "ADMIN").and()
+   //              .withUser("user1").password("user1pass").roles("USER").and()
+   //              .withUser("user2").password("user2pass").roles("USER").and()
+   //              .withUser("user3").password("user3pass").roles("USER");
+   //  } 
 
     @Bean
     public InMemoryUserDetailsManager getInMemoryUserDetailsManager(){

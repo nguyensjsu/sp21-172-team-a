@@ -39,6 +39,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 
 
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
+
 @Slf4j
 @Controller
 public class StarbucksCardController {
@@ -95,15 +100,19 @@ public class StarbucksCardController {
     @GetMapping({"/starbuckscards"})
     public String getAction(@ModelAttribute("starbuckscards") StarbucksCard dummy, 
                             Model model) {
-        getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        getStarbucksCardInfo(username, model);
         return "starbuckscards" ;
     }
 
     @GetMapping("/starbuckscard")
     @ResponseBody
     StarbucksCard getOne(HttpServletResponse response) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
         StarbucksCard card = new StarbucksCard(0,0,0);
-        StarbucksCard cardAPI = repository.findById(CustomerController.loggedInCustomerId).getStarbucksCards().get(0);
+        StarbucksCard cardAPI = repository.findByUsername(username).getStarbucksCards().get(0);
         if(cardAPI == null)
            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
         return cardAPI;
@@ -115,8 +124,9 @@ public class StarbucksCardController {
                             
                             Errors errors, Model model, HttpServletRequest request) {
 
-
-        Customer customer = repository.findById(CustomerController.loggedInCustomerId);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        Customer customer = repository.findByUsername(username);
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
         
@@ -132,7 +142,7 @@ public class StarbucksCardController {
         if(hasErrors) {
             messages.print();
             model.addAttribute("messages", messages.getMessage());
-            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
+            getStarbucksCardInfo(username, model);
             return "starbuckscards";
         }
         
@@ -173,7 +183,7 @@ public class StarbucksCardController {
        
         if(auth.cardType.equals("ERROR")) {
             System.out.println("Unsupported Card Type");
-            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
+            getStarbucksCardInfo(username, model);
             model.addAttribute("message", "Unsupported Card Type");
             return "starbuckscards";
         }
@@ -187,7 +197,7 @@ public class StarbucksCardController {
         authValid = true;
         if (!authResponse.status.equals("AUTHORIZED")) {
             System.out.println(authResponse.message);
-            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
+            getStarbucksCardInfo(username, model);
             model.addAttribute("message", authResponse.message);
             return "starbuckscards";  
         }
@@ -210,7 +220,7 @@ public class StarbucksCardController {
             captureValid = true;
             if ( !captureResponse.status.equals("PENDING") ) {
                 System.out.println(captureResponse.message);
-                getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
+                getStarbucksCardInfo(username, model);
                 model.addAttribute("message", captureResponse.message);
                 return "starbuckscards";
             }
@@ -226,7 +236,7 @@ public class StarbucksCardController {
             repository.save(customer);
             System.out.println("Thank You for your Payment! Your Order Number is: " + order_num);
             model.addAttribute("message", "Thank You for your Payment! Your Order Number is: " + order_num);
-            getStarbucksCardInfo(CustomerController.loggedInCustomerId, model); 
+            getStarbucksCardInfo(username, model); 
         }
     
 
@@ -234,14 +244,14 @@ public class StarbucksCardController {
     }
 
 
-    private void getStarbucksCardInfo(int id, Model model) {
+    private void getStarbucksCardInfo(String id, Model model) {
 
        
         ErrorMessages e = new ErrorMessages();
 
         
-        if(repository.findById(id) != null) {
-            Customer c = repository.findById(id);
+        if(repository.findByUsername(id) != null) {
+            Customer c = repository.findByUsername(id);
             // if(c.getStarbucksCards().isEmpty()) {
             //     c.getStarbucksCards().add(new StarbucksCard(id, 0, 0));
             // }
@@ -253,5 +263,10 @@ public class StarbucksCardController {
         
 
         model.addAttribute("test", e.getMessage());   
+    }
+
+
+    public String currentUserName(Principal principal) {
+        return principal.getName();
     }
 }
