@@ -2,6 +2,8 @@ package com.example.springcashier;
 
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.net.InetAddress;
 import java.util.Optional;
 import java.time.*; 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
@@ -36,7 +39,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/starbuckscards")
 public class StarbucksCardController {
     
 
@@ -88,15 +90,28 @@ public class StarbucksCardController {
     }
 
 
-    @GetMapping
+    @GetMapping({"/starbuckscards"})
     public String getAction(@ModelAttribute("starbuckscards") StarbucksCard dummy, 
                             Model model) {
         getStarbucksCardInfo(CustomerController.loggedInCustomerId, model);
         return "starbuckscards" ;
     }
 
+    @GetMapping("/starbuckscard")
+    @ResponseBody
+    StarbucksCard getOne(HttpServletResponse response) {
+        StarbucksCard card = new StarbucksCard(0,0,0);
+        StarbucksCard cardAPI = repository.findById(CustomerController.loggedInCustomerId).getStarbucksCards().get(0);
+        //Customer test = repository.findById(1);
+        //card.setCustomerId(test.getId());
+        //test.getStarbucksCards().add(card);
+        //if(card == null)
+           //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
+        return cardAPI;
+    }
 
-    @PostMapping
+
+    @PostMapping({"/starbuckscards"})
     public String postAction(@Valid @ModelAttribute("starbuckscards") StarbucksCard dummy,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
