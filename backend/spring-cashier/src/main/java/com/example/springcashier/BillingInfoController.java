@@ -164,7 +164,7 @@ public class BillingInfoController {
         }
         else {
             Customer c = repository.findById(CustomerController.loggedInCustomerId);
-            c.getBillingInfos().add(billingInfo());
+            c.getBillingInfos().add(billingInfo);
             repository.save(c);
             System.out.println("Billing Information Updated!");
             System.out.println(CustomerController.loggedInCustomerId);
