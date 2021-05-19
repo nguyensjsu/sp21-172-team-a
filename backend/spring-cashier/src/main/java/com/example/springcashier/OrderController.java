@@ -165,10 +165,22 @@ public class OrderController{
     }
     
     /*Rest API*/
-    @GetMapping("/orders")
+    // @GetMapping("/orders")
+    // @ResponseBody
+    // List<Order> all(){
+    //     return ordersRepository.findAll();
+    // }
+
+    @GetMapping("/order/register/{regid}")
     @ResponseBody
-    List<Order> all(){
-        return ordersRepository.findAll();
+    Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
+        Order active = orders.get(regid);
+            if(active != null){
+                return active;
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
+            }
     }
 
     @GetMapping("/order/register/{regid}")
