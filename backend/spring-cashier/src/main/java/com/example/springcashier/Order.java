@@ -10,7 +10,8 @@ import lombok.*;
 
 @Entity
 @Table(name="Orders")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Order implements Serializable{
 

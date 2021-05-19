@@ -88,7 +88,11 @@
                 <li><a href="#">Santa Monica, CA</a></li>
                 </ul>
             </div>
-            <button type="button" class="btn btn-dark" onclick="clearSelection()">Clear Selection</button>
+            <!-- <a class="btn btn-dark" th:href="@{/order/register/} + ${order.id}" th:method = "delete">Clear Active Order</a> -->
+            <form action="#" th:action="@{/order/delete/} + ${order.id}" th:method="delete" >
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit" id="submitButton">Clear Active Order</button>
+              </form>
             <button type="submit" form="order-form" class="btn btn-dark">Place Order</button>
         </div>
         <div id="pagesnauth">
