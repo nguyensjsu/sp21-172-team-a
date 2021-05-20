@@ -10,7 +10,10 @@
 - What features were implemented?
 
 ### Backoffice Help Desk App
-- What features were implemented?
+- View User Rewards
+	- Barista's can view the user name and reward points associated with the user.
+- Change Rewards
+	- They have the option to change the reward points by inserting a new number and clicking update rewards.
 
 ### Online Store
 - User Registration
@@ -48,3 +51,22 @@
 
 ## Technical Requirements
 - Discussion with screenshot evidence of how each technical requirement is meet.
+
+### Cashier's App Screenshot 
+![Cashier's App](./images/.png)
+
+### Backoffice Help Desk App
+The backoffice help desk allows the barista to view and change the number of reward points for any specific user.
+![Backoffice Help Desk](./images/.png)
+
+### Online Store
+![Online Store](./images/.png)
+
+### REST API 
+![REST API](./images/.png)
+
+### Integrations
+![Integrations](./images/.png)
+
+### Cloud Deployments
+![Cashier's App](./images/.png)
