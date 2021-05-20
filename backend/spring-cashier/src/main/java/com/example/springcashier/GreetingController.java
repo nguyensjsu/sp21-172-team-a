@@ -7,6 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.*;
+
+
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.*;
+import java.security.Principal;
+
 @Controller
 public class GreetingController {
 
@@ -15,15 +23,20 @@ public class GreetingController {
       return "cards";
    }
 
+   @RequestMapping(value = "/backofficehome")
+   public String goBackOffice() {
+      return "backofficehome";
+   }
 //    @RequestMapping(value = "/index")
 //    public String goIndex() {
 //       return "index";
 //   }
 
-   @RequestMapping(value = "/")
-   public String goHome() {
-      return "homepage";
-   }
+    @RequestMapping(value = "/")
+   public String displayHomePage() {
+         return "backofficehome";
+      }
+   
 
    @RequestMapping(value = "/signIn")
    public String goSignIn() {

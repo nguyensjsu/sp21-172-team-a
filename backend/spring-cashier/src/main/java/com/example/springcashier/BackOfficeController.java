@@ -72,18 +72,18 @@ public class BackOfficeController {
     @GetMapping
     public String getAction(@ModelAttribute("backOffice") StarbucksCard card, 
                             Model model) {
-        DatabaseMessages messages = new DatabaseMessages();
+        // DatabaseMessages messages = new DatabaseMessages();
         
-        int x = 1;
-        while(repository.findById(x) != null) {
-            Customer c = repository.findById(x);
-            StarbucksCard s = c.getStarbucksCards().get(0);
-            messages.add("Customer First Name: " + c.getFirstName());
-            messages.add("Customer Last Name: " + c.getLastName());
-            messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
-            model.addAttribute("messages", messages.getMessage());
-            x++;
-        }
+        // int x = 1;
+        // while(repository.findById(x) != null) {
+        //     Customer c = repository.findById(x);
+        //     StarbucksCard s = c.getStarbucksCards().get(0);
+        //     messages.add("Customer First Name: " + c.getFirstName());
+        //     messages.add("Customer Last Name: " + c.getLastName());
+        //     messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
+        //     model.addAttribute("messages", messages.getMessage());
+        //     x++;
+        // }
         return "backOffice"; 
     }
 
@@ -91,9 +91,9 @@ public class BackOfficeController {
     public String postAction(@Valid @ModelAttribute("backOffice") StarbucksCard card,  
                             Errors errors, Model model, HttpServletRequest request) {
         
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
-        Customer customer = repository.findByUsername(username);
+        // Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // String username = ((UserDetails)principal).getUsername();
+        Customer customer = repository.findById(Integer.parseInt(card.getCustomerIdText()));
         
         StarbucksCard starbucksCard = customer.getStarbucksCards().get(0);
         starbucksCard.setRewardsPoints(Double.parseDouble(card.getBalanceText()));
