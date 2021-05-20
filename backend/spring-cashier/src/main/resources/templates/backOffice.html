@@ -32,16 +32,12 @@
 
           </div> 
         </div>
-          
-
-
-      </form>
-                <form action="#" id="submit-order" method="post" th:object="${rewards}" class="mt-5" >
-          <label for="fname">New Total Reward Points:</label><br>
-          <input type="number" id="fname" name="fname"><br>
         
-                  
-        <button type="submit" form="submit-order" class="btn">Update Rewards</button>
+        <label for="fname">New Total Reward Points:</label><br>
+        <input type="text" id="balanceText" required="required" name="balanceText" th:field="*{balanceText}" >    
+        
+        <input type="submit" value="Update Rewards" class="btn">          
+                    
     </form>
     </div>
 

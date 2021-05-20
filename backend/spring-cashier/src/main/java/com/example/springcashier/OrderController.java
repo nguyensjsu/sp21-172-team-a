@@ -116,12 +116,12 @@ public class OrderController{
             model.addAttribute("message", "There was an error with the order.");
         }
         else {
-            order.getCustomer().setRewards(order.getCustomer().getRewards() + 1);
+            order.getCustomer().getStarbucksCards().get(0).addRewardsPoints(1);
             order.getCustomer().setTotalOrders(order.getCustomer().getTotalOrders() + 1);
-            if(order.getCustomer().getRewards() % 5 == 0)
+            if(order.getCustomer().getStarbucksCards().get(0).getRewardsPoints() % 5 == 0)
             {
-                order.setPrice(order.getPrice() - order.getCustomer().getRewards()/5);
-                order.getCustomer().setRewards(0);            
+                order.setPrice(order.getPrice() - order.getCustomer().getStarbucksCards().get(0).getRewardsPoints()/5);
+                order.getCustomer().getStarbucksCards().get(0).setRewardsPoints(0);            
             }
             ordersRepository.save(order);
             // mostRecentOrderId = order.getId();
