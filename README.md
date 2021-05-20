@@ -1,13 +1,21 @@
 # CMPE 172 - Team Project
 
+Contributors:
+* Alisha Mehndiratta 
+* Angeline Lee
+* Devansh Tandon
+* Jason Huynh
+* Justine Damolo
+
 ## Overall Architecture Diagram of your Cloud Deployment
-- ![Architecture](/images/architecture/architecture.PNG)
+![Architecture](/images/architecture/architecture.PNG)
 
 ## Individual Features
 - A section for each of the following discussion the features implemented
 
 ### Cashier's App
 - The cashier's app was made keeping in mind the ease of the user interface for the baristas. 
+	- Cashier can log in using their pre-configured account. The authentication process has been secured through spring-security.
 	- Cashier can take orders from customers, selecting the type, size, and the milk options and place the orders. 
 	- Cashier can clear any orders.
 
@@ -56,23 +64,18 @@
 - Discussion with screenshot evidence of how each technical requirement is meet.
 
 ### Cashier's App Screenshot 
-![Cashier's App](./images/.png)
+![Cashier's App](./images/cashier/cashiersapp.png)
 
 ### Backoffice Help Desk App
-The backoffice help desk allows the barista to insert user ID and change the number of reward points for any specific user.
-![Backoffice Help Desk](./images/.png)
+The backoffice help desk allows the barista to insert user ID and change the number of reward points for any specific user. Starting from the home page, employees can access the cashier's app or the backoffice help desk.
+![Backoffice Home Page](./images/cashier/backofficehome.png)
+![Backoffice Help Desk](./images/cashier/backOffice.png)
 
 ### Online Store
 ![Online Store](./images/.png)
 
 ### REST API 
 ![REST API](./images/.png)
-
-### Integrations
-![Integrations](./images/.png)
-
-### Cloud Deployments
-![Cashier's App](./images/.png)
 
 ### Integrations
 ![Integrations](./images/cybersource/cybersource1.png)
@@ -88,21 +91,23 @@ Cashier App deployed
 
 Cashier workload
 ![Cloud deployment](./images/cashier/cashier-workload.png)
+![Cloud deployment](./images/cashier/workload-cashier.png)
 
 Cashier Ingress
 ![Cloud deployment](./images/cashier/cashier-ingress.png)
 
 Cashier Service
 ![Cloud deployment](./images/cashier/cashier-service.png)
+![Cloud deployment](./images/cashier/service-cashier.png)
 
 Customer App deployed
 ![Cloud deployment](./images/cashier/cashier-deployed.png)
 
 Customer workload
-![Cloud deployment](./images/cashier/workloaddeployed.png)
+![Cloud deployment](./images/customerstore/workloaddeployed.png)
 
 Customer Ingress
-![Cloud deployment](./images/cashier/ingressdeployed.png)
+![Cloud deployment](./images/customerstore/ingressdeployed.png)
 
 Customer Service
-![Cloud deployment](./images/cashier/serviceinit.png)
+![Cloud deployment](./images/customerstore/serviceinit.png)
