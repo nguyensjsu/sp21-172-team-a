@@ -1,5 +1,12 @@
 # CMPE 172 - Team Project
 
+Contributors:
+* Alisha Mehndiratta 
+* Angeline Lee
+* Devansh Tandon
+* Jason Huynh
+* Justine Damolo
+
 ## Overall Architecture Diagram of your Cloud Deployment
 - ![Architecture](/images/architecture/architecture.PNG)
 
