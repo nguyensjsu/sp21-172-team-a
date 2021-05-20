@@ -132,6 +132,22 @@ public class CustomerController{
         return active;
     }
 
+    @DeleteMapping("/deletecustomers")
+    @ResponseBody
+    String deletecustomers(@PathVariable String regid, HttpServletResponse response){
+        customersRepository.deleteAll();
+        return "all customers deleted";
+    }
+
+    @DeleteMapping("/deletecustomer/{regid}")
+    @ResponseBody
+    String deletecustomer(@PathVariable String regid, HttpServletResponse response){
+        Customer active = customersRepository.findById(Integer.parseInt(regid));
+        customersRepository.delete(active);
+        return "Customer deleted";
+    }
+    
+
 
     @GetMapping(value = "/username")
     @ResponseBody
