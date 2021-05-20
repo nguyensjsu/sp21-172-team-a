@@ -1,41 +1,29 @@
-# CMPE 172 - Lab #10 Notes
+# CMPE 172 - Team Project
 
+## Overall Architecture Diagram of your Cloud Deployment
+- S
 
-CI for deployment.yaml
-![](images/updatedeployment.png)
+## Individual Features
+- A section for each of the following discussion the features implemented
 
-Service Accounts
-![](images/serviceaccounts.png)
+### Cashier's App
+- What features were implemented?
 
-Keys
-![](images/sakey.png)
+### Backoffice Help Desk App
+- What features were implemented?
 
-Secrets
-![](images/secrets.png)
+### Online Store
+- What features were implemented?
 
-Clusters
-![](images/clusters.png)
+### REST API 
+- Final design with sample request/response
 
-Release
-![](images/release.png)
+### Integrations
+- Which integrations were selected?
 
-Workflows
-![](images/workflows.png)
+### Cloud Deployments
+- Design Notes on GitHub an Architecture Diagram of the overall Deployment.
+- How does your Team's System Scale?  Can it handle > 1 Million Mobile Devices?
 
-GKE Deployment on Github
-![](images/GKEdeploy.png)
-
-Workloads
-![](images/workloads.png)
-
-Services
-![](images/services.png)
-
-Ingress Creation
-![](images/ingresscreation.png)
-
-Ingress
-![](images/ingress.png)
-
-Gumball Deployment
-![](images/gumball.jpeg)
+## Technical Requirements
+- Discussion with screenshot evidence of how each technical requirement is meet.
