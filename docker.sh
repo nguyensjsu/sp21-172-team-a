@@ -3,7 +3,7 @@
 # Container
 
 ACCOUNT="juss2000"
-CONTAINER="spring-cashier"
+CONTAINER="spring-customer"
 VERSION="v2"
 
 # Shell Variables
