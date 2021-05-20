@@ -19,15 +19,9 @@ class StarbucksCard {
     private String balanceText;
 
 
+
     public void addRewardsPoints(double points) {
         rewardsPoints += points;
-    }
-
-
-    public void removeRewardsPoints(double points) {
-        if(rewardsPoints - points >= 0) {
-            rewardsPoints -= points;
-        }
     }
 
 
@@ -36,7 +30,14 @@ class StarbucksCard {
     }
     
 
-    public void pay(double amount) {
+    public void payWithRewardsPoints(double points) {
+        if(rewardsPoints - points >= 0) {
+            rewardsPoints -= points;
+        }
+    }
+
+
+    public void payWithBalance(double amount) {
         if(balance - amount >= 0) {
             balance -= amount;
         }
