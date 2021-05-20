@@ -19,5 +19,5 @@ spec:
       - name: spring-cashier
         image: gcr.io/PROJECT_ID/IMAGE:TAG
         ports:
-        - containerPort: 8080
+        - containerPort: 9090
 
