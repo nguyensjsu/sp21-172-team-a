@@ -13,13 +13,34 @@
 - What features were implemented?
 
 ### Online Store
-- What features were implemented?
+- User Registration
+	- Users can sign up for an account with the customer store
+- Spring Security for User Authentication
+	- Users can log into the customer store if their login credentials match any credentials in the database
+- Billing Information Section
+	- Users can create and add their billing information to their account, which includes
+		- Address
+		- City
+		- State
+		- Zip
+		- Phone
+		- Email
+- Payment Method Section
+	- Users can create and add their credit card information to their account, which includes
+		- Credit Card Number
+		- Credit Card Expiration Month
+		- Credit Card Expiration Year
+		- Credit Card CVV
+- Starbucks Card Section
+	- allows users to view the balance and rewards points of each card
+	- allows users to use their credit card to increase the balance of their Starbucks card
+
 
 ### REST API 
 - Final design with sample request/response
 
 ### Integrations
-- Which integrations were selected?
+- CyberSource
 
 ### Cloud Deployments
 - Design Notes on GitHub an Architecture Diagram of the overall Deployment.
