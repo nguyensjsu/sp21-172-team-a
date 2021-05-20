@@ -15,6 +15,7 @@ Contributors:
 
 ### Cashier's App
 - The cashier's app was made keeping in mind the ease of the user interface for the baristas. 
+	- Cashier can log in using their pre-configured account. The authentication process has been secured through spring-security.
 	- Cashier can take orders from customers, selecting the type, size, and the milk options and place the orders. 
 	- Cashier can clear any orders.
 
