@@ -1,13 +1,15 @@
 # CMPE 172 - Team Project
 
 ## Overall Architecture Diagram of your Cloud Deployment
-- S
+- ![Architecture](/images/architecture/architecture.PNG)
 
 ## Individual Features
 - A section for each of the following discussion the features implemented
 
 ### Cashier's App
-- What features were implemented?
+- The cashier's app was made keeping in mind the ease of the user interface for the baristas. 
+	- Cashier can take orders from customers, selecting the type, size, and the milk options and place the orders. 
+	- Cashier can clear any orders.
 
 ### Backoffice Help Desk App
 - Change Rewards
@@ -71,3 +73,36 @@ The backoffice help desk allows the barista to insert user ID and change the num
 
 ### Cloud Deployments
 ![Cashier's App](./images/.png)
+
+### Integrations
+![Integrations](./images/cybersource/cybersource1.png)
+![Integrations](./images/cybersource/cybersource2.png)
+![Integrations](./images/cybersource/cybersource3.png)
+
+### Cloud Deployments
+Secrets
+![Secrets](./images/cashier/secrets.png)
+
+Cashier App deployed
+![Cloud deployment](./images/cashier/cashier-deployed.png)
+
+Cashier workload
+![Cloud deployment](./images/cashier/cashier-workload.png)
+
+Cashier Ingress
+![Cloud deployment](./images/cashier/cashier-ingress.png)
+
+Cashier Service
+![Cloud deployment](./images/cashier/cashier-service.png)
+
+Customer App deployed
+![Cloud deployment](./images/cashier/cashier-deployed.png)
+
+Customer workload
+![Cloud deployment](./images/cashier/workloaddeployed.png)
+
+Customer Ingress
+![Cloud deployment](./images/cashier/ingressdeployed.png)
+
+Customer Service
+![Cloud deployment](./images/cashier/serviceinit.png)
