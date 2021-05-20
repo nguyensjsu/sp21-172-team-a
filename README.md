@@ -48,3 +48,21 @@
 
 ## Technical Requirements
 - Discussion with screenshot evidence of how each technical requirement is meet.
+
+### Cashier's App Screenshot 
+![Cashier's App](./images/.png)
+
+### Backoffice Help Desk App
+![Backoffice Help Desk](./images/.png)
+
+### Online Store
+![Online Store](./images/.png)
+
+### REST API 
+![REST API](./images/.png)
+
+### Integrations
+![Integrations](./images/.png)
+
+### Cloud Deployments
+![Cashier's App](./images/.png)
