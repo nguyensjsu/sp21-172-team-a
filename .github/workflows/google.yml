@@ -6,7 +6,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT_1 }}
-  GKE_CLUSTER: cmpe172project    # TODO: update to cluster name
+  GKE_CLUSTER: cmpe172    # TODO: update to cluster name
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: spring-cashier # TODO: update to deployment name
   IMAGE: spring-cashier
