@@ -70,7 +70,8 @@ public class BackOfficeController {
 
 
     @GetMapping
-    public String getAction( Model model) {
+    public String getAction(@ModelAttribute("backOffice") StarbucksCard card, 
+                            Model model) {
         DatabaseMessages messages = new DatabaseMessages();
         
         int x = 1;
@@ -79,7 +80,7 @@ public class BackOfficeController {
             StarbucksCard s = c.getStarbucksCards().get(0);
             messages.add("Customer First Name: " + c.getFirstName());
             messages.add("Customer Last Name: " + c.getLastName());
-            messages.add("Starbucks Cards Rewards Points: " + c.getRewards());
+            messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
             model.addAttribute("messages", messages.getMessage());
             x++;
         }
@@ -106,7 +107,7 @@ public class BackOfficeController {
             StarbucksCard s = c.getStarbucksCards().get(0);
             messages.add("Customer First Name: " + c.getFirstName());
             messages.add("Customer Last Name: " + c.getLastName());
-            messages.add("Starbucks Cards Rewards Points: " + c.getRewards());
+            messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
             model.addAttribute("messages", messages.getMessage());
             x++;
         }
