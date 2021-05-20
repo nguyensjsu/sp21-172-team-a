@@ -47,7 +47,7 @@
 - We decided to implement a continuous deployment system with GKE similar to lab 10.
 - We currently have two separate branches names spring-customer-deployment and spring-cashier-deployment which hold all necessary files to deploy to the google cloud.
 - Due to the fact that we have two separate deployments we are using a single H2 database linked to both apps to keep track of data.
-- The customer frontend is currently hosted at http://34.98.100.132/
+- The customer frontend is currently hosted at http://34.98.100.132/ 
 - The cashier backend is currently hosted at http://35.190.24.127/
 
 ## Technical Requirements
