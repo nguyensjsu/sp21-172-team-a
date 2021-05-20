@@ -75,7 +75,9 @@ The backoffice help desk allows the barista to insert user ID and change the num
 ![Online Store](./images/.png)
 
 ### REST API 
-![REST API](./images/.png)
+Our Rest API did not implement the @RestController as we separated the manual annotations into GetMapping/PostMapping and subsequent @ResponseBody if necessary as this allowed us to be more lexible with our model and variables. We implemented several API calls but were only able to demonstrate GET Customer and DELETE Customer due to the database functionality tied in with the UI.
+![REST API](./images/api/get-customer.JPG)
+![REST API](./images/api/delete-customer.JPG)
 
 ### Integrations
 ![Integrations](./images/cybersource/cybersource1.png)
