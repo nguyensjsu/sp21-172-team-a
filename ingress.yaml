@@ -6,5 +6,5 @@ metadata:
 spec:
   backend:
     serviceName: "spring-cashier-service"
-    servicePort: 9090
+    servicePort: 8080
 
