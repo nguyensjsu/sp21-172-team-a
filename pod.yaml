@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: spring-cashier
+  name: spring-customer
   namespace: default
   labels:
-    name: spring-cashier
+    name: spring-customer
 spec:
   containers:
-    - image: paulnguyen/spring-cashier:v2
-      name: spring-cashier
+    - image: juss2000/spring-customer
+      name: spring-customer
       ports:
         - containerPort: 8080
           name: http
