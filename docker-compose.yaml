@@ -9,7 +9,7 @@ services:
     networks:
       - network   
     ports:
-      - 8080    
+      - 9090    
     restart: always     
   lb:
     image: eeacms/haproxy
@@ -20,7 +20,7 @@ services:
     - "1936:1936"
     environment:
       BACKENDS: "cashier"
-      BACKENDS_PORT: "8080"
+      BACKENDS_PORT: "9090"
       DNS_ENABLED: "true"
       COOKIES_ENABLED: "false"
       LOG_LEVEL: "info"
