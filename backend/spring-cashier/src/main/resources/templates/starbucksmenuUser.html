@@ -6,14 +6,18 @@
 
 </head>
 <body>
-     <div class="topnav">
-            <a th:href="@{/}"><img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="logo"></a>
-            <a th:href="@{/starbucksmenu}">MENU</a>
-            <div class="login-container">
-                <a th:href="@{/signIn}">LOGIN</a>
-                <a th:href="@{/joinNow}">SIGN UP</a>
-            </div>
+    <div class="topnav">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="logo">
+        <a th:href="@{/starbucksmenu}">MENU</a>
+        <a th:href="@{/paymentmethod}">REWARDS</a>
+        <a th:href="@{/billinginfo}">BILLING INFO</a>
+        <div class="login-container" sec:authorize="isAuthenticated()">
+            <a href="javascript: document.logoutForm.submit()">SIGN OUT</a>
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Sign Out" />
+            </form>
         </div>
+    </div>
 
 <h1>Drinks Menu</h1>
 <div class="drinks">

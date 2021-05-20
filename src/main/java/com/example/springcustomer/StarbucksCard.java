@@ -16,7 +16,7 @@ class StarbucksCard {
     private double rewardsPoints;
     private double balance;
     private String balanceText;
-
+    private String customerIdText;
 
 
     public void addRewardsPoints(double points) {

@@ -1,4 +1,5 @@
 package com.example.springcustomer;import javax.persistence.Embeddable;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,17 +10,19 @@ import lombok.*;
 
 @Entity
 @Table(name="Orders")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Order implements Serializable{
 
-    private @Id @GeneratedValue int id;
+    private @Id int id;
 
     private String drink;
     private String milk;
     private String size;
     private double price;
     private String status;
+    private String store;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_to_order_id", nullable = false)
@@ -29,5 +32,6 @@ public class Order implements Serializable{
         this.drink = drink;
         this.milk = milk;
         this.size = size;
+        this.store = store;
     }
 }

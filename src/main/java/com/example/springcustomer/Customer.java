@@ -4,13 +4,15 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.*;
 
+
 import java.util.*;
 import java.io.Serializable;
 
 
 @Entity
 @Table(name="Customers")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Customer implements Serializable{
 	@Id @GeneratedValue private int id;
@@ -20,7 +22,7 @@ public class Customer implements Serializable{
 	private String username;
 	private String password;
     private int totalOrders;
-    private int rewards;
+
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Order> orders;
