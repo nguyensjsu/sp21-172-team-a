@@ -4,8 +4,6 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.*;
 
-import com.example.springcashier.CreditCardController.Message;
-
 import java.util.*;
 import java.io.Serializable;
 
