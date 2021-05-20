@@ -1,14 +1,15 @@
 body {
-    background-color: lightgrey;
+    
 }
 h1{
     color: Black;
-    text-align: center;
+    text-align: left;
 }
 p{
     color:Black;
     font-family: verdana;
-    font-size: 20px;
+    font-size: 50px;
+    text-align: center;
 }
 .Iced_Chai_Latte{
     width:55%;
@@ -19,4 +20,7 @@ p{
     width:55%;
     margin-right:20%;
     float: right;
+}
+.sizeDropDown{
+    font-size: 40px;
 }
