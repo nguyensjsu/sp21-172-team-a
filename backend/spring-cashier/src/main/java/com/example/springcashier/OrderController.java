@@ -103,7 +103,7 @@ public class OrderController{
         Order active = orders.get(regid);
         if(active!=null){
             System.out.println("Active order (Reg ID = " + regid + ") => " + active);
-            if(active.getStatus().equals("Pending payment."))
+            if(active.getStatus().equals("Paid."))
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active order exists!");
         }
 
@@ -143,7 +143,7 @@ public class OrderController{
             double rounded = Math.round(total*scale)/scale;
             order.setPrice(rounded);
     
-            order.setStatus("Pending payment.");
+            order.setStatus("Paid.");
             order.setId(regid);
             // order.setCustomer(new Customer("John", "Doe", "jdoe", "Agikuej#422"));
             Order new_order = ordersRepository.save(order);
