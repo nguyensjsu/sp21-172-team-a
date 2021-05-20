@@ -91,12 +91,14 @@ Cashier App deployed
 
 Cashier workload
 ![Cloud deployment](./images/cashier/cashier-workload.png)
+![Cloud deployment](./images/cashier/workload-cashier.png)
 
 Cashier Ingress
 ![Cloud deployment](./images/cashier/cashier-ingress.png)
 
 Cashier Service
 ![Cloud deployment](./images/cashier/cashier-service.png)
+![Cloud deployment](./images/cashier/service-cashier.png)
 
 Customer App deployed
 ![Cloud deployment](./images/cashier/cashier-deployed.png)
