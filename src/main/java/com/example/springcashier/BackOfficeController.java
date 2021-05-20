@@ -33,6 +33,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
+
 
 @Slf4j
 @Controller
@@ -65,28 +70,47 @@ public class BackOfficeController {
 
 
     @GetMapping
-    public String getAction( Model model) {
+    public String getAction(@ModelAttribute("backOffice") StarbucksCard card, 
+                            Model model) {
+        // DatabaseMessages messages = new DatabaseMessages();
+        
+        // int x = 1;
+        // while(repository.findById(x) != null) {
+        //     Customer c = repository.findById(x);
+        //     StarbucksCard s = c.getStarbucksCards().get(0);
+        //     messages.add("Customer First Name: " + c.getFirstName());
+        //     messages.add("Customer Last Name: " + c.getLastName());
+        //     messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
+        //     model.addAttribute("messages", messages.getMessage());
+        //     x++;
+        // }
+        return "backOffice"; 
+    }
+
+    @PostMapping
+    public String postAction(@Valid @ModelAttribute("backOffice") StarbucksCard card,  
+                            Errors errors, Model model, HttpServletRequest request) {
+        
+        // Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // String username = ((UserDetails)principal).getUsername();
+        Customer customer = repository.findById(Integer.parseInt(card.getCustomerIdText()));
+        
+        StarbucksCard starbucksCard = customer.getStarbucksCards().get(0);
+        starbucksCard.setRewardsPoints(Double.parseDouble(card.getBalanceText()));
+        repository.save(customer);
+        
         DatabaseMessages messages = new DatabaseMessages();
         
         int x = 1;
         while(repository.findById(x) != null) {
             Customer c = repository.findById(x);
-            StarbucksCard s = new StarbucksCard(x, 12, 99);
-            c.getStarbucksCards().add(s);
-            //repository.save(c);
+            StarbucksCard s = c.getStarbucksCards().get(0);
             messages.add("Customer First Name: " + c.getFirstName());
             messages.add("Customer Last Name: " + c.getLastName());
-            messages.add("Starbucks Cards Rewards Points: " + c.getRewards());
+            messages.add("Starbucks Cards Rewards Points: " + c.getStarbucksCards().get(0).getRewardsPoints());
             model.addAttribute("messages", messages.getMessage());
             x++;
         }
-
-        return "backOffice" ;
-    }
-
-    @PostMapping
-    public String postAction( Errors errors, Model model, HttpServletRequest request) {
-        
         return "backOffice"; 
     }
 }

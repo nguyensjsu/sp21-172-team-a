@@ -12,7 +12,6 @@
 <link th:href="@{assets/vendor/animate.css/animate.min.css}" rel="stylesheet">
 <link th:href="@{assets/vendor/animate.css/animate.min.css}" rel="stylesheet">
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Courgette|Pacifico:400,700">
-
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
@@ -21,9 +20,18 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" th:href="@{css/joinNow.css}">
+<link rel="stylesheet" th:href="@{/css/global.css}">
 <!-- <link href="css/joinNow.css" rel="stylesheet"> -->
 </head>
 <body>
+	<div class="topnav">
+		<img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="logo">
+		<a th:href="@{/starbucksmenu}">MENU</a>
+		<div class="login-container">
+			<a th:href="@{/signIn}">LOGIN</a>
+			<a th:href="@{/joinNow}">SIGN UP</a>
+		</div>
+	</div>
 <div class="signup-form">
 	<img th:src="@{/images/starbucks.png}">
 
