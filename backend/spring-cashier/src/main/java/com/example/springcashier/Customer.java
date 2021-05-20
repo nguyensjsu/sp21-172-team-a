@@ -23,7 +23,7 @@ public class Customer implements Serializable{
 	private String username;
 	private String password;
     private int totalOrders;
-    private int rewards;
+
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Order> orders;
