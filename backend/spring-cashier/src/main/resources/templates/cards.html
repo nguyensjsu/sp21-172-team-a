@@ -27,9 +27,10 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="topnav">
-      <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="logo">
+      <a th:href="@{/}"><img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="logo"></a>
       <a th:href="@{/starbucksmenu}">MENU</a>
-      <a th:href="@{/paymentmethod}">REWARDS</a>
+      <a th:href="@{/cards}">REWARDS</a>
+      <a th:href="@{/paymentmethod}">PAYMENT METHOD</a>
       <a th:href="@{/billinginfo}">BILLING INFO</a>
       <div class="login-container" sec:authorize="isAuthenticated()">
           <a href="javascript: document.logoutForm.submit()">SIGN OUT</a>

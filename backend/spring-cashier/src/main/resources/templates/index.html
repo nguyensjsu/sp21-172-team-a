@@ -78,33 +78,22 @@
                     <label for="customerid">Customer ID:</label>
                     <input type="text" id="customer" name="customer" th:field="*{customer}"><br><br>
                 </div>
+                <div class="dropdown">
+                    <select th:field="*{store}">
+                        <option value="0">Select Store</option>
+                        <option value="Dublin, CA">Dublin, CA</option>
+                        <option value="San Jose, CA">San Jose, CA</option>
+                        <option value="Santa Monica, CA">Santa Monica, CA</option>
+                    </select>
+                </div>
             </form>
-            <div class="dropdown">
-                <select th:field="*{store}">
-                    <option value="0">Select Store</option>
-                    <option value="Dublin, CA">Dublin, CA</option>
-                    <option value="San Jose, CA">San Jose, CA</option>
-                    <option value="Santa Monica, CA">Santa Monica, CA</option>
-                </select>
-            </div>
             <!-- <a class="btn btn-dark" th:href="@{/order/register/} + ${order.id}" th:method = "delete">Clear Active Order</a> -->
             <form action="#" th:action="@{/order/delete/} + ${order.id}" th:method="delete" >
                 <input type="hidden" name="_method" value="delete" />
                 <button type="submit" id="submitButton">Clear Active Order</button>
               </form>
             <button type="submit" form="order-form" class="btn btn-dark">Place Order</button>
-        </div>
-        <div id="pagesnauth">
-            <button type="button" class="btn btn-dark"><a th:href="@{/cards}">Cards Page</a></button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/paymentmethod}">Payments Page</a></button>
-            <button type="button" class="btn btn-dark"><a th:href="@{/billinginfo}">Billing Info</a></button>
-            <div sec:authorize="isAuthenticated()">
-                <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>
-                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-                    <input hidden type="submit" value="Sign Out" />
-                </form>
-            </div>
-        </div>
+        </div>```
     </div>
     <div class="column">
         <div id="order">

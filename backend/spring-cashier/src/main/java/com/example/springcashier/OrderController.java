@@ -166,13 +166,13 @@ public class OrderController{
     }
     
     /*Rest API*/
-    // @GetMapping("/orders")
-    // @ResponseBody
-    // List<Order> all(){
-    //     return ordersRepository.findAll();
-    // }
+    @GetMapping("/orders")
+    @ResponseBody
+    List<Order> all(){
+        return ordersRepository.findAll();
+    }
 
-    @GetMapping("/order/register/{regid}")
+    @GetMapping("/orders/{regid}")
     @ResponseBody
     Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
         Order active = orders.get(regid);
@@ -183,6 +183,31 @@ public class OrderController{
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
             }
     }
+
+    // @GetMapping("/order/{regid}")
+    // @ResponseBody
+    // public Order getOrder(@PathVariable String regid, HttpServletResponse response){
+    //     return ordersRepository.findById(Integer.parseInt(regid));
+    // }
+
+    // @DeleteMapping("/deleteorders")
+    // @ResponseBody
+    // public String deleteOrders(HttpServletResponse response){
+    //     ordersRepository.deleteAll();
+    //     return "all orders deleted";
+    // }
+
+    // @GetMapping("/order/register/{regid}")
+    // @ResponseBody
+    // Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
+    //     Order active = orders.get(regid);
+    //         if(active != null){
+    //             return active;
+    //         }
+    //         else{
+    //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
+    //         }
+    // }
 
     @DeleteMapping("/order/delete/{regid}")
     String deleteActiveOrder(@PathVariable String regid){
