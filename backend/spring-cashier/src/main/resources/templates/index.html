@@ -10,7 +10,7 @@
     <img th:src="@{/images/starbucksLogo.jpg}">
     <div id="main">
         <div class="column">
-            <form action="#" id="order-form" method="post" th:object="${order}" class="mt-5" >
+            <form th:action="@{/order/register/} + ${order.id}" id="order-form" method="post" th:object="${order}" class="mt-5" >
                 <div class="form-group">
                     <label>Drinks</label>
                     <!-- <div th:each="model : ${T(com.example.springcashier.DrinkModel).values()}">
@@ -80,15 +80,18 @@
                 </div>
             </form>
             <div class="dropdown">
-                <button class="btn~ btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select Store
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                <li><a href="#">Dublin, CA</a></li>
-                <li><a href="#">San Jose, CA</a></li>
-                <li><a href="#">Santa Monica, CA</a></li>
-                </ul>
+                <select th:field="*{store}">
+                    <option value="0">Select Store</option>
+                    <option value="Dublin, CA">Dublin, CA</option>
+                    <option value="San Jose, CA">San Jose, CA</option>
+                    <option value="Santa Monica, CA">Santa Monica, CA</option>
+                </select>
             </div>
-            <button type="button" class="btn btn-dark" onclick="clearSelection()">Clear Selection</button>
+            <!-- <a class="btn btn-dark" th:href="@{/order/register/} + ${order.id}" th:method = "delete">Clear Active Order</a> -->
+            <form action="#" th:action="@{/order/delete/} + ${order.id}" th:method="delete" >
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit" id="submitButton">Clear Active Order</button>
+              </form>
             <button type="submit" form="order-form" class="btn btn-dark">Place Order</button>
         </div>
         <div id="pagesnauth">

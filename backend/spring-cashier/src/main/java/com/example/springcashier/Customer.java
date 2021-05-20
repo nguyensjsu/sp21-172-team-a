@@ -13,7 +13,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="Customers")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Customer implements Serializable{
 	@Id @GeneratedValue private int id;

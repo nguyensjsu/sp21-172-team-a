@@ -40,10 +40,10 @@ import org.springframework.beans.factory.annotation.Value;
 @Controller
 public class OrderController{
     
-    // int mostRecentOrderId;
-
     @Autowired
     private OrderRepository ordersRepository;
+
+    private HashMap<Integer, Order> orders = new HashMap<>();
 
     @Getter
     @Setter
@@ -67,6 +67,11 @@ public class OrderController{
     @GetMapping("/index")
     public String getAction( @ModelAttribute("order") Order order,
                             Model model) {
+        Random random = new Random();
+        int x = random.nextInt(99999999) + 10000000;
+        order.setId(x);
+        System.out.println(order.getId());
+
         return "index" ;
     }
     
@@ -75,10 +80,17 @@ public class OrderController{
     //     repository.deleteById(order.getId());
     // }
 
-    @PostMapping("/index")
-    public String postAction(@Valid @ModelAttribute("order") Order order,  
+    @PostMapping("/order/register/{regid}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String postAction(@PathVariable("regid") int regid, HttpServletResponse response, @Valid @ModelAttribute("order") Order order,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
+
+        System.out.println("Placing order (Reg ID = " + regid + ") => " + order);
+
+        if(order.getDrink().equals("") || order.getMilk().equals("") || order.getSize().equals("")){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
+        }
 
         ErrorMessages messages = new ErrorMessages();
         boolean hasErrors = false;
@@ -86,26 +98,34 @@ public class OrderController{
         if(order.getDrink().equals("")) { hasErrors = true; messages.add("Drink Required"); }
         if(order.getMilk().equals("")) { hasErrors = true; messages.add("Milk type Required"); }
         if(order.getSize().equals("")) { hasErrors = true; messages.add("Size Required"); }
+        if(order.getStore().equals("0")) { hasErrors = true; messages.add("Store Required"); }
+
+        Order active = orders.get(regid);
+        if(active!=null){
+            System.out.println("Active order (Reg ID = " + regid + ") => " + active);
+            if(active.getStatus().equals("Pending payment."))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active order exists!");
+        }
 
         /* Price Calculation*/
-        order.setPrice(5.0);
+        double price = 5.0;
         switch(order.getMilk()) {
             case("Oat"):
-                order.setPrice(order.getPrice() + 0.5);
+                price += 0.5;
                 break;
             case("Almond"):
-                order.setPrice(order.getPrice() + 0.5);
+                price += 0.5;
                 break;
         }
         switch(order.getSize()) {
             case("Tall"):
-                order.setPrice(order.getPrice() + 0.5);
+                price += 0.5;
                 break;
             case("Grande"):
-                order.setPrice(order.getPrice() + 1.0);
+                price += 1.0;
                 break;
             case("Venti"):
-                order.setPrice(order.getPrice() + 1.5);
+                price += 1.5;
                 break;
         }
 
@@ -116,6 +136,20 @@ public class OrderController{
             model.addAttribute("message", "There was an error with the order.");
         }
         else {
+            double tax = 0.0725;
+            double total = price + (price*tax);          
+            double scale = Math.pow(10,2);
+    
+            double rounded = Math.round(total*scale)/scale;
+            order.setPrice(rounded);
+    
+            order.setStatus("Pending payment.");
+            order.setId(regid);
+            // order.setCustomer(new Customer("John", "Doe", "jdoe", "Agikuej#422"));
+            Order new_order = ordersRepository.save(order);
+            orders.put(regid, new_order);
+            System.out.println(new_order);
+
             order.getCustomer().getStarbucksCards().get(0).addRewardsPoints(1);
             order.getCustomer().setTotalOrders(order.getCustomer().getTotalOrders() + 1);
             if(order.getCustomer().getStarbucksCards().get(0).getRewardsPoints() % 5 == 0)
@@ -123,7 +157,7 @@ public class OrderController{
                 order.setPrice(order.getPrice() - order.getCustomer().getStarbucksCards().get(0).getRewardsPoints()/5);
                 order.getCustomer().getStarbucksCards().get(0).setRewardsPoints(0);            
             }
-            ordersRepository.save(order);
+            
             // mostRecentOrderId = order.getId();
             log.info("Order placed.");
             // model.addAttribute("message", "Order placed.");
@@ -132,127 +166,36 @@ public class OrderController{
     }
     
     /*Rest API*/
-    @GetMapping("/orders")
+    // @GetMapping("/orders")
+    // @ResponseBody
+    // List<Order> all(){
+    //     return ordersRepository.findAll();
+    // }
+
+    @GetMapping("/order/register/{regid}")
     @ResponseBody
-    List<Order> all(){
-        return ordersRepository.findAll();
+    Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
+        Order active = orders.get(regid);
+            if(active != null){
+                return active;
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
+            }
     }
 
-    // @GetMapping("/order/register/{regid}")
-    //     Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
-    //         StarbucksOrder active = orders.get(regid);
-    //             if(active != null){
-    //                 return active;
-    //             }
-    //             else{
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
-    //             }
-    //     }
-
-    // @DeleteMapping("/orders")
-    // void deleteAll(){
-    //     repository.deleteAllInBatch();
-    //     orders.clear();
-    // }
-
-    // @PostMapping("/order/register/{regid}")
-    // @ResponseStatus(HttpStatus.CREATED)
-    // Order newOrder(@PathVariable String regid, @RequestBody Order order) {
-    //     System.out.println("Placing order (Reg ID = " + regid + ") => " + order);
-
-    //     if(order.getDrink().equals("") || order.getMilk().equals("") || order.getSize().equals("")){
-    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
-    //     }
-
-    //     Order active = orders.get(regid);
-    //     if(active!=null){
-    //         System.out.println("Active order (Reg ID = " + regid + ") => " + active);
-    //         if(active.getStatus().equals("Ready for Payment."))
-    //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active order exists!");
-    //     }
-
-    //     double price = 0.0;
-    //     switch(order.getDrink()){
-    //     case "Caffe Latte":
-    //         switch(order.getSize()){
-    //             case "Tall":
-    //                 price=2.95;
-    //                 break;
-    //             case "Grande":
-    //                 price=3.65;
-    //                 break;
-    //             case "Venti":
-    //             case "Your Own Cup":
-    //                 price=3.95;
-    //                 break;
-    //             default:
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid size!");
-    //         }
-    //         break;
-    //     case "Caffe Americano":
-    //         switch(order.getSize()){
-    //             case "Tall":
-    //                 price=2.25;
-    //                 break;
-    //             case "Grande":
-    //                 price=2.65;
-    //                 break;
-    //             case "Venti":
-    //             case "Your Own Cup":
-    //                 price=2.95;
-    //                 break;
-    //             default:
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid size!");
-    //         }
-    //         break;
-    //     case "Caffe Mocha":
-    //         switch(order.getSize()){
-    //             case "Tall":
-    //                 price=3.45;
-    //                 break;
-    //             case "Grande":
-    //                 price=4.15;
-    //                 break;
-    //             case "Venti":
-    //             case "Your Own Cup":
-    //                 price=4.45;
-    //                 break;
-    //             default:
-    //                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid size!");
-    //         }
-    //         break;
-    //         default:
-    //             System.out.println(order);
-    //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Drink!");
-    //     }
-
-    //     double tax = 0.0725;
-    //     double total = price + (price*tax);
-    //     double scale = Math.pow(10,2);
-
-    //     double rounded = Math.round(total*scale)/scale;
-    //     order.setTotal(rounded);
-
-    //     order.setStatus("Ready for Payment.");
-    //     Order new_order = repository.save(order);
-    //     orders.put(regid, new_order);
-    //     System.out.println(new_order);
-    //     return new_order;
-    // }
-
-    // @DeleteMapping("/order/register/{regid}")
-    // Message deleteActiveOrder(@PathVariable String regid){
-    //     Order active = orders.get(regid);
-    //     if(active != null){
-    //         orders.remove(regid);
-    //         Message msg = new Message();
-    //         msg.setStatus("Active order cleared!");
-    //         return msg;
-    //     }
-    //     else{
-    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
-    //     }
-    // }
+    @DeleteMapping("/order/delete/{regid}")
+    String deleteActiveOrder(@PathVariable String regid){
+        Order active = orders.get(regid);
+        if(active != null){
+            orders.remove(regid);
+            System.out.println("Active order cleared!");
+            return "index";
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
+        }
+    }
 
     // @PostMapping("/order/register/{regid}/pay/{cardnum}")
     // CreditCard processOrder(@PathVariable String regid, @PathVariable String cardnum){

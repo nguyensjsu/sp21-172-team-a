@@ -2,10 +2,18 @@
 <html>
 <head>
     <link rel="stylesheet" th:href="@{/css/starbucksmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
 
 </head>
 <body>
-<nav><a th:href="@{/index}">Starbucks</a></nav>
+    <div class="topnav">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png" alt="logo">
+        <a th:href="@{/starbucksmenu}">MENU</a>
+        <div class="login-container">
+            <a th:href="@{/signIn}">LOGIN</a>
+            <a th:href="@{/joinNow}">SIGN UP</a>
+        </div>
+    </div>
 
 <h1>Drinks Menu</h1>
 <div class="drinks">
