@@ -37,34 +37,21 @@
 	- allows users to use their credit card to increase the balance of their Starbucks card
 
 
-### REST API
+### REST API 
 - Final design with sample request/response
 
 ### Integrations
 - CyberSource
 
 ### Cloud Deployments
-- Design Notes on GitHub an Architecture Diagram of the overall Deployment.
-- How does your Team's System Scale?  Can it handle > 1 Million Mobile Devices?
+- We decided to implement a continuous deployment system with GKE similar to lab 10.
+- We currently have two separate branches names spring-customer-deployment and spring-cashier-deployment which hold all necessary files to deploy to the google cloud.
+- Due to the fact that we have two separate deployments we are using a single H2 database linked to both apps to keep track of data.
+- The customer frontend is currently hosted at http://34.98.100.132/
+- The cashier backend is currently hosted at http://35.190.24.127/
 
 ## Technical Requirements
 - Discussion with screenshot evidence of how each technical requirement is meet.
-
-### Must use Spring Framework (Spring MVC, Spring JPA, Etc...)
-- Cashier's App
-- Backoffice Help Desk App
-
-### For customer facing Online Store, team can chose front end Tech Stack
-- For Example:  Node.js + Javascript/React
-
-### Development Tools
-- Builds must be done with Gradle 5.6
-- Version of Java should be JDK 11
-
-### Database & Middleware Requirements
-- MySQL Database 8.0
-- RabbitMQ
-
 
 ### Cashier's App Screenshot 
 ![Cashier's App](./images/.png)
