@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" th:href="@{/css/paymentmethod.css}" />
+</head>
+<body>
+
+
+    <div>
+      <a th:href="@{/}">Starbucks</a>
+    </div>
+    
+<h2>Add Payment Method</h2>
+
+
+    <div>
+      <form name="form" th:object="${command}" method="post">     
+        <div class="row">
+          <div class="col-50">
+            
+            <label for="fname">Accepted Cards</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+
+            <h4>Card Info</h4>
+            <label class="required" for="ccnum">Card Number</label>
+            <input type="text" id="ccnum" required="required" name="cardnumber" th:field="*{cardnum}" >
+            <label class="required" for="cvv">CVV</label>
+            <input type="text" id="cvv" required="required" name="cvv" th:field="*{cardcvv}" >
+            <div class="row"> 
+              <div class="col-50">
+                <label class="required" for="expmonth">Exp Month</label>
+                <input type="text" id="expmonth" required="required" name="expmonth" th:field="*{cardexpmon}" >
+              </div>
+              <div class="col-50">
+                <label class="required" for="expyear">Exp Year</label>
+                <input type="text" id="expyear" required="required" name="expyear" th:field="*{cardexpyear}" >
+              </div>
+            </div>
+
+            <div th:if="${not#lists.isEmpty(messages)}">
+              <div class="messages">
+                <ul th:each="m : ${messages}">
+                  <li th:text="${m.msg}">
+                </ul>
+              </div>
+            </div>
+
+            <div class="message">
+            <span th:text="${message}" />
+            </div>
+
+          </div> 
+        </div>
+        
+        <input type="submit" value="Submit" class="btn">
+          
+      </form>
+    </div>
+
+</body>
+</html>

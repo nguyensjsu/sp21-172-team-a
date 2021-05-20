@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: spring-cashier
+  namespace: default
+  labels:
+    name: spring-cashier
+spec:
+  containers:
+    - image: paulnguyen/spring-cashier:v2
+      name: spring-cashier
+      ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+readinessProbe:
+  httpGet:
+  path: /ping
+  port: 8080
+
+ readinessProbe:
+   httpGet:
+   path: /ping
+   port: 8080
+   
