@@ -98,6 +98,7 @@ public class OrderController{
         if(order.getDrink().equals("")) { hasErrors = true; messages.add("Drink Required"); }
         if(order.getMilk().equals("")) { hasErrors = true; messages.add("Milk type Required"); }
         if(order.getSize().equals("")) { hasErrors = true; messages.add("Size Required"); }
+        if(order.getStore().equals("0")) { hasErrors = true; messages.add("Store Required"); }
 
         Order active = orders.get(regid);
         if(active!=null){
@@ -149,7 +150,7 @@ public class OrderController{
             orders.put(regid, new_order);
             System.out.println(new_order);
 
-            order.getCustomer().setRewards(order.getCustomer().getRewards() + 1);
+            order.getCustomer().getStarbucksCards().get(0).addRewardsPoints(1);
             order.getCustomer().setTotalOrders(order.getCustomer().getTotalOrders() + 1);
             if(order.getCustomer().getStarbucksCards().get(0).getRewardsPoints() % 5 == 0)
             {
@@ -170,18 +171,6 @@ public class OrderController{
     // List<Order> all(){
     //     return ordersRepository.findAll();
     // }
-
-    @GetMapping("/order/register/{regid}")
-    @ResponseBody
-    Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){
-        Order active = orders.get(regid);
-            if(active != null){
-                return active;
-            }
-            else{
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "order not found!");
-            }
-    }
 
     @GetMapping("/order/register/{regid}")
     @ResponseBody
