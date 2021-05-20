@@ -1,7 +1,7 @@
 # CMPE 172 - Team Project
 
 ## Overall Architecture Diagram of your Cloud Deployment
-- ![Architecture](../images/architecture/architecture.PNG)
+- ![Architecture](/images/architecture/architecture.PNG)
 
 ## Individual Features
 - A section for each of the following discussion the features implemented
