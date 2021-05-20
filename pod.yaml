@@ -10,6 +10,6 @@ spec:
     - image: juss2000/spring-cashier:v2
       name: spring-cashier
       ports:
-        - containerPort: 9090
+        - containerPort: 8080
           name: http
           protocol: TCP
