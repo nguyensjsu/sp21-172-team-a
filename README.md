@@ -64,23 +64,18 @@ Contributors:
 - Discussion with screenshot evidence of how each technical requirement is meet.
 
 ### Cashier's App Screenshot 
-![Cashier's App](./images/.png)
+![Cashier's App](./images/cashier/cashiersapp.png)
 
 ### Backoffice Help Desk App
-The backoffice help desk allows the barista to insert user ID and change the number of reward points for any specific user.
-![Backoffice Help Desk](./images/.png)
+The backoffice help desk allows the barista to insert user ID and change the number of reward points for any specific user. Starting from the home page, employees can access the cashier's app or the backoffice help desk.
+![Backoffice Home Page](./images/cashier/backofficehome.png)
+![Backoffice Help Desk](./images/cashier/backOffice.png)
 
 ### Online Store
 ![Online Store](./images/.png)
 
 ### REST API 
 ![REST API](./images/.png)
-
-### Integrations
-![Integrations](./images/.png)
-
-### Cloud Deployments
-![Cashier's App](./images/.png)
 
 ### Integrations
 ![Integrations](./images/cybersource/cybersource1.png)
@@ -107,10 +102,10 @@ Customer App deployed
 ![Cloud deployment](./images/cashier/cashier-deployed.png)
 
 Customer workload
-![Cloud deployment](./images/cashier/workloaddeployed.png)
+![Cloud deployment](./images/customerstore/workloaddeployed.png)
 
 Customer Ingress
-![Cloud deployment](./images/cashier/ingressdeployed.png)
+![Cloud deployment](./images/customerstore/ingressdeployed.png)
 
 Customer Service
-![Cloud deployment](./images/cashier/serviceinit.png)
+![Cloud deployment](./images/customerstore/serviceinit.png)
