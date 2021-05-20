@@ -7,9 +7,19 @@ metadata:
     name: spring-cashier
 spec:
   containers:
-    - image: juss2000/spring-cashier:v2
+    - image: paulnguyen/spring-cashier:v2
       name: spring-cashier
       ports:
         - containerPort: 8080
           name: http
           protocol: TCP
+readinessProbe:
+  httpGet:
+  path: /ping
+  port: 8080
+
+ readinessProbe:
+   httpGet:
+   path: /ping
+   port: 8080
+   

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" th:href="@{/css/paymentmethod.css}" />
+</head>
+<body>
+
+<h2>Back Office Help Desk</h2>
+    <div>
+      <form name="form" th:object="${backOffice}" method="post">     
+        <div class="row">
+          <div class="col-50">
+
+            <div th:if="${not#lists.isEmpty(messages)}">
+          <div class="messages">
+            <ul th:each="m : ${messages}">
+                  <li th:text="${m.msg}">
+            </ul>
+          </div>
+          </div>
+
+          </div> 
+        </div>
+          
+
+
+      </form>
+                <form action="#" id="submit-order" method="post" th:object="${rewards}" class="mt-5" >
+          <label for="fname">New Total Reward Points:</label><br>
+          <input type="number" id="fname" name="fname"><br>
+        
+                  
+        <button type="submit" form="submit-order" class="btn">Update Rewards</button>
+    </form>
+    </div>
+
+</body>
+</html>
