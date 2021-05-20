@@ -37,7 +37,7 @@
 	- allows users to use their credit card to increase the balance of their Starbucks card
 
 
-### REST API 
+### REST API
 - Final design with sample request/response
 
 ### Integrations
@@ -49,6 +49,22 @@
 
 ## Technical Requirements
 - Discussion with screenshot evidence of how each technical requirement is meet.
+
+### Must use Spring Framework (Spring MVC, Spring JPA, Etc...)
+- Cashier's App
+- Backoffice Help Desk App
+
+### For customer facing Online Store, team can chose front end Tech Stack
+- For Example:  Node.js + Javascript/React
+
+### Development Tools
+- Builds must be done with Gradle 5.6
+- Version of Java should be JDK 11
+
+### Database & Middleware Requirements
+- MySQL Database 8.0
+- RabbitMQ
+
 
 ### Cashier's App Screenshot 
 ![Cashier's App](./images/.png)
