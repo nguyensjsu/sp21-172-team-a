@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import lombok.*;
 import java.util.*;
 import javax.persistence.*;

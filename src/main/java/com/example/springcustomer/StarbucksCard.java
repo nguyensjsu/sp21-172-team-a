@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import lombok.*;
 import lombok.RequiredArgsConstructor;
 import java.util.*;
@@ -19,15 +18,9 @@ class StarbucksCard {
     private String balanceText;
 
 
+
     public void addRewardsPoints(double points) {
         rewardsPoints += points;
-    }
-
-
-    public void removeRewardsPoints(double points) {
-        if(rewardsPoints - points >= 0) {
-            rewardsPoints -= points;
-        }
     }
 
 
@@ -36,7 +29,14 @@ class StarbucksCard {
     }
     
 
-    public void pay(double amount) {
+    public void payWithRewardsPoints(double points) {
+        if(rewardsPoints - points >= 0) {
+            rewardsPoints -= points;
+        }
+    }
+
+
+    public void payWithBalance(double amount) {
         if(balance - amount >= 0) {
             balance -= amount;
         }

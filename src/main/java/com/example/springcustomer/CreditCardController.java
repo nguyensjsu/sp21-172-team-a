@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
@@ -43,10 +42,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
+
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/paymentmethod")
 public class CreditCardController {
 
 
@@ -91,14 +94,15 @@ public class CreditCardController {
     }     
 
 
-    @GetMapping
+    @GetMapping({"/paymentmethod"})
     public String getAction( @ModelAttribute("command") CreditCard command, 
                              //@PathVariable String id,
                              Model model) {
         return "paymentmethod";
     }
 
-    @PostMapping
+
+    @PostMapping({"/paymentmethod"})
     public String postAction(@Valid @ModelAttribute("command") CreditCard command,  
                              //@PathVariable String id,
                              Errors errors, Model model, HttpServletRequest request) {
@@ -127,20 +131,21 @@ public class CreditCardController {
             return "paymentmethod";
         }
         else {
-            
-            Customer c = repository.findById(1);
-            if(c != null) {
-                c.getCreditCards().add(command);
-                repository.save(c);
-                System.out.println("Thank You for your Payment!");
-                model.addAttribute("message", "Thank You for your Payment!");
-            }
-            else {
-                model.addAttribute("message", "You suck");
-            }
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails)principal).getUsername();
+            Customer c = repository.findByUsername(username);
+            c.getCreditCards().add(command);
+            repository.save(c);
+            System.out.println("Thank You for your Payment!");
+            model.addAttribute("message", "Thank You for your Payment!");
         }
     
 
         return "paymentmethod";
+    }
+
+
+    public String currentUserName(Principal principal) {
+        return principal.getName();
     }
 }

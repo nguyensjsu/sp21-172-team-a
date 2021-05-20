@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +14,14 @@ public class GreetingController {
       return "cards";
    }
 
-    @RequestMapping(value = "/")
-    public String goIndex() {
-       return "test";
-   }
+//    @RequestMapping(value = "/index")
+//    public String goIndex() {
+//       return "index";
+//   }
 
-   @RequestMapping(value = "/home")
+   @RequestMapping(value = "/")
    public String goHome() {
-      return "home";
+      return "homepage";
    }
 
    @RequestMapping(value = "/signIn")

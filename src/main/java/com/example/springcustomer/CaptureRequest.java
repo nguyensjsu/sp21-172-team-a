@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 public class CaptureRequest extends Payload {
 
     public String reference ;

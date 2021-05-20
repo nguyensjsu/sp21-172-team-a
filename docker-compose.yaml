@@ -3,7 +3,7 @@ version: "3"
 
 services:
   gumball:
-    image: spring-cashier
+    image: spring-customer
     volumes:
       - /tmp:/tmp
     networks:
@@ -19,7 +19,7 @@ services:
     - "80:5000"
     - "1936:1936"
     environment:
-      BACKENDS: "cashier"
+      BACKENDS: "customer"
       BACKENDS_PORT: "8080"
       DNS_ENABLED: "true"
       COOKIES_ENABLED: "false"

@@ -1,10 +1,10 @@
 apiVersion: "extensions/v1beta1"
 kind: "Ingress"
 metadata:
-  name: "spring-cashier-ingress"
+  name: "spring-customer-ingress"
   namespace: "default"
 spec:
   backend:
-    serviceName: "spring-cashier-service"
+    serviceName: "spring-customer-service"
     servicePort: 8080
 

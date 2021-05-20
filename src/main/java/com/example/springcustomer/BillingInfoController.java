@@ -1,7 +1,8 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.net.InetAddress;
 import java.util.Optional;
 import java.time.*; 
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
@@ -31,12 +35,17 @@ import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
 
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/billinginfo")
 public class BillingInfoController {
 
 
@@ -125,13 +134,15 @@ public class BillingInfoController {
     }      
 
 
-    @GetMapping
+    @GetMapping("/billinginfo")
     public String getAction( @ModelAttribute("billingInfo") BillingInfo billingInfo, 
                             Model model) {
+        
         return "billinginfo" ;
     }
 
-    @PostMapping
+
+    @PostMapping("/billinginfo")
     public String postAction(@Valid @ModelAttribute("billingInfo") BillingInfo billingInfo,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
@@ -161,16 +172,20 @@ public class BillingInfoController {
             return "billinginfo";
         }
         else {
-            ArrayList<BillingInfo> list = new ArrayList<BillingInfo>();
-            list.add(billingInfo);
-            Customer c = new Customer("John", null, null, null, null, 0, 0, list, null, null);
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails)principal).getUsername();
+            Customer c = repository.findByUsername(username);
+            c.getBillingInfos().add(billingInfo);
             repository.save(c);
-            //int id = c.getId();
             System.out.println("Billing Information Updated!");
-            //System.out.println(id);
             model.addAttribute("message", "Billing Information Updated!");
-            //model.addAttribute("message", id);
             return "billinginfo";
         }
+    }
+
+    // @GetMapping(value = "/username")
+    // @ResponseBody
+    public String currentUserName(Principal principal) {
+        return principal.getName();
     }
 }

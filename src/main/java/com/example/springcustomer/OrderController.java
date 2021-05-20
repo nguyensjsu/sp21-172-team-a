@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import java.util.List;
 import java.util.HashMap;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -37,7 +37,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 @Controller
-@RequestMapping(value = {"/index"})
 public class OrderController{
     
     // int mostRecentOrderId;
@@ -64,7 +63,7 @@ public class OrderController{
         }
     }
 
-    @GetMapping
+    @GetMapping("/index")
     public String getAction( @ModelAttribute("order") Order order,
                             Model model) {
         return "index" ;
@@ -75,7 +74,7 @@ public class OrderController{
     //     repository.deleteById(order.getId());
     // }
 
-    @PostMapping
+    @PostMapping("/index")
     public String postAction(@Valid @ModelAttribute("order") Order order,  
                             
                             Errors errors, Model model, HttpServletRequest request) {
@@ -131,10 +130,12 @@ public class OrderController{
         return "index";
     }
     
-    // @GetMapping("/orders")
-    // List<Order> all(){
-    //     return repository.findAll();
-    // }
+    /*Rest API*/
+    @GetMapping("/orders")
+    @ResponseBody
+    List<Order> all(){
+        return ordersRepository.findAll();
+    }
 
     // @GetMapping("/order/register/{regid}")
     //     Order getActiveOrder(@PathVariable String regid, HttpServletResponse response){

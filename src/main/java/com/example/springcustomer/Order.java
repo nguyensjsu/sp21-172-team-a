@@ -1,5 +1,4 @@
-package com.example.springcashier;
-import javax.persistence.Embeddable;
+package com.example.springcustomer;import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

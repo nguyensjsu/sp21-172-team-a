@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;

@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 public enum DrinkModel {
     CARAMEL_MACHIATO,
     ICED_CHAI,

@@ -1,12 +1,13 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import lombok.*;
 import java.util.*;
 import javax.persistence.*;
 import javax.validation.*;
+
+import com.example.springcashier.CreditCardController.Message;
+
 import java.util.*;
 import java.io.Serializable;
-import java.util.Set;
 
 
 @Entity
@@ -18,7 +19,7 @@ public class Customer implements Serializable{
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	private String email;
+	private String username;
 	private String password;
     private int totalOrders;
     private int rewards;
@@ -42,22 +43,18 @@ public class Customer implements Serializable{
 	@CollectionTable(name = "starbucksCards", joinColumns = @JoinColumn(name = "id"))
  	private List<StarbucksCard> starbucksCards = new ArrayList<>();
 
-	//  @ElementCollection(fetch = FetchType.LAZY)
-	//  @CollectionTable(name = "orders", joinColumns = @JoinColumn(name = "id"))
-	//  private List<Order> orders = new ArrayList<>();
-
-	Customer(String firstName, String lastName, String email, String password) {
+	Customer(String firstName, String lastName, String username, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
+		this.username = username;
 		this.password = password;
 	}
 
-	Customer(String firstName, String middleName, String lastName, String email, String password, int totalOrders, int rewards, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
+	Customer(String firstName, String middleName, String lastName, String username, String password, int totalOrders, int rewards, List<BillingInfo> billingInfos, List<CreditCard> creditCards, List<StarbucksCard> starbucksCards) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
-		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.totalOrders = totalOrders;
 		if(billingInfos != null) {
@@ -85,4 +82,24 @@ public class Customer implements Serializable{
 	void addCreditCard(StarbucksCard starbucksCard) {
 		starbucksCards.add(starbucksCard);
 	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+    public String getUsername() {
+        return username;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+
 }

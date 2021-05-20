@@ -1,5 +1,4 @@
-package com.example.springcashier;
-
+package com.example.springcustomer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Payload {
