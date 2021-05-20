@@ -1,0 +1,10 @@
+apiVersion: "extensions/v1beta1"
+kind: "Ingress"
+metadata:
+  name: "spring-customer-ingress"
+  namespace: "default"
+spec:
+  backend:
+    serviceName: "spring-customer-service"
+    servicePort: 8080
+
