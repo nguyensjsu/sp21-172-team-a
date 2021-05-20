@@ -107,6 +107,13 @@ public class OrderController{
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active order exists!");
         }
 
+        Order active = orders.get(regid);
+        if(active!=null){
+            System.out.println("Active order (Reg ID = " + regid + ") => " + active);
+            if(active.getStatus().equals("Pending payment."))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active order exists!");
+        }
+
         /* Price Calculation*/
         double price = 5.0;
         switch(order.getMilk()) {
