@@ -7,7 +7,9 @@
 - A section for each of the following discussion the features implemented
 
 ### Cashier's App
-- What features were implemented?
+- The cashier's app was made keeping in mind the ease of the user interface for the baristas. 
+	- Cashier can take orders from customers, selecting the type, size, and the milk options and place the orders. 
+	- Cashier can clear any orders.
 
 ### Backoffice Help Desk App
 - Change Rewards
