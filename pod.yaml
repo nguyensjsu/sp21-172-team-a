@@ -10,16 +10,16 @@ spec:
     - image: paulnguyen/spring-cashier:v2
       name: spring-cashier
       ports:
-        - containerPort: 8080
+        - containerPort: 9090
           name: http
           protocol: TCP
 readinessProbe:
   httpGet:
   path: /ping
-  port: 8080
+  port: 9090
 
  readinessProbe:
    httpGet:
    path: /ping
-   port: 8080
+   port: 9090
    
